@@ -1,0 +1,32 @@
+.page {
+    /*/position: relative;*/
+    display: flex;
+    /*flex-direction: column;*/
+
+}
+
+main {
+    flex: 1;
+}
+
+.top-row {
+    background-color: #103732;
+    border-bottom: 1px solid #103732;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+.atop {
+    text-decoration: none;
+    color: white
+}

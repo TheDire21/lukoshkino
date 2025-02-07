@@ -1,0 +1,46 @@
+﻿body {
+}
+
+.Futor{
+    width:100%;
+    height: 550px;
+}
+
+.Line1, .FutorMemu, .Contakt, .Line2 {
+    margin-top: 30px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+.Line1 {
+    background: linear-gradient(90deg, #2F554A, #95AA72);
+    height: 25px;
+}
+.Line2 {
+    margin-top: 20px;
+    background: linear-gradient(90deg, #95AA72, #2F554A);
+    height: 25px;
+}
+
+.FutorMemu {
+    display: flex;
+}
+    .FutorMemu h3{
+        color: white;
+        font-size: 32px;
+        margin-right: 25px;
+    }
+.Contakt {
+    margin-top: 75px;
+}
+    .Contakt h2{
+        color: white;
+        font-size:32px;
+        margin-bottom:40px;
+    }
+    .Contakt h3{
+        margin-bottom:30px;
+        color:white;
+        font-size:32px;
+
+    }
+   
