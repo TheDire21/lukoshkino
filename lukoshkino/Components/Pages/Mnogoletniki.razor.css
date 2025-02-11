@@ -1,0 +1,19 @@
+﻿body {
+    padding: 0;
+}
+.Top {
+    width: 100%;
+}
+.Mnogolet {
+    height:800px;
+    margin-right: 100px;
+    margin-left: 100px;
+    background: linear-gradient(90deg, #2F554A, #95AA72);
+}
+    .Mnogolet div {
+        padding: 50px 0 0 50px;
+    }
+    .Mnogolet h3{
+        color:white;
+    }
+
