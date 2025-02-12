@@ -3,12 +3,13 @@
 
 <div class="kart">
 	<img src="prev.png" />
-	<h3>3000</h3>
-	<p class="name">Назание растения</p>
-	<p>Описание Описание Описание Описание Описание Описание </p>
+	<h3>@Product.Price</h3>
+	<p class="name">@Product.Name</p>
+	<p>@Product.Description</p>
 </div>
 
 
 @code {
-	
+	[Parameter]
+	public Product Product { get; set; }
 }

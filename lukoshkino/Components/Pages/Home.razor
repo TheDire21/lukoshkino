@@ -8,7 +8,7 @@
 				<h3>ИЗ ЛУКОШКИНО<br />С ЛЮБОВЬЮ</h3>
 				<p>Наш маленький семейный питомник специализируется на выращивании экологически чистых и здоровых саженцев декоративных кустарников, рассады однолетних и многолетних цветов. Также для вас предлагаем Натуральный мед с нашей семейной пасеки и оригинальные вкусные травяные сборы для приготовления чая по доступным ценам.</p>
 				<NavLink class="nav-link" href="Catalog">
-				<button type="submit" href="Catalog">К КАТАЛОГУ<img src="Vector1.png" /></button>
+					<button type="submit" href="Catalog">К КАТАЛОГУ<img src="Vector1.png" /></button>
 				</NavLink>
 			</div>
 			<div class="Photo">
@@ -19,12 +19,26 @@
 	<div class="Catalog">
 		<div class="butgrup">
 			<lukoshkino.Components.Layout.NavMenu />
-			<div class="kart">
-				<Kfrtochka />
-				<Kfrtochka />
+			<div class="kart"> 
+				@foreach(var card in GetProducts())
+				{
+					<Kfrtochka Product="@card"/>
+				}
 			</div>
 		</div>
 	</div>
 </div>
+
+@code
+{
+	List<Product> GetProducts()
+	{
+		using (var ac = new ApplicationContext())
+		{
+			return ac.Products.ToList();
+		}
+	}
+}
+
 
 
