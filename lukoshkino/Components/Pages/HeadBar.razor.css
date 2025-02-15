@@ -6,7 +6,7 @@ body {
 }
 .nav-link {
     padding:0;
-    text-decoration: none !important;  Обязательно используйте !important, чтобы переопределить существующие стили 
+    text-decoration: none !important;  /*Обязательно используйте !important, чтобы переопределить существующие стили */
 }
 
     .div1 img {
