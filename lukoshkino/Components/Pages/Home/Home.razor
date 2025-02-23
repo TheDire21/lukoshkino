@@ -18,11 +18,11 @@
 	</div>
 	<div class="Catalog">
 		<div class="butgrup">
-			<lukoshkino.Components.Layout.NavMenu />
+			<NavMenu />
 			<div class="kart"> 
 				@foreach(var card in GetProducts())
 				{
-					<Kfrtochka Product="@card"/>
+					<Card Product="@card"/>
 				}
 			</div>
 		</div>
