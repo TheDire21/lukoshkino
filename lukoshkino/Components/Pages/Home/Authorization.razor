@@ -1,25 +1,41 @@
 ﻿@page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="body_panel">
-	<div class="panel">
-		<h3>АВТОРИЗАЦИЯ</h3>
-		<div>
-			<form method='post'>
-				<p>
-					<input name='email' placeholder="Введите логин"/>
-				</p>
-				<p>
-					<input type='password' name='password' placeholder="Введите пароль"/>
-				</p>
-				<input type='submit' value='Войти'/>
-			</form>
-		</div>
-	</div>
+    <div class="panel">
+        <h3>АВТОРИЗАЦИЯ</h3>
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin" FormName="loginForm">
+            <InputText @bind-value="loginModel.Login" placeholder="Username" />
+            <InputText @bind-value="loginModel.Password" placeholder="Password" type="password" />
+            <button type="submit">Login</button>
+        </EditForm>
+    </div>
 </div>
-
 
 @code
 {
+    private VM_Authorization loginModel = new();
 
+    private async Task HandleLogin()
+    { 
+        using(var db = new ApplicationContext())
+        {
+            if (loginModel.Authorize(out var user))
+            {
+                var authStateProvider = (CustomAuthenticationStateProvider)AuthenticationStateProvider;
+                await authStateProvider.MarkUserAsAuthenticated(user);
+
+                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                Console.WriteLine($"User authenticated: {authState.User.Identity.IsAuthenticated}");
+                Navigation.NavigateTo("/");
+            }
+            else
+            {
+                Navigation.NavigateTo("/login");
+            }
+        }
+        
+    }
 }
-

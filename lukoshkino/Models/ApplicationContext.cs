@@ -16,6 +16,10 @@ namespace lukoshkino.Models
 
         public DbSet<Product_Photo> Product_Photos { get; set; } = null!;
 
+        public DbSet<ApplicationUser> Users { get; set; } = null!;
+
+        public DbSet<ApplicationRole> Roles { get; set; } = null!;
+
         public ApplicationContext()
         {
             Database.EnsureCreated();
