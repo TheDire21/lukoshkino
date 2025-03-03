@@ -1,8 +1,17 @@
 ﻿@page "/admin"
-@attribute [Authorize(Roles = "admin")]
+@* @attribute [Authorize(Roles = "admin")] *@
 
 <div class="body_panel">
 	<div class="panel">
-		<h3>Страница в разработке</h3>
+		<div class="menu">
+			<button class="but1">Категории</button>
+			<button>Товары</button>
+			<button>Отзовы</button>
+			<button>Страница 4</button>
+		</div>
+		<div class="panel_body">
+			<h3>Страница в разработке</h3>
+			<EditGoods />
+		</div>
 	</div>
 </div>

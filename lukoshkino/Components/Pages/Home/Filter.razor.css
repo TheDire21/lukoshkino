@@ -8,12 +8,12 @@
 .filter-btn {
     background-color: #F1B24A;
     color: white;
-    width: 350px;
-    height: 75px;
+    width: 250px;
+    height: 50px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 36px;
+    font-size: 24px;
 }
 
     /* Стили для изменения радиуса углов при наведении на кнопку */
@@ -27,7 +27,7 @@
     position: absolute;
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: 0 0 30px 30px;
-    width: 350px;
+    width: 250px;
     min-width: 160px;
     color: white;
     font-size: 24px;
