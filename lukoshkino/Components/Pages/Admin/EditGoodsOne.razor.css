@@ -1,0 +1,27 @@
+﻿.panel {
+    flex-direction: column;
+    margin: 0 2vw 0 2vw;
+    background: linear-gradient(90deg, #365B4C, #163C2D);
+    height 500px;
+}
+button {
+    margin: 0 0 0 2vw;
+    background: none;
+    font-weight: bolder;
+    color: white;
+    width: 350px;
+    height: 50px;
+    border: 4px solid #FFFFFF;
+    border-radius: 30px;
+    font-size: 24px;
+}
+h3{
+    margin: 0 0 0 2vw;
+    font-size:16px;
+    color:white;
+}
+input {
+    margin: 0 0 0 2vw;
+    width: 320px;
+    height: 40px;
+}
