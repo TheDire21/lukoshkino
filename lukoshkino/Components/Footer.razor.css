@@ -2,42 +2,37 @@
 }
 
 .Futor {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    background-color #07231F;
+    align-items: center;
+    background-color: #07231F;
 }
-
-.Line1, .FutorMemu, .Contakt, .Line2 {
-    margin: 2.5vh 5.2vw 0 5.2vw;
+.Lable{
+    margin-top: 4vh;
 }
-.Line1 {
-    background: linear-gradient(90deg, #2F554A, #95AA72);
-    height: 2.5vh;
+img {
+    width: 80px;
+    height: 80px;
 }
-.Line2 {
-    margin-top: 2vh;
-    background: linear-gradient(90deg, #95AA72, #2F554A);
-    height: 2.5vh;
-}
-
-.FutorMemu {
+.body_info{
     display: flex;
 }
-    .FutorMemu h3 {
-        color: white;
-        font-size: clamp(6px, 2vw, 32px);
-        margin-right: 0.5vw;
-    }
-.Contakt {
-    margin-top: 6vh;
+
+.bloc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2vw;
 }
-    .Contakt h2 {
+
+.zagolovok{
+    margin-bottom: 3vh;
+}
+.QR {
+    display: block;
+}
+    .body_info h3 {
+        font-size: clamp(10px, 3vw, 16px);
         color: white;
-        font-size: clamp(6px, 2vw, 32px);
-        margin-bottom: 4.5vh;
     }
-    .Contakt h3 {
-        margin-bottom: 3vh;
-        color: white;
-        font-size: clamp(6px, 2vw, 32px);
-    }
-   
