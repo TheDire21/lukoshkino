@@ -2,28 +2,33 @@
 
 <PageTitle>Главная-Из лукошкино с любовью</PageTitle>
 <div class="Top">
-	<div class="ByCompany">
-		<div class="info">
-			<div class="text-btn">
-				<h3>ИЗ ЛУКОШКИНО<br />С ЛЮБОВЬЮ</h3>
-				<p>Наш маленький семейный питомник специализируется на выращивании экологически чистых и здоровых саженцев декоративных кустарников, рассады однолетних и многолетних цветов. Также для вас предлагаем Натуральный мед с нашей семейной пасеки и оригинальные вкусные травяные сборы для приготовления чая по доступным ценам.</p>
-				<NavLink class="nav-link" href="Catalog">
-					<button type="submit" href="Catalog">К КАТАЛОГУ<img src="Vector1.png" /></button>
-				</NavLink>
-			</div>
-			<div class="Photo">
-				<img src="Photo1.png" />
+	<div class="body_info">
+		<div class="ByCompany">
+		
+			<div class="info">
+				<div class="text-btn">
+					<h3>ИЗ ЛУКОШКИНО<br />С ЛЮБОВЬЮ</h3>
+					<p>Наш маленький семейный питомник специализируется на выращивании экологически чистых и здоровых саженцев декоративных кустарников, рассады однолетних и многолетних цветов. Также для вас предлагаем Натуральный мед с нашей семейной пасеки и оригинальные вкусные травяные сборы для приготовления чая по доступным ценам.</p>
+					<NavLink class="nav-link" href="Catalog">
+						<button type="submit" href="Catalog">К КАТАЛОГУ<img src="Vector1.png" /></button>
+					</NavLink>
+				</div>
+				<div class="Photo">
+					<img src="Photo1.png" />
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="Catalog">
-		<div class="butgrup">
-			<NavMenu />
-			<div class="kart"> 
-				@foreach(var card in GetProducts())
-				{
-					<Card Product="@card"/>
-				}
+	<div class="body_Catalog">
+		<div class="Catalog">
+			<div class="butgrup">
+				<NavMenu />
+				<div class="kart"> 
+					@foreach(var card in GetProducts())
+					{
+						<Card Product="@card"/>
+					}
+				</div>
 			</div>
 		</div>
 	</div>

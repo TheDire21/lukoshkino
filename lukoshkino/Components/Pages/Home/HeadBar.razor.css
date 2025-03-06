@@ -19,7 +19,7 @@ body {
     margin: 0;
     padding: 0;
     color: white;
-    font-size: 1.5em;
+    font-size: 1em;
     display: inline;
 }
 .textHeadK {
@@ -27,10 +27,11 @@ body {
     padding: 0;
     margin-right: 2.5vw;
     color: white;
-    font-size: 1.5em;
+    font-size: 1em;
     display: inline;
 }
 .div0 {
+    background-color: #07231F;
     overflow: hidden;
 }
 
@@ -38,30 +39,31 @@ body {
     display: flex;
     align-items: center;
     float: left;
-    margin: 2vh 0 2vh 5.2vw;
+    margin: 1vh 0 1vh 12vw;
 }
 .div2 {
     float: right;
-    margin: 2vh 5.2vw 2vh 0;
+    margin: 1vh 12vw 1vh 0;
 }
-
+.body_Nav {
+    background: linear-gradient(90deg, #2F554A, #95AA72);
+}
 .Nav {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 5.2vw;
-    margin-right: 5.2vw;
-    background: linear-gradient(90deg, #2F554A, #95AA72);
+    margin: 0 12vw 0 12vw;
 }
-
+    .nav-link{
+        padding:0;
+    }
     .Lable {
         display:flex;
-        margin-left: 1vw;
-        margin-top: 5vh;
+        margin-top: 4vh;
         align-items: center;
     }
         .ingLable {
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             display: inline;
         }
         .labletext {
@@ -72,7 +74,7 @@ body {
         }
     .Ponsk {
         margin-left: 5.2vw;
-        margin-top: 5vh;
+        margin-top: 3vh;
         display: flex;
         align-items: center;
     }
@@ -81,7 +83,7 @@ body {
             display: inline;
             padding-inline: 30px;
             width: 500px;
-            height: 80px;
+            height: 75px;
             font-size: 20px;
             border: 1px solid #FFFFFF;
             border-radius: 0 30px 30px 0;
@@ -99,7 +101,7 @@ body {
             display: inline;
             padding: 0px;
             width: 100px;
-            height: 80px;
+            height: 75px;
             border: none;
             outline: none;
             background: #FFFFFF;
@@ -120,10 +122,10 @@ body {
                 text-align: center;
             }
                 .ButBar div img{
-                    margin-top:5vh;
+                    margin-top:4vh;
                 }
                 .ButBar div h3 {
-                    font-size: 24px;
+                    font-size: 16px;
                     color: white;
                 }
 
