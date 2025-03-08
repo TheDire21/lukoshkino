@@ -5,13 +5,24 @@
 
 <div class="body_panel">
     <div class="panel">
-        <h3>АВТОРИЗАЦИЯ</h3>
-        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin" FormName="loginForm">
-            <InputText @bind-value="loginModel.Login" placeholder="Username" />
-            <InputText @bind-value="loginModel.Password" placeholder="Password" type="password" />
-            <button type="submit">ВХОД</button>
+        <div class="avtorizaciya">
+            <h3>Авторизация</h3>
+        </div>
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform">
+            <div class="input">
+                <div class="log_pas_text">Логин</div>
+                <InputText @bind-value="loginModel.Login" placeholder="" class="input-text"/>
+            </div>
+            <div class="input">
+                <div class="log_pas_text">Пароль</div>
+                <InputText @bind-value="loginModel.Password" placeholder="" type="password" class="input-text" />
+            </div>
+            <div>
+            <button type="submit">Войти</button>
+            </div>
         </EditForm>
-    </div>
+        <div class="no-password">не помню пароль</div>
+    </div>  
 </div>
 
 @code

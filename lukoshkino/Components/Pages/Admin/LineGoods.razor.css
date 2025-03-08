@@ -4,8 +4,10 @@
     margin-top: 2vh;
     width: 100%;
     min-height: 50px;
-    background-color: #F1B24A;
-    font-size: 24px;
+    background-color: rgb(99,128,95, 0.4);
+    border-radius: 10px;
+    border: 2px solid #FFFFFF;
+    font-size: 16px;
     color: white;
 }
 

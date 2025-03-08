@@ -4,20 +4,19 @@
 
 .Top {
     width: 100%;
+    background: linear-gradient(90deg, #2F554A, #95AA72);
 }
 
 .catalog {
     height: 800px;
-    margin: 0 5.2vw 0 5.2vw;
-    background: linear-gradient(90deg, #2F554A, #95AA72);
+    margin: 0 12vw 0 12vw;
 }
     .top_catalog{
         display:flex;
         flex-direction: column;
-        margin: 0 1.5vw 0 1.5vw;
     }
         .top_catalog h3 {
-            margin: 5.2vh 0 0 0;
+            margin: 3vh 0 0 0;
             font-size: clamp(14px, 5vw, 36px);
             color:white;
             text-decoration:none;

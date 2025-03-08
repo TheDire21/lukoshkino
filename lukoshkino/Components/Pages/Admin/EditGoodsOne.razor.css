@@ -1,27 +1,53 @@
 ﻿.panel {
+    display: flex;
     flex-direction: column;
     margin: 0 2vw 0 2vw;
-    background: linear-gradient(90deg, #365B4C, #163C2D);
-    height 500px;
+    background-color: rgb(16,55,50, 0.4);
+    border-radius: 10px;
 }
 button {
-    margin: 0 0 0 2vw;
-    background: none;
-    font-weight: bolder;
+    margin: 2vh 0 0 2vw;
+    background-color:#F1B24A;
     color: white;
     width: 350px;
-    height: 50px;
-    border: 4px solid #FFFFFF;
-    border-radius: 30px;
-    font-size: 24px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
 }
 h3{
-    margin: 0 0 0 2vw;
+    margin: 2vh 0 0 2vw;
     font-size:16px;
     color:white;
 }
 input {
-    margin: 0 0 0 2vw;
-    width: 320px;
+    margin: 2vh 0 0 2vw;
+    display: inline;
+    padding-inline: 5px;
+    width: 500px;
     height: 40px;
+    font-size: 20px;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+    outline: none;
+    background-color: rgb(147,168,113, 0.5);
+    color: #FFFFFF;
 }
+
+.opisaniye {
+    margin: 2vh 0 0 2vw;
+}
+textarea {
+    padding-inline: 5px;
+    width: 950px;
+    height: 250px;
+    background-color: rgb(16,55,50, 0.4);
+    font-size: 20px;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+    outline: none;
+    color: #FFFFFF;
+}
+ .futor {
+     height: 50px;
+ }
