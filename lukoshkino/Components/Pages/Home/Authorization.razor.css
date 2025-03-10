@@ -53,12 +53,22 @@
                 margin: 10px;
             }
 
-        .input-text{
-            display: flex;
-            width: 500px;
-            padding: 10px;
-            border: 1px solid white;
-        }
+.custom-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+    .custom-input.valid {
+        border-color: green;
+    }
+
+    .custom-input.invalid {
+        border-color: red;
+    }
+
 .panel button {
     padding: 0px;
     margin-top: 4vh;

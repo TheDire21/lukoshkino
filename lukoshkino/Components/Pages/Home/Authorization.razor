@@ -11,11 +11,11 @@
         <EditForm Model="@loginModel" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform">
             <div class="input">
                 <div class="log_pas_text">Логин</div>
-                <InputText @bind-value="loginModel.Login" placeholder="" class="input-text"/>
+                <InputText @bind-Value="loginModel.Login" placeholder="" class="custom-input" @attributes="GetInputAttributes()" />
             </div>
             <div class="input">
                 <div class="log_pas_text">Пароль</div>
-                <InputText @bind-value="loginModel.Password" placeholder="" type="password" class="input-text" />
+                <InputText @bind-Value="loginModel.Password" placeholder="" type="password" class="input-text" />
             </div>
             <div>
             <button type="submit">Войти</button>
@@ -27,6 +27,13 @@
 
 @code
 {
+    private Dictionary<string, object> GetInputAttributes()
+    {
+        return new Dictionary<string, object>
+        {
+            { "class", "custom-input" }
+        };
+    }
     private VM_Authorization loginModel = new();
 
     private async Task HandleLogin()
