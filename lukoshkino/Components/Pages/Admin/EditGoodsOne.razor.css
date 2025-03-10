@@ -1,7 +1,7 @@
 ﻿.panel {
     display: flex;
     flex-direction: column;
-    margin: 0 2vw 0 2vw;
+    margin: 1vw 2vw 1vw 2vw;
     background-color: rgb(16,55,50, 0.4);
     border-radius: 10px;
 }

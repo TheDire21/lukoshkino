@@ -1,5 +1,6 @@
 ﻿.head-admin {
     display: flex;
+    width: 100%;
     height: 50px;
     align-items:center;
     background-color: #07231F;
