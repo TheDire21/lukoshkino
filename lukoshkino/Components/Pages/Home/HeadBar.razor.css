@@ -66,17 +66,16 @@ body {
             height: 75px;
             display: inline;
         }
-        .labletext {
-            color: white;
-            text-decoration:none;
-            font-size: 24px;
-            display: inline;
-        }
+.labletext {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    display: inline;
+}
     .Ponsk {
+        margin-top: 4vh;
         margin-left: 5.2vw;
-        margin-top: 3vh;
         display: flex;
-        align-items: center;
     }
 
         .Ponsk input {
@@ -133,18 +132,44 @@ body {
             background: #F1B24A;
         }
 
-@media(max-width:1440px){
-    .Nav {
-        justify-content: center;
+@media(max-width:1610px){
+    .div1 {
+        margin: 1vh 0 1vh 8vw;
+    }
+    .div2 {
+        float: right;
+        margin: 1vh 8vw 1vh 0;
     }
     .ButBar{
-        margin: 2vh 0 0 0;
+        margin-left: auto;
+
+    }
+        .Nav {
+        margin: 0 8vw 0 8vw;
+        justify-content: center;
     }
     .Lable {
         flex-direction: column;
     }
 }
 
-@media(max-width:1024px) {
+@media(max-width:1335px) {
+    .ButBar {
+        margin: 0;
+        margin-top: 2vw;
+        justify-content: center;
+    }
 
 }
+
+@media(max-width:1024px){
+    .div1 {
+        margin: 1vh 0 1vh 2vw;
+    }
+
+    .div2 {
+        float: right;
+        margin: 1vh 2vw 1vh 0;
+    }
+}
+
