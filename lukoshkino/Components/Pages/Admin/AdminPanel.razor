@@ -1,6 +1,16 @@
 ﻿@page "/admin"
+@layout AdminLayout
 @* @attribute [Authorize(Roles = "admin")] *@
 
+<div class="head-admin">
+	<h3>Страница администратора</h3>
+	<div class="head-admin-fio-btn">
+		<h3>Фамилия Имя Отчество</h3>
+		<NavLink href="/" style="text-decoration: none;">
+			<button>Выход</button>
+		</NavLink>
+	</div>
+</div>
 <div class="body_panel">
 	<div class="panel">
 		<div class="menu">

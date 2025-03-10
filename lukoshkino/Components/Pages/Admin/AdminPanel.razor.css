@@ -1,5 +1,28 @@
-﻿
-
+﻿.head-admin {
+    display: flex;
+    height: 50px;
+    align-items:center;
+    background-color: #07231F;
+}
+    .head-admin-fio-btn{
+        display: flex;
+        align-items:center;
+        margin-left: auto;
+    }
+        .head-admin h3{
+            margin: 0 3vw 0 3vw;
+            color: white;
+            font-size: 16px;
+        }
+        .head-admin button{
+            padding:0;
+            margin: 0 3vw 0 0;
+            width: 100px;
+            height: 30px;
+            background-color:#F1B24A;
+            border-radius: 5px;
+            color: white;
+        }
 .body_panel {
     display: flex;
     min-height: 800px;

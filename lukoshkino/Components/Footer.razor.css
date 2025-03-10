@@ -15,24 +15,23 @@ img {
     width: 80px;
     height: 80px;
 }
-.body_info{
+.body_info {
     display: flex;
 }
-
-.bloc{
+h3 {
+    color: white;
+    font-size: clamp(10px, 2vw, 16px);
+}
+.bloc, .bloc1{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 2vw 2vw 0 0;
 }
+.bloc1{
+    margin-right: 4vw;
+}
 
 .zagolovok{
     margin-bottom: 3vh;
 }
-.QR {
-    display: block;
-}
-    .body_info h3 {
-        font-size: clamp(10px, 3vw, 16px);
-        color: white;
-    }
