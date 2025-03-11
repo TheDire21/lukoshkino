@@ -8,32 +8,26 @@
         <div class="avtorizaciya">
             <h3>Авторизация</h3>
         </div>
-        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform">
-            <div class="input">
-                <div class="log_pas_text">Логин</div>
-                <InputText @bind-Value="loginModel.Login" placeholder="" class="custom-input" @attributes="GetInputAttributes()" />
-            </div>
-            <div class="input">
-                <div class="log_pas_text">Пароль</div>
-                <InputText @bind-Value="loginModel.Password" placeholder="" type="password" class="input-text" />
-            </div>
-            <div>
-            <button type="submit">Войти</button>
-            </div>
-        </EditForm>
+            <EditForm Model="@loginModel" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform" style="justify-content:center;">
+                <div class="input">
+                    <div class="log_pas_text">Логин</div>
+                    <InputText @bind-Value="loginModel.Login" placeholder="" type="text" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" />
+                </div>
+                <div class="input">
+                    <div class="log_pas_text">Пароль</div>
+                    <InputText @bind-Value="loginModel.Password" placeholder="" type="password" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" />
+                </div>
+                <div>
+                <button type="submit">Войти</button>
+                </div>
+            </EditForm>
         <div class="no-password">не помню пароль</div>
     </div>  
 </div>
 
 @code
 {
-    private Dictionary<string, object> GetInputAttributes()
-    {
-        return new Dictionary<string, object>
-        {
-            { "class", "custom-input" }
-        };
-    }
+   
     private VM_Authorization loginModel = new();
 
     private async Task HandleLogin()

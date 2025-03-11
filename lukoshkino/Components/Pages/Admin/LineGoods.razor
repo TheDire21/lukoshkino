@@ -1,12 +1,25 @@
 ﻿<div class="line">
-    <label><input type="checkbox" name="filter" class="filter-option" /> Название товара</label>
+    <label><input type="checkbox" @onchange="OnCheckboxChanged" name="filter" class="filter-option" /> Название товара</label>
     <div class="icon">
+        @if (isChecked)
+        {
         <img src="karandash.png" class="karandash" />
         <img src="urna.png" class="urna" />
+        }
     </div>
+    <p>Состояние чекбокса: @isChecked</p>  <!-- Проверка состояния -->
 </div>
 
 
 @code {
+    private bool isChecked = false;
 
+    private void OnCheckboxChanged(ChangeEventArgs e)
+    {
+        // Обновляем состояние чекбокса с помощью значения из e.Value
+        isChecked = (bool)e.Value;
+
+        // Принудительно обновляем компонент
+        StateHasChanged();
+    }
 }

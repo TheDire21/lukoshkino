@@ -13,9 +13,11 @@
         .panel {
             display:flex;
             flex-direction: column;
+            padding: 2vw;
             align-items: center;
-            height: 50vh;
             border-radius: 30px;
+            border: 2px solid #FFFF;
+            border-radius: 20px;
             
         }
             .avtorizaciya {
@@ -33,6 +35,8 @@
             }
 .editform {
     display: flex;
+    justify-content: center;
+
 }
     .input{
         display: flex;
@@ -53,26 +57,10 @@
                 margin: 10px;
             }
 
-.custom-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-    .custom-input.valid {
-        border-color: green;
-    }
-
-    .custom-input.invalid {
-        border-color: red;
-    }
-
 .panel button {
     padding: 0px;
     margin-top: 4vh;
-    margin-left:26%;
+    margin-left:36%;
     width: 10.5vw;
     height: 4.5vh;
     border:none;
