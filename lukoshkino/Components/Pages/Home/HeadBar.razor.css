@@ -81,7 +81,7 @@ body {
         .Ponsk input {
             display: inline;
             padding-inline: 30px;
-            width: 500px;
+            width: 420px;
             height: 75px;
             font-size: 20px;
             border: 1px solid #FFFFFF;
@@ -115,20 +115,26 @@ body {
             justify-content: center;
         }
             .ButBar div {
-                margin-right: 2vw;
-                width: 125px;
-                height: 155px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-left: 1vw;
+                width: 100px;
+                height: 140px;
                 text-align: center;
             }
                 .ButBar div img{
+                    width: 42px;
                     margin-top:4vh;
                 }
                 .ButBar div h3 {
+                    margin-top: 2vh;
                     font-size: 16px;
                     color: white;
                 }
 
-        .divemail {
+        .divhelp {
+            border-radius: 0 0 10px 10px;
             background: #F1B24A;
         }
 
