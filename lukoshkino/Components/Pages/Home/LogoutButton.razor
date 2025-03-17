@@ -7,8 +7,6 @@
 @code {
     private async Task Logout()
     {
-        var authStateProvider = (CustomAuthenticationStateProvider)AuthenticationStateProvider;
-        await authStateProvider.MarkUserAsLoggedOut();
-        Navigation.NavigateTo("/");
+
     }
 }

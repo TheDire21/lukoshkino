@@ -1,6 +1,6 @@
 ﻿@page "/"
 @layout MainLayout
-
+@inject IDbContextFactory<ApplicationContext> DbFactory
 <PageTitle>Главная-Из лукошкино с любовью</PageTitle>
 <div class="Top">
 	<div class="body_info">
@@ -39,7 +39,7 @@
 {
 	List<Product> GetProducts()
 	{
-		using (var ac = new ApplicationContext())
+		using (var ac = DbFactory.CreateDbContext())
 		{
 			return ac.Products.ToList();
 		}

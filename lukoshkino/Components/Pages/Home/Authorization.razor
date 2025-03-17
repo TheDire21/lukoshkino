@@ -1,52 +1,94 @@
 ﻿@page "/login"
-@using Microsoft.AspNetCore.Components.Authorization
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
 @inject NavigationManager Navigation
-@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Authorization> Logger
+@inject IdentityRedirectManager RedirectManager
 
 <div class="body_panel">
     <div class="panel">
         <div class="avtorizaciya">
             <h3>Авторизация</h3>
         </div>
-            <EditForm Model="@loginModel" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform" style="justify-content:center;">
-                <div class="input">
-                    <div class="log_pas_text">Логин</div>
-                    <InputText @bind-Value="loginModel.Login" placeholder="" type="text" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" />
-                </div>
-                <div class="input">
-                    <div class="log_pas_text">Пароль</div>
-                    <InputText @bind-Value="loginModel.Password" placeholder="" type="password" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" />
-                </div>
-                <div>
+        <EditForm Model="@loginModel" method="post" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform" style="justify-content:center;">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="input">
+                <div class="log_pas_text">Email</div>
+                <InputText placeholder="" type="text" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=loginModel.Email/>
+                <ValidationMessage For="() => loginModel.Email" class="text-danger" />
+            </div>
+            <div class="input">
+                <div class="log_pas_text">Пароль</div>
+                <InputText placeholder="" type="password" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=loginModel.Password />
+                <ValidationMessage For="() => loginModel.Password" class="text-danger" />
+            </div>
+            <div class="checkbox mb-3">
+                <label class="form-label">
+                    <InputCheckbox @bind-Value="loginModel.RememberMe" class="darker-border-checkbox form-check-input" />
+                    Remember me
+                </label>
+            </div>
+            <div>
                 <button type="submit">Войти</button>
-                </div>
-            </EditForm>
+            </div>
+        </EditForm>
         <div class="no-password">не помню пароль</div>
+        <p>
+            <a href="@(Navigation.GetUriWithQueryParameters("/register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Зарегистрироваться</a>
+        </p>
     </div>  
 </div>
 
 @code
 {
-   
-    private VM_Authorization loginModel = new();
+    private string? errorMessage;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private LoginModel loginModel { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        }
+    }
+
 
     private async Task HandleLogin()
     { 
-        using(var db = new ApplicationContext())
+        // This doesn't count login failures towards account lockout
+        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        var result = await SignInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, loginModel.RememberMe, lockoutOnFailure: false);
+        if (result.Succeeded)
         {
-            if (loginModel.Authorize(out var user))
-            {
-                var authStateProvider = (CustomAuthenticationStateProvider)AuthenticationStateProvider;
-                await authStateProvider.MarkUserAsAuthenticated(user);
-
-                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                Console.WriteLine($"User authenticated: {authState.User.Identity.IsAuthenticated}");
-                Navigation.NavigateTo("/");
-            }
-            else
-            {
-                Navigation.NavigateTo("/login");
-            }
+            Logger.LogInformation("User logged in.");
+            RedirectManager.RedirectTo(ReturnUrl);
+        }
+        else if (result.RequiresTwoFactor)
+        {
+            RedirectManager.RedirectTo(
+                "/loginWith2fa",
+                new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = loginModel.RememberMe });
+        }
+        else if (result.IsLockedOut)
+        {
+            Logger.LogWarning("User account locked out.");
+            RedirectManager.RedirectTo("/lockout");
+        }
+        else
+        {
+            errorMessage = "Error: Invalid login attempt.";
         }
         
     }
