@@ -1,0 +1,58 @@
+﻿@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    private void Close()
+    {
+        IsVisible = false;
+        IsVisibleChanged.InvokeAsync(IsVisible);
+    }
+}
+
+@if (IsVisible)
+{
+    <div class="overlay">
+        <div class="popup">
+            <div class="popup-header">
+                <h3>Всплывающее окно</h3>
+                <button @onclick="Close">×</button>
+            </div>
+            <div class="popup-body">
+                <p>Здесь содержимое вашего всплывающего окна.</p>
+                <button @onclick="Close" class="btn btn-primary">Закрыть</button>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .popup {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        width: 300px;
+    }
+
+    .popup-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .popup-body {
+        margin-top: 10px;
+    }
+</style>

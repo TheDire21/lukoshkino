@@ -1,6 +1,8 @@
 ﻿@page "/"
 @layout MainLayout
 @inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IJSRuntime JSRuntime
+
 <PageTitle>Главная-Из лукошкино с любовью</PageTitle>
 <div class="Top">
 	<div class="body_info">
@@ -44,7 +46,9 @@
 			return ac.Products.ToList();
 		}
 	}
+	
 }
 
+	
 
 

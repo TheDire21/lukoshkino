@@ -1,4 +1,6 @@
-﻿<main>
+﻿@inject BlazorBootstrap.ModalService ModalService
+
+<main>
     <div class="div0">
     <div class="div1">
         <img src="point.svg" />
@@ -11,7 +13,7 @@
     </div>
 	<div class="body_Nav">
 		<div class="Nav">
-			<NavLink href="" style="text-decoration: none;">
+			<NavLink href="/" style="text-decoration: none;">
 			<div class="Lable">
 					<img class="ingLable" src="lable.svg"/><h3 class="labletext">домашнее<br /> хозяйство</h3>
 			</div>
@@ -20,7 +22,7 @@
 					<button type="submit"><img src="poisk.png" /></button><input type="text" placeholder="Найтите то что вам нужно">
 				</form>
 			<div class="ButBar">
-				<NavLink href="/login" style="text-decoration: none;">
+				<NavLink href="" style="text-decoration: none;">
 					<div>
 						<img src="prof.png" />
 						<h3>ПРОФИЛЬ</h3>
@@ -38,11 +40,14 @@
 						<h3>КОРЗИНА</h3>
 					</div>
 				</NavLink>
-
+				<NavLink href="" style="text-decoration: none;">
 				<div class="divhelp">
 					<img src="help.png" />
 				</div>
+				</NavLink>
+				
 			</div>
 		</div>
 	</div>
 </main>
+

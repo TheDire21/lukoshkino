@@ -3,6 +3,7 @@ using lukoshkino.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using BlazorBootstrap;
 
 
 
@@ -48,6 +49,7 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRazorPages();
+builder.Services.AddBlazorBootstrap();
 
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Logging.AddConsole();
