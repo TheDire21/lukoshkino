@@ -5,22 +5,17 @@
 
 .body_panel {
     display: flex;
-    justify-content: center; /* Центрируем содержимое по горизонтали */
-    align-items: center;
-    height: 800px;
     background: linear-gradient(90deg, #2F554A, #95AA72);
 }
         .panel {
+            width: 800px;
             display:flex;
             flex-direction: column;
-            padding: 2vw;
             align-items: center;
-            border-radius: 30px;
-            border: 2px solid #FFFF;
-            border-radius: 20px;
             
         }
             .avtorizaciya {
+                margin-top: 1vw;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -41,7 +36,6 @@
     .input{
         display: flex;
         margin-top: 30px;
-        flex-wrap: wrap;
     }
         .log_pas_text{
             margin-right:30px;
@@ -60,7 +54,7 @@
 .panel button {
     padding: 0px;
     margin-top: 4vh;
-    margin-left:36%;
+    margin-left: 36%;
     width: 10.5vw;
     height: 4.5vh;
     border:none;
@@ -70,7 +64,7 @@
     color: white;
 }
 .no-password {
-    margin-top: 15px;
+    margin-top: 5px;
     text-align: center;
     width: 10.5vw;
     height: 25px;

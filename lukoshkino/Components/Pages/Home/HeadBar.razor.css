@@ -114,7 +114,9 @@ body {
             margin-left: auto; 
             justify-content: center;
         }
-            .ButBar div {
+            .ButBar div, .btn_mid {
+                background: none;
+                border: none;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -123,22 +125,28 @@ body {
                 height: 140px;
                 text-align: center;
             }
-                .ButBar div img{
+                .ButBar div img, .btn_mid  img{
                     width: 42px;
-                    margin-top:4vh;
+                    margin-top: 4vh;
                 }
-                .ButBar div h3 {
+                .ButBar div h3, .btn_mid h3 {
                     margin-top: 2vh;
                     font-size: 16px;
                     color: white;
                 }
+.regist {
+    display: flex;
+    justify-content:center;
+    height:40px;
+    background: linear-gradient(90deg, #2F554A, #95AA72);
+}
+    .regist button{
+        margin-top: 10px;
+        font-size: 16px;
+        color:white;
+    }
 
-        .divhelp {
-            border-radius: 0 0 10px 10px;
-            background: #F1B24A;
-        }
-
-@media(max-width:1610px){
+@media(max-width:1610px) {
     .div1 {
         margin: 1vh 0 1vh 8vw;
     }

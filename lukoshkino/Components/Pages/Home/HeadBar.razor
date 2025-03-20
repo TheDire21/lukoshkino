@@ -22,12 +22,11 @@
 					<button type="submit"><img src="poisk.png" /></button><input type="text" placeholder="Найтите то что вам нужно">
 				</form>
 			<div class="ButBar">
-				<NavLink href="" style="text-decoration: none;">
-					<div>
-						<img src="prof.png" />
-						<h3>ПРОФИЛЬ</h3>
-					</div>
-				</NavLink>
+				<!-- Кнопка-триггер модального окна -->
+				<button type="button" class="btn_mid" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+					<img src="prof.png" />
+					<h3>ПРОФИЛЬ</h3>
+				</button>
 				<NavLink href="" style="text-decoration: none;">
 					<div>
 						<img src="serdc.png" />
@@ -41,7 +40,7 @@
 					</div>
 				</NavLink>
 				<NavLink href="" style="text-decoration: none;">
-				<div class="divhelp">
+					<div style=" border-radius: 0 0 10px 10px; background: #F1B24A;">
 					<img src="help.png" />
 				</div>
 				</NavLink>
@@ -50,4 +49,35 @@
 		</div>
 	</div>
 </main>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-labelledby="exampleModalToggleLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+@* 			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+			</div> *@
+			<div class="modal-body">
+				<Authorization />
+				<div class="regist">
+				<button class="btn_mid" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Зарегестрироватся</button>
+				</div>
+			</div>
+			@* <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+				<button type="button" class="btn btn-primary">Сохранить изменения</button>
+			</div> *@
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				<Registration />
+			</div>
+		</div>
+	</div>
+</div>
 

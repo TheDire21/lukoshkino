@@ -7,7 +7,6 @@
 <div class="Top">
 	<div class="body_info">
 		<div class="ByCompany">
-		
 			<div class="info">
 				<div class="text-btn">
 					<h3>ИЗ ЛУКОШКИНО<br />С ЛЮБОВЬЮ</h3>
@@ -15,6 +14,7 @@
 					<NavLink href="Catalog" style="text-decoration: none;">
 						<button type="submit" href="Catalog">К КАТАЛОГУ<img src="Vector1.png" /></button>
 					</NavLink>
+
 				</div>
 				<div class="Photo">
 					<img src="Photo1.png" />
@@ -37,6 +37,8 @@
 	</div>
 </div>
 
+
+
 @code
 {
 	List<Product> GetProducts()
@@ -46,7 +48,7 @@
 			return ac.Products.ToList();
 		}
 	}
-	
+
 }
 
 	
