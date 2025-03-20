@@ -1,4 +1,8 @@
-﻿.row {
+﻿body {
+    padding: 0px;
+    margin: 0px;
+}
+.body_panel {
     display: flex;
     background: linear-gradient(90deg, #2F554A, #95AA72);
 }

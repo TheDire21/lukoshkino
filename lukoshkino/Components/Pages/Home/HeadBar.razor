@@ -51,14 +51,14 @@
 </main>
 
 <!-- Модальное окно -->
-<div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-labelledby="exampleModalToggleLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered modal-lg">
-		<div class="modal-content">
+		<div class="modal-content" style="border: none;">
 @* 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
 			</div> *@
-			<div class="modal-body">
+			<div class="modal-body" style=" padding: 0;">
 				<Authorization />
 				<div class="regist">
 				<button class="btn_mid" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Зарегестрироватся</button>
@@ -74,7 +74,7 @@
 <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<div class="modal-content">
-			<div class="modal-body">
+			<div class="modal-body" style=" padding: 0;">
 				<Registration />
 			</div>
 		</div>

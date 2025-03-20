@@ -15,7 +15,7 @@
 @inject IdentityRedirectManager RedirectManager
 @inject ApplicationContext dbContext
 
-<div class="row">
+<div class="body_panel">
     <div class="col-md-4">
         <StatusMessage Message="@Message" />
         <EditForm Model="RegisterModel" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterHandle" FormName="register">
