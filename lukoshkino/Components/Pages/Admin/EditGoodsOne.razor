@@ -1,18 +1,52 @@
-﻿<div class="panel">
+﻿@page "/admin/editgoods/{id:int}"
+
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityRedirectManager RedirectManager
+@rendermode RenderMode.InteractiveServer
+
+<div class="panel">
 	<button>Добавить фото</button>
 	<div>
+
 	</div>
-	<h3>Название</h3>
-	<input type="text" placeholder="">
-	<h3>Описание</h3>
-	<div class="opisaniye">
-	<textarea name="description" rows="4" cols="50" placeholder=""></textarea>
-	</div>
-	<button>Сохранить</button>
+	<EditForm Model="@Product" method="post" OnValidSubmit="SaveChanges" FormName="goodsEditForm">
+		<h3>Название</h3>
+		<InputText placeholder="" @bind-Value=Product.Name/>
+		<h3>Описание</h3>
+		<div class="opisaniye">
+			<InputTextArea name="description" rows="4" cols="50" placeholder="" @bind-Value=Product.Description/>
+		</div>
+		<button type="submit">Сохранить</button>
+	</EditForm>
 	<div class="futor">
 	</div>
 </div>
 
 @code {
+	[Parameter]
+	public int Id { get; set; } = 0;
 
+	public Product? Product { get; set; } = new Product();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Run(() =>
+		{
+			using (var ac = DbFactory.CreateDbContext())
+			{
+				Product = ac.Products.Where(x => x.Id == Id).FirstOrDefault();
+			}
+		});
+	}
+
+	void SaveChanges()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			var editProduct = ac.Products.Where(x => x.Id == Id).FirstOrDefault();
+			editProduct.Name = Product.Name;
+			editProduct.Description = Product.Description;
+			ac.SaveChanges();
+		}
+	}
 }

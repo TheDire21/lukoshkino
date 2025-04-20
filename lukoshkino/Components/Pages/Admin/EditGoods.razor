@@ -1,21 +1,47 @@
-﻿<div class="panel">
+﻿@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityRedirectManager RedirectManager
+@rendermode RenderMode.InteractiveServer
+<div class="panel">
 	<h3>Редактировать товары</h3>
 	<div class="nav">
-			<form class="Ponsk">
-				<button type="submit"><img src="poisk.png" /></button><input type="text" placeholder="">
-			</form>
+		<form class="Ponsk">
+			<button type="submit"><img src="poisk.png" /></button><input type="text" placeholder="">
+		</form>
 		<Filter />
-		<button>Добавить новый товар</button>
+		<button @onclick="CreateNewProduct">
+			Добавить новый товар
+		</button>
 	</div>
 	<div class="body_goods">
-		<LineGoods />
-		<LineGoods />
-		<LineGoods />
+		<div class="kart">
+			@foreach (var product in GetProducts())
+			{
+				<LineGoods Product="@product" />
+			}
+		</div>
 	</div>
 	<div class="futor">
 	</div>
 </div>
 
 @code {
+
+	async Task CreateNewProduct()
+	{
+		Console.WriteLine("CreateProduct");
+		using(var db = DbFactory.CreateDbContext())
+		{
+			db.Products.Add(new Product() {Name = "Новый товар", Category = db.Categories.Where(y => y.Id == 1).FirstOrDefault()} );
+			db.SaveChanges();
+		}
+	}
+
+	List<Product> GetProducts()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			return ac.Products.ToList();
+		}
+	}
 
 }

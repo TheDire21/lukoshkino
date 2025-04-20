@@ -1,25 +1,24 @@
-﻿<div class="line">
-    <label><input type="checkbox" @onchange="OnCheckboxChanged" name="filter" class="filter-option" /> Название товара</label>
+﻿@inject IdentityRedirectManager RedirectManager
+@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+
+<div class="line">
+    <button @onclick="RedirectToEdit">
+        @Product.Name
+    </button>
     <div class="icon">
-        @if (isChecked)
-        {
-        <img src="karandash.png" class="karandash" />
-        <img src="urna.png" class="urna" />
-        }
     </div>
-    <p>Состояние чекбокса: @isChecked</p>  <!-- Проверка состояния -->
 </div>
 
 
 @code {
-    private bool isChecked = false;
 
-    private void OnCheckboxChanged(ChangeEventArgs e)
+    void RedirectToEdit()
     {
-        // Обновляем состояние чекбокса с помощью значения из e.Value
-        isChecked = (bool)e.Value;
-
-        // Принудительно обновляем компонент
-        StateHasChanged();
+        Navigation.NavigateTo($"/admin/editgoods/{Product.Id}");
     }
+
+    [Parameter]
+    public Product Product { get; set; }
+
 }

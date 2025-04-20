@@ -13,8 +13,6 @@ namespace lukoshkino.Models
 
         public DbSet<Category> Categories { get; set; } = null!;
 
-        public DbSet<Subcategory> Subcategories { get; set; } = null!;
-
         public DbSet<Product> Products { get; set; } = null!;
 
         public DbSet<File> Files { get; set; } = null!;

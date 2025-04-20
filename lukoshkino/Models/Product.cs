@@ -15,8 +15,8 @@ namespace lukoshkino.Models
 
         public bool isActive { get; set; }
 
-        public int SubcategoryId { get; set; }
+        public int CategoryId { get; set; }
 
-        public Subcategory? Subcategory { get; set; }
+        public Category? Category { get; set; }
     }
 }
