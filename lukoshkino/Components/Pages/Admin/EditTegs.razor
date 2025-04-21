@@ -1,0 +1,21 @@
+﻿@page "/edit-tegs"
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="panel">
+	<h3>Редактировать теги</h3>
+	<div class="nav">
+		<button class="ceate">Добавить новый тег</button>
+	</div>
+	<div class="body_tegs">
+		<div class="tegs">
+		</div>
+		<button class="save">Сохранить изменения</button>
+	</div>
+	<div class="futor">
+	</div>
+</div>
+
+@code {
+
+}

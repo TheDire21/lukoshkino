@@ -1,4 +1,6 @@
 ﻿@page "/admin/editgoods/{id:int}"
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
 
 @inject IDbContextFactory<ApplicationContext> DbFactory
 @inject IdentityRedirectManager RedirectManager
@@ -11,10 +13,12 @@
 	</div>
 	<EditForm Model="@Product" method="post" OnValidSubmit="SaveChanges" FormName="goodsEditForm">
 		<h3>Название</h3>
-		<InputText placeholder="" @bind-Value=Product.Name/>
+		<div class="name_prod">
+			<InputText placeholder="" style="width: 320px; height: 35px; background-color: rgb(147,168,113, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Name />
+		</div>
 		<h3>Описание</h3>
 		<div class="opisaniye">
-			<InputTextArea name="description" rows="4" cols="50" placeholder="" @bind-Value=Product.Description/>
+			<InputTextArea name="description" rows="4" cols="50" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Description />
 		</div>
 		<button type="submit">Сохранить</button>
 	</EditForm>

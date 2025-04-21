@@ -1,3 +1,33 @@
 ﻿@inherits LayoutComponentBase
 
-        @Body
+<div class="head-admin">
+	<h3>Страница администратора</h3>
+	<div class="head-admin-fio-btn">
+		<h3>Фамилия Имя Отчество</h3>
+		<NavLink href="/" style="text-decoration: none;">
+			<button>Выход</button>
+		</NavLink>
+	</div>
+</div>
+<div class="body_panel">
+	<div class="panel">
+		<div class="menu">
+			<NavLink href="/admin" style="text-decoration: none; width: 80%;">
+			<button class="but1">Категории</button>
+			</NavLink>
+			<NavLink href="/edit-goods" style="text-decoration: none; width: 80%;">
+			<button >Товары</button>
+			</NavLink>
+			<NavLink href="/admin" style="text-decoration: none; width: 80%;">
+			<button>Отзывы</button>
+			</NavLink>
+			<NavLink href="/edit-tegs" style="text-decoration: none; width: 80%;">
+			<button>Теги</button>
+			</NavLink>
+		</div>
+		<div class="panel_body">
+			@Body
+		</div>
+	</div>
+</div>
+        

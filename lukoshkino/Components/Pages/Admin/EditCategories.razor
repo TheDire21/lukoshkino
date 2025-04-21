@@ -1,0 +1,24 @@
+﻿@page "/admin"
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+<div class="panel">
+	<h3>Редактировать Категории</h3>
+	<div class="nav">
+		<button class="ceate">Добавить новую категорию</button>
+	</div>
+	<div class="body_cat">
+		<div class="cat">
+			<LineCategories></LineCategories>
+			<LineCategories></LineCategories>
+			<LineCategories></LineCategories>
+			<LineCategories></LineCategories>
+		</div>
+	</div>
+	<div class="futor">
+	</div>
+</div>
+
+
+@code {
+
+}

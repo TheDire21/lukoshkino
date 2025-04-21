@@ -10,16 +10,14 @@
     font-size: 16px;
     color: white;
 }
-
-.name_product {
+.name_cat {
     width: 100%;
     min-height: 40px;
     margin-left: 3vw;
     background: none;
-    border: 0;
+    border:0;
+
     text-align: left;
     font-size: 16px;
     color: white;
 }
-
-

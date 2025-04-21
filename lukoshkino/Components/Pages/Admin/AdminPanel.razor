@@ -1,4 +1,4 @@
-﻿@page "/admin"
+﻿@* @page "/admin" *@
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 
@@ -20,7 +20,10 @@
 			<button>Теги</button>
 		</div>
 		<div class="panel_body">
+			<EditCategories></EditCategories>
 			<EditGoods></EditGoods>
+			<EditTegs></EditTegs>
+
 		</div>
 	</div>
 </div>

@@ -1,4 +1,7 @@
-﻿@inject IDbContextFactory<ApplicationContext> DbFactory
+﻿@page "/edit-goods"
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+@inject IDbContextFactory<ApplicationContext> DbFactory
 @inject IdentityRedirectManager RedirectManager
 @rendermode RenderMode.InteractiveServer
 <div class="panel">

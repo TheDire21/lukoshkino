@@ -4,14 +4,14 @@
 }
 
 .kart {
-    margin: 50px 0 0 30px;
-    width: 350px;
-    height: 460px;
+    margin: 40px 0 0 30px;
+    width: 250px;
+    height: 350px;
     background: linear-gradient(0deg, #223E2A, #3F7758);
-    border-radius: 30px;
+    border-radius: 20px;
 }
-    img{
-        width: 290px;
+    .img-kart{
+        width: 200px;
         margin: 30px 30px 0 30px;
     }
 
@@ -20,11 +20,33 @@
         color:white;
     }
     h3{
-        font-size:32px;
+        font-size:20px;
     }
     p{
-        font-size: 14px;
+        font-size: 8px;
     }
     .name{
-        font-size:24px;
+        font-size:16px;
+    }
+
+.but {
+    display: flex;
+    justify-content: center; /* по горизонтали */
+    margin-top: 30px;
+
+}
+button {
+
+    padding: 0px;
+    background-color: rgb(255, 255, 255, 0.25);
+    border: 0;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: white;
+    width: 200px;
+    height: 30px;
+    font-size: 16px;
+}
+    button img {
+        width: 20px;
     }

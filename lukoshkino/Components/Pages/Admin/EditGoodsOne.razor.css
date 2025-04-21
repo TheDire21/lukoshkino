@@ -34,7 +34,7 @@ input {
     color: #FFFFFF;
 }
 
-.opisaniye {
+.opisaniye, .name_prod {
     margin: 2vh 0 0 2vw;
 }
 textarea {

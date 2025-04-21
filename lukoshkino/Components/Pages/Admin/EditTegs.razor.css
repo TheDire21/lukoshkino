@@ -1,0 +1,48 @@
+﻿.panel {
+    display: flex;
+    flex-direction: column;
+    margin: 1vw 2vw 1vw 2vw;
+    background-color: rgb(16,55,50, 0.4);
+    border-radius: 10px;
+}
+
+    .panel h3 {
+        margin: 2vh 0 0 2vw;
+        color: white;
+        font-size: clamp(10px, 2vw, 24px);
+    }
+
+.nav {
+    margin-top: 2vh;
+    display: flex;
+}
+
+.body_tegs {
+    display: flex;
+    margin: 4vh 2vw 0 2vw;
+}
+
+.futor {
+    height: 50px;
+}
+
+.ceate {
+    margin: 0 0 0 2vw;
+    background-color: #F1B24A;
+    color: white;
+    width: 350px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.save {
+    margin-left: auto;
+    background-color: #F1B24A;
+    color: white;
+    width: 260px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}

@@ -26,12 +26,27 @@
 		<div class="Catalog">
 			<div class="butgrup">
 				<NavMenu />
-				<div class="kart"> 
+				<div class="lable_kart">
+					<p>ПОПУЛЯРНЫЕ ТОВАРЫ</p>
+				</div>
+				<div class="kart">
+					
 					@foreach(var card in GetProducts())
 					{
 						<CardGood Product="@card"/>
 					}
 				</div>
+				<div class="lable_kart">
+					<p>ВАМ МОЖЕТ ПОНРАВИТЬСЯ</p>
+				</div>
+				<div class="kart">
+
+					@foreach (var card in GetProducts())
+					{
+						<CardGood Product="@card" />
+					}
+				</div>
+				<div class="foot"></div>
 			</div>
 		</div>
 	</div>
