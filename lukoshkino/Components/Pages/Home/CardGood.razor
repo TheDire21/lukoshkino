@@ -1,14 +1,25 @@
 ﻿
-<div class="kart">
-	<img class="img-kart" src="prev.png" />
-	<h3>@Product.Price</h3>
-	<p class="name">@Product.Name</p>
-	<div class="but">
-		<button><img src="basket.png"> В КОРЗИНУ</button>
-	</div>
+<NavLink href="/OneCardCood" style="text-decoration: none;">
+	<div class="kart">
+		<img class="img-kart" src="prev.png" />
+		<h3>@Product.Price</h3>
+		<p class="name">@Product.Name</p>
+		<div class="but">
+			<button onclick="addToCart(event)"><img src="basket.png"> В КОРЗИНУ</button>
+		</div>
 	
-</div>
+	</div>
+</NavLink>
 
+
+<script>
+	function addToCart(event) {
+		event.stopPropagation(); // Остановить всплытие
+		event.preventDefault();  // Остановить переход по ссылке (если кнопка внутри <a>)
+		// Твоя логика добавления в корзину
+		console.log("Товар добавлен в корзину");
+	}
+</script>
 
 @code {
 	[Parameter]

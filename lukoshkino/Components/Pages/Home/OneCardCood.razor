@@ -1,0 +1,50 @@
+﻿@page "/OneCardCood"
+@layout MainLayout
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IJSRuntime JSRuntime
+
+<div class="body_panel">
+    <div class="panel">
+        <div class="good-info">
+            <div class="good-img">
+                <img src="prev.png" />
+            </div>
+            <div class="good-text">
+                <h3>Название товара</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin blandit porttitor enim, tincidunt bibendum dolor euismod id. Proin maximus interdum mauris ut commodo. Ut suscipit porta blandit. Maecenas egestas felis ut lorem iaculis rutrum. Vestibulum auctor velit in augue sodales iaculis. Cras finibus, turpis vitae feugiat ullamcorper, leo felis tincidunt mauris, vel facilisis sem elit sed nunc. In mollis condimentum faucibus. Ut in blandit nisi, sed accumsan metus.</p>
+            </div>
+            <div class="good-bascet">
+                <div class="vitrina">
+                    <h3>1000</h3>
+                    <button>В КОРЗИНУ</button>
+                </div>
+                <div>
+                    <p>покупают вместе</p>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+        <div class="lable_kart">
+            <p>ПОПУЛЯРНЫЕ ТОВАРЫ</p>
+        </div>
+        <div class="kart">
+
+            @foreach (var card in GetProducts())
+            {
+                <CardGood Product="@card" />
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    List<Product> GetProducts()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            return ac.Products.ToList();
+        }
+    }
+}

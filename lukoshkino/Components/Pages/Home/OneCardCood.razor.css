@@ -1,0 +1,42 @@
+﻿body {
+    padding: 0px;
+    margin: 0px;
+}
+.body_panel {
+    background: linear-gradient(90deg, #2F554A, #95AA72);
+}
+
+    .panel {
+        display:flex;
+        flex-direction: column;
+        margin: 0 12vw 0 12vw;
+    }
+        .good-info, .kart{
+            display: flex;
+        }
+        .good-info{
+            margin-top: 5vh;
+        }
+
+            .good-img, .good-text {
+                color: white;
+                width: 38%;
+            }
+                .good-text{
+                    margin-right: 35px;
+                }
+                .good-img img{
+                    width: 475px;
+                }
+                .good-text h3 {
+                    font-size: 24px;
+                }
+
+                .good-text p{
+                    font-size: 16px;
+                }
+            .vitrina{
+                width: 100%;
+                background: linear-gradient(90deg, #233F2B, #407759);
+                border-radius: 10px;
+            }
