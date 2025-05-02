@@ -1,9 +1,9 @@
-﻿@page "/admin/editgoods/{id:int}"
+﻿@page "/admin/edit-goods/{id:int}"
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 
 @inject IDbContextFactory<ApplicationContext> DbFactory
-@inject IdentityRedirectManager RedirectManager
+@inject NavigationManager Navigation
 @rendermode RenderMode.InteractiveServer
 
 <div class="panel">
@@ -19,6 +19,21 @@
 		<h3>Описание</h3>
 		<div class="opisaniye">
 			<InputTextArea name="description" rows="4" cols="50" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Description />
+		</div>
+		<div>
+			<InputNumber name="price" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Price />
+		</div>
+		<div>
+			<label>
+				Популярное
+			</label>
+			<InputCheckbox name="isPopular" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.isPopular />
+		</div>
+		<div>
+			<label>
+				Может понравиться
+			</label>
+			<InputCheckbox name="isPopular" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.isLike/>
 		</div>
 		<button type="submit">Сохранить</button>
 	</EditForm>
@@ -50,7 +65,12 @@
 			var editProduct = ac.Products.Where(x => x.Id == Id).FirstOrDefault();
 			editProduct.Name = Product.Name;
 			editProduct.Description = Product.Description;
+			editProduct.Price = Product.Price;
+			editProduct.isPopular = Product.isPopular;
+			editProduct.isLike = Product.isLike;
 			ac.SaveChanges();
 		}
+
+		Navigation.NavigateTo("/admin/edit-goods");
 	}
 }

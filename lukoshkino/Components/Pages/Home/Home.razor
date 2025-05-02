@@ -1,7 +1,9 @@
 ﻿@page "/"
 @layout MainLayout
 @inject IDbContextFactory<ApplicationContext> DbFactory
-@inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+
 
 <PageTitle>Главная-Из лукошкино с любовью</PageTitle>
 <div class="Top">
@@ -10,8 +12,8 @@
 			<div class="info">
 				<div class="text-btn">
 					<h3>ИЗ ЛУКОШКИНО<br />С ЛЮБОВЬЮ</h3>
-					<p>Наш маленький семейный питомник специализируется на выращивании экологически чистых и здоровых саженцев декоративных кустарников, рассады однолетних и многолетних цветов. Также для вас предлагаем натуральный мёд с нашей семейной пасеки и оригинальные вкусные травяные сборы для приготовления чая по доступным ценам.</p>
-					<NavLink href="Catalog" style="text-decoration: none;">
+					<p>@GetHomePageTitleText()</p>
+					<NavLink @onclick="RedirectToCatalog" href="catalog" style="text-decoration: none;">
 						<button type="submit" href="Catalog">К КАТАЛОГУ<img src="Vector1.png" /></button>
 					</NavLink>
 
@@ -30,8 +32,8 @@
 					<p>ПОПУЛЯРНЫЕ ТОВАРЫ</p>
 				</div>
 				<div class="kart">
-					
-					@foreach(var card in GetProducts())
+
+					@foreach(var card in GetPopularProducts())
 					{
 						<CardGood Product="@card"/>
 					}
@@ -41,7 +43,7 @@
 				</div>
 				<div class="kart">
 
-					@foreach (var card in GetProducts())
+					@foreach (var card in GetLikeProducts())
 					{
 						<CardGood Product="@card" />
 					}
@@ -56,11 +58,32 @@
 
 @code
 {
-	List<Product> GetProducts()
+	List<Product> GetPopularProducts()
 	{
 		using (var ac = DbFactory.CreateDbContext())
 		{
-			return ac.Products.ToList();
+			return ac.Products.Where(x => x.isPopular).ToList();
+		}
+	}
+
+	List<Product> GetLikeProducts()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			return ac.Products.Where(x => x.isLike).ToList();
+		}
+	}
+
+	void RedirectToCatalog()
+	{
+		Navigation.NavigateTo("/catalog", true);
+	}
+
+	string GetHomePageTitleText()
+	{
+		using(var db = DbFactory.CreateDbContext())
+		{
+			return db.InterfaceTags.ToList().Find(x => x.Name == "ТекстНаГлавнойСтранице").Content;
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿@page "/OneCardCood"
+﻿@page "/catalog/{id:int}"
 @layout MainLayout
 @inject IDbContextFactory<ApplicationContext> DbFactory
 @inject IJSRuntime JSRuntime
@@ -10,12 +10,12 @@
                 <img src="prev.png" />
             </div>
             <div class="good-text">
-                <h3>Название товара</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin blandit porttitor enim, tincidunt bibendum dolor euismod id. Proin maximus interdum mauris ut commodo. Ut suscipit porta blandit. Maecenas egestas felis ut lorem iaculis rutrum. Vestibulum auctor velit in augue sodales iaculis. Cras finibus, turpis vitae feugiat ullamcorper, leo felis tincidunt mauris, vel facilisis sem elit sed nunc. In mollis condimentum faucibus. Ut in blandit nisi, sed accumsan metus.</p>
+                <h3>@Product.Name</h3>
+                <p>@Product.Description</p>
             </div>
             <div class="good-bascet">
                 <div class="vitrina">
-                    <h3>1000</h3>
+                    <h3>@Product.Price</h3>
                     <button>В КОРЗИНУ</button>
                 </div>
                 <div>
@@ -40,6 +40,25 @@
 </div>
 
 @code {
+
+    [Parameter]
+    public int Id { get; set; } = 0;
+
+    public Product? Product { get; set; } = new Product();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Run(() =>
+        {
+            using (var ac = DbFactory.CreateDbContext())
+            {
+                Product = ac.Products.Where(x => x.Id == Id).FirstOrDefault();
+            }
+        });
+    }
+
+
+
     List<Product> GetProducts()
     {
         using (var ac = DbFactory.CreateDbContext())

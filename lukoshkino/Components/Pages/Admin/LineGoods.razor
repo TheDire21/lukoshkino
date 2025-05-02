@@ -1,21 +1,32 @@
 ﻿@inject IdentityRedirectManager RedirectManager
 @inject NavigationManager Navigation
 @rendermode RenderMode.InteractiveServer
+@inject IDbContextFactory<ApplicationContext> DbFactory
 
 <div class="line">
     <button class="name_product" @onclick="RedirectToEdit">@Product.Name</button>
-    <button class="urna_btn"><img src="urna.png" /></button>
+    <button class="urna_btn" @onclick="DeleteProduct"><img src="urna.png" /></button>
 </div>
 
 
 @code {
+    [Parameter]
+    public Product Product { get; set; }
 
     void RedirectToEdit()
     {
-        Navigation.NavigateTo($"/admin/editgoods/{Product.Id}");
+        Navigation.NavigateTo($"/admin/edit-goods/{Product.Id}");
     }
 
-    [Parameter]
-    public Product Product { get; set; }
+    void DeleteProduct()
+    {
+        using(var db = DbFactory.CreateDbContext())
+        {
+            db.Products.Remove(db.Products.Find(Product.Id));
+            db.SaveChanges();
+        }
+
+        Navigation.NavigateTo("/admin/edit-goods", true);
+    }
 
 }

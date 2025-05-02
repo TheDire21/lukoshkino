@@ -1,6 +1,11 @@
-﻿@page "/edit-tegs"
+﻿@page "/admin/edit-tags"
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
+
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityRedirectManager RedirectManager
+
+@rendermode RenderMode.InteractiveServer
 
 <div class="panel">
 	<h3>Редактировать теги</h3>
@@ -9,9 +14,10 @@
 	</div>
 	<div class="body_tegs">
 		<div class="tegs">
-			<LineTegs></LineTegs>
-			<LineTegs></LineTegs>
-			<LineTegs></LineTegs>
+			@foreach (var tag in GetTags())
+			{
+				<LineTags Tag="@tag" />
+			}
 		</div>
 		
 	</div>
@@ -22,4 +28,11 @@
 
 @code {
 
+	List<InterfaceTag> GetTags()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			return ac.InterfaceTags.ToList();
+		}
+	}
 }

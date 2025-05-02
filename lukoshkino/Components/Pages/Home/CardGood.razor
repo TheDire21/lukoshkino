@@ -1,5 +1,7 @@
-﻿
-<NavLink href="/OneCardCood" style="text-decoration: none;">
+﻿@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+
+<NavLink href="catalog" @onclick="RedirectToEdit" style="text-decoration: none;">
 	<div class="kart">
 		<img class="img-kart" src="prev.png" />
 		<h3>@Product.Price</h3>
@@ -24,4 +26,10 @@
 @code {
 	[Parameter]
 	public Product Product { get; set; }
+
+	void RedirectToEdit()
+	{
+		Navigation.NavigateTo($"/catalog/{Product.Id}", true);
+	}
+
 }
