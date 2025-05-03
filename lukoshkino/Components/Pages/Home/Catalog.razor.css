@@ -8,7 +8,6 @@
 }
 
 .catalog {
-    height: 800px;
     margin: 0 12vw 0 12vw;
 }
     .top_catalog{
@@ -42,12 +41,13 @@
                     margin:3vh 0 0 3vh;
                 }
     .promo {
-        padding: 50px 0 0 50px;
+        display: flex;
+        flex-wrap: wrap;
     }
 
-        .promo h3 {
-            color: white;
-        }
+.footer{
+    height: 50px;
+}
 
 @media(max-width:1610px) {
     .catalog {

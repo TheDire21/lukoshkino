@@ -36,6 +36,7 @@
     }
     .kart{
         display: flex;
+        flex-wrap: wrap;
     }
 
 .info {
