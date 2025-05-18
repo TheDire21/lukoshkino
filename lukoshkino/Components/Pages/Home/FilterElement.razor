@@ -1,0 +1,10 @@
+﻿<label>
+    <input type="checkbox" name="filter" class="filter-option" />
+    @Category.Name
+</label>
+
+@code{
+
+    [Parameter]
+    public Category Category { get; set; }
+}

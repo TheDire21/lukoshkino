@@ -1,0 +1,62 @@
+﻿/* Стили для кнопки */
+.filter {
+    position: relative;
+    display: inline-block;
+    margin-left: 2vh;
+}
+
+.filter-btn {
+    background-color: #F1B24A;
+    color: white;
+    width: 250px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+/* Стили для изменения радиуса углов при наведении на кнопку */
+.filter-btn:hover {
+    border-radius: 10px 10px 0 0;
+}
+
+/* Скрыть выпадающий список по умолчанию */
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #3E7556;
+    border-radius: 0 0 10px 10px;
+    width: 250px;
+    min-width: 160px;
+    color: white;
+    font-size: 24px;
+    z-index: 1;
+}
+
+    .filter-dropdown label {
+        display: block;
+        padding: 8px 16px;
+        cursor: pointer;
+    }
+
+        .filter-dropdown label:hover {
+            background-color: #ddd;
+        }
+
+/* Показываем список при наведении на кнопку */
+.filter:hover .filter-dropdown {
+    display: block;
+}
+
+/* При наведении на .filter или .filter-dropdown изменяем стиль кнопки */
+.filter:hover .filter-btn,
+.filter .filter-dropdown:hover + .filter-btn {
+    border-radius: 10px 10px 0 0;
+    background-color: #f1a03c; /* Вы можете изменить цвет фона при наведении */
+}
+
+/* Стили для выбранной радиокнопки */
+.filter-option:checked + label {
+    font-weight: bold;
+    background-color: #b0e57c;
+}

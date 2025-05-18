@@ -1,21 +1,22 @@
-﻿<div class="filter">
+﻿@inject IDbContextFactory<ApplicationContext> DbFactory
+
+
+<div class="filter">
     <button class="filter-btn">ФИЛЬТР</button>
     <div class="filter-dropdown">
-        <label>
-            <input type="checkbox" name="filter" class="filter-option" />
-            Фильтр 1
-        </label>
-        <label>
-            <input type="checkbox" name="filter" class="filter-option" />
-            Фильтр 2
-        </label>
-        <label>
-            <input type="checkbox" name="filter" class="filter-option" />
-            Фильтр 3
-        </label>
-        <label>
-            <input type="checkbox" name="filter" class="filter-option" />
-            Фильтр 4
-        </label>
+        @foreach(var category in GetCategories())
+        {
+            <FilterElement Category=@category/>
+        }
     </div>
 </div>
+
+@code{
+    public List<Category> GetCategories()
+    {
+        using (var dc = DbFactory.CreateDbContext())
+        {
+            return dc.Categories.ToList();
+        }
+    }
+}
