@@ -7,7 +7,7 @@
     <div class="panel">
         <div class="good-info">
             <div class="good-img">
-                <img src="prev.png" />
+                <img src=@ImageData />
             </div>
             <div class="good-text">
                 <h3>@Product.Name</h3>
@@ -31,7 +31,7 @@
         </div>
         <div class="kart">
 
-            @foreach (var card in GetProducts())
+            @foreach (var card in GetPopularProducts())
             {
                 <CardGood Product="@card" />
             }
@@ -46,6 +46,9 @@
 
     public Product? Product { get; set; } = new Product();
 
+    public string ImageData { get; set; } = "/prev.png";
+
+
     protected override async Task OnInitializedAsync()
     {
         await Task.Run(() =>
@@ -53,17 +56,25 @@
             using (var ac = DbFactory.CreateDbContext())
             {
                 Product = ac.Products.Where(x => x.Id == Id).FirstOrDefault();
+                Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
+                if (product_Photo == null)
+                {
+                    return;
+                }
+                var ByteImageData = ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path;
+                string imagesrc = Convert.ToBase64String(ByteImageData);
+                ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
             }
         });
     }
 
 
 
-    List<Product> GetProducts()
+    List<Product> GetPopularProducts()
     {
         using (var ac = DbFactory.CreateDbContext())
         {
-            return ac.Products.ToList();
+            return ac.Products.Where(x => x.isPopular).ToList();
         }
     }
 }

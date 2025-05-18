@@ -9,7 +9,8 @@
 <div class="panel">
 	<button>Добавить фото</button>
 	<div>
-
+		<InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" />
+		<img src="@ImageData" height="100"/>
 	</div>
 	<EditForm Model="@Product" method="post" OnValidSubmit="SaveChanges" FormName="goodsEditForm">
 		<h3>Название</h3>
@@ -47,6 +48,10 @@
 
 	public Product? Product { get; set; } = new Product();
 
+	public byte[] ByteImageData { get; set; }
+
+	public string ImageData { get; set; } = "/prev.png";
+
 	protected override async Task OnInitializedAsync()
 	{
 		await Task.Run(() =>
@@ -54,6 +59,12 @@
 			using (var ac = DbFactory.CreateDbContext())
 			{
 				Product = ac.Products.Where(x => x.Id == Id).FirstOrDefault();
+				Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
+				if(product_Photo == null)
+				{
+					return;
+				}
+				BytesToImage(ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path);
 			}
 		});
 	}
@@ -68,9 +79,39 @@
 			editProduct.Price = Product.Price;
 			editProduct.isPopular = Product.isPopular;
 			editProduct.isLike = Product.isLike;
+
+			if(ByteImageData != null)
+			{
+				var result = ac.Files.Add(new File { Path = ByteImageData });
+				var id = result.CurrentValues.GetValue<int>("Id");
+				var pp = ac.Product_Photos.FirstOrDefault(x => x.ProductId == editProduct.Id);
+				if(pp == null)
+				{
+					ac.Product_Photos.Add(new Product_Photo() { ProductId = editProduct.Id, FileId = id });
+				}
+				else
+				{
+					pp.FileId = id;
+				}
+			}
+
 			ac.SaveChanges();
 		}
 
 		Navigation.NavigateTo("/admin/edit-goods");
+	}
+
+	private async Task SingleUpload(InputFileChangeEventArgs e)
+	{
+		MemoryStream ms = new MemoryStream();
+		await e.File.OpenReadStream().CopyToAsync(ms);
+		BytesToImage(ms.ToArray());
+	}
+
+	private void BytesToImage(byte[] arr)
+	{
+		ByteImageData = arr;
+		string imagesrc = Convert.ToBase64String(ByteImageData);
+		ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
 	}
 }

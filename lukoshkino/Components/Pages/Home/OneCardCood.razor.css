@@ -14,6 +14,9 @@
         .good-info, .kart{
             display: flex;
         }
+        .kart{
+            flex-wrap: wrap;
+        }
         .good-info{
             margin-top: 5vh;
         }
@@ -40,3 +43,7 @@
                 background: linear-gradient(90deg, #233F2B, #407759);
                 border-radius: 10px;
             }
+
+.footer {
+    height:50px;
+}

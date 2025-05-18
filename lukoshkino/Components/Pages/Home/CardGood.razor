@@ -1,9 +1,10 @@
 ﻿@inject NavigationManager Navigation
+@inject IDbContextFactory<ApplicationContext> DbFactory
 @rendermode RenderMode.InteractiveServer
 
 <NavLink href="catalog" @onclick="RedirectToEdit" style="text-decoration: none;">
 	<div class="kart">
-		<img class="img-kart" src="prev.png" />
+		<img class="img-kart" src=@ImageData />
 		<h3>@Product.Price</h3>
 		<p class="name">@Product.Name</p>
 		<div class="but">
@@ -26,6 +27,26 @@
 @code {
 	[Parameter]
 	public Product Product { get; set; }
+
+	public string ImageData { get; set; } = "/prev.png";
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Run(() =>
+		{
+			using (var ac = DbFactory.CreateDbContext())
+			{
+				Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
+				if (product_Photo == null)
+				{
+					return;
+				}
+				var ByteImageData = ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path;
+				string imagesrc = Convert.ToBase64String(ByteImageData);
+				ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
+			}
+		});
+	}
 
 	void RedirectToEdit()
 	{

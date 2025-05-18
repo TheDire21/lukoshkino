@@ -7,6 +7,6 @@ namespace lukoshkino.Models
         public int Id { get; set; }
 
         [Required]
-        public string? Path { get; set; }
+        public byte[] Path { get; set; }
     }
 }
