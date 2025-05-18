@@ -12,6 +12,8 @@
 }
     .img-kart{
         width: 200px;
+        height: 173px;
+        border-radius: 10px 10px 0 0;
         margin: 30px 30px 0 30px;
     }
 

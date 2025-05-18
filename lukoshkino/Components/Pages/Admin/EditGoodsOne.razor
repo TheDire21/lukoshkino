@@ -7,10 +7,10 @@
 @rendermode RenderMode.InteractiveServer
 
 <div class="panel">
-	<button>Добавить фото</button>
-	<div>
-		<InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" />
-		<img src="@ImageData" height="100"/>
+	<h3 class="add_img_text">Добавить фото</h3>
+	<div class="add_img">
+		<InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" style="width: 55vw;background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; color: white" />
+		<img src="@ImageData" height="173" width="200"/>
 	</div>
 	<EditForm Model="@Product" method="post" OnValidSubmit="SaveChanges" FormName="goodsEditForm">
 		<h3>Название</h3>
@@ -21,32 +21,24 @@
 		<div class="opisaniye">
 			<InputTextArea name="description" rows="4" cols="50" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Description />
 		</div>
-		<div>
+		<div class="price">
 			<InputNumber name="price" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Price />
 		</div>
-		@* Надо придумать как категории выбирать *@
-@* 		<Dropdown Color="DropdownColor.Primary">
-			<DropdownToggleButton>Primary</DropdownToggleButton>
-			<DropdownMenu>
-				<DropdownItem Type="DropdownItemType.Button">Action</DropdownItem>
-			</DropdownMenu>
-		</Dropdown> *@
-		<div>
+		<div class="check_box">
 			<label>
 				Популярное
 			</label>
-			<InputCheckbox name="isPopular" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.isPopular />
+			<InputCheckbox name="isPopular" placeholder="" style="width: 17.5vw; border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.isPopular />
 		</div>
-		<div>
+		<div class="check_box">
 			<label>
 				Может понравиться
 			</label>
-			<InputCheckbox name="isPopular" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.isLike/>
+			<InputCheckbox name="isPopular" placeholder="" style="width: 10vw; border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.isLike/>
 		</div>
 		<button type="submit">Сохранить</button>
 	</EditForm>
-	<div class="futor">
-	</div>
+	<div class="futor"></div>
 </div>
 
 @code {

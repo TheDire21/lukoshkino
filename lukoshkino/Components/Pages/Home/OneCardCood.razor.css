@@ -19,31 +19,85 @@
         }
         .good-info{
             margin-top: 5vh;
+            flex-wrap: wrap;
         }
 
             .good-img, .good-text {
-                color: white;
-                width: 38%;
+                padding-right: 60px;
+                color: white; 
+                width: 475px;
             }
-                .good-text{
-                    margin-right: 35px;
+                .good-text {
+                    width: 640px;
                 }
                 .good-img img{
-                    width: 475px;
+                    width: 100%;
+                    height: 410px;
                 }
                 .good-text h3 {
                     font-size: 24px;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
                 }
 
                 .good-text p{
                     font-size: 16px;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
                 }
-            .vitrina{
-                width: 100%;
-                background: linear-gradient(90deg, #233F2B, #407759);
-                border-radius: 10px;
+            .good-bascet{
+                width: 320px;
             }
+                .good-bascet p {
+                    display: flex;
+                    justify-content: center; /* по горизонтали */
+                    align-items: center;
+                    margin-top: 40px;
+                    width: 320px;
+                    height: 30px;
+                    background-color: rgb(16,55,50, 0.4);
+                    border-radius: 5px;
+                    color: white;
+                    font-size: 16px;
+                }
+                .vitrina {
+                    width: 100%;
+                    background: linear-gradient(90deg, #233F2B, #407759);
+                    border-radius: 10px;
+                    color: white;
+                    font-size: 24px;
+                }
+                .vitrina h3{
+                    padding: 20px 0 0 10px;
+                }
+
+                .vitrina button {
+                    margin: 40px 10px 10px 10px;
+                    width: 300px;
+                    height: 40px;
+                    font-size: 16px;
+                    padding: 0px;
+                    border: none;
+                    border-radius: 10px;
+                    background-color: #F1B24A;
+                    color: white;
+                }
+.lable_kart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    width: 350px;
+    height: 40px;
+    background-color: rgb(16,55,50, 0.4);
+    border-radius: 10px;
+    color: white;
+    font-size: 24px;
+}
+    .lable_kart p{
+        margin: 0;
+    }
 
 .footer {
-    height:50px;
+    height: 50px;
 }
