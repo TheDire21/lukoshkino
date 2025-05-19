@@ -1,0 +1,83 @@
+﻿body {
+    padding: 0;
+}
+
+.Top {
+    width: 100%;
+    background: linear-gradient(90deg, #2F554A, #95AA72);
+}
+
+.account {
+    margin: 0 12vw 0 12vw;
+}
+
+.top_account {
+    display: flex;
+    flex-direction: column;
+}
+    .top_account h3 {
+        margin: 3vh 0 0 0;
+        font-size: clamp(14px, 5vw, 36px);
+        color: white;
+        text-decoration: none;
+    }
+.laine {
+    width: 100%;
+    height: 0.5vh;
+    margin: 3vh 0 0 0;
+    background-color: white;
+}
+.menu {
+    display: flex;
+}
+    .menu_btn{
+                display: flex;
+                align-items:end;
+                margin-left: auto;
+                margin-right: 3vh;
+            }
+        .menu_btn button {
+            width: 300px;
+            height: 40px;
+            font-size: 16px;
+            padding: 0px;
+            border: none;
+            border-radius: 10px;
+            background-color: #F1B24A;
+            color: white;
+        }
+.avatar {
+
+    display: flex;
+    flex-direction: column;
+    
+    margin: 3vh 0 0 0;
+    border-radius: 20px;
+}
+    .avatar img {
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+    }
+    .avatar button {
+        width: 200px;
+        height: 25px;
+        margin-top: 20px;
+        font-size: 16px;
+        padding: 0px;
+        border: none;
+        border-radius: 5px;
+        background-color: #F1B24A;
+        color: white;
+    }
+.body_account, .info {
+    display: flex;
+}
+
+.info {
+    margin: 3vh 0 0 2vw;
+    width: 85%;
+}
+.futor1 {
+    height: 20px;
+}

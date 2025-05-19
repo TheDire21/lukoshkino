@@ -1,0 +1,39 @@
+﻿*{
+    margin: 0;
+}
+
+body { 
+}
+
+.body_cat {
+    width: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #233f2b, #407759);
+}
+    .body_cat p{
+        font-size:24px;
+        color:white;
+        margin: 1.5vh 0 0 1vw;
+    }
+
+    .bloc{
+        display:flex;
+        margin-top: 4vh;
+    }
+        .text p{
+            font-size: 20px;
+        }
+    .input_bar, .btn_bloc{
+        display:flex;
+        flex-direction: column;
+    }
+
+        .input_bar input{
+            margin: 1.6vh 0 0 1vw;
+        }
+        .btn_bloc img {
+            margin: 2.1vh 0 0 1vw;
+        }
+.futor{
+    height: 20px;
+}

@@ -1,0 +1,60 @@
+﻿body {
+    padding: 0;
+}
+
+.Top {
+    width: 100%;
+    background: linear-gradient(90deg, #2F554A, #95AA72);
+}
+
+.basket {
+    margin: 0 12vw 0 12vw;
+}
+
+.top_basket {
+    display: flex;
+    flex-direction: column;
+}
+
+    .top_basket h3 {
+        margin: 3vh 0 0 0;
+        font-size: clamp(14px, 5vw, 36px);
+        color: white;
+        text-decoration: none;
+    }
+
+.laine {
+    width: 100%;
+    height: 0.5vh;
+    margin: 3vh 0 0 0;
+    background-color: white;
+}
+
+.all_check{
+    display:flex;
+    align-items:center;
+    margin-top: 2vh;
+}
+    .all_check label{
+        color:white;
+        font-size: 16px;
+        margin: 0 2vw 0 1vw;
+    }
+
+    .all_check p {
+        margin:0;
+        color: #F1B24A;
+        font-size: 12px;
+    }
+.basket_all {
+    margin-left:auto;
+    width: 500px;
+    min-height: 200px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #233f2b, #407759);
+}
+
+
+.futer{
+    height: 20px;
+}
