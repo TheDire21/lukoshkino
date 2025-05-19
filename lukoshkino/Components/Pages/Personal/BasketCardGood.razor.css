@@ -1,0 +1,12 @@
+﻿*{
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+.card {
+    width: 100%;
+    min-height: 100px;
+    background: linear-gradient(90deg, #233F2B, #407759);
+    border-radius: 20px;
+}

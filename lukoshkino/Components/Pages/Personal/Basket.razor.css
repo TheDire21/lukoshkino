@@ -1,4 +1,9 @@
-﻿body {
+﻿*{
+    margin:0;
+    padding:0;
+    border:0;
+}
+body {
     padding: 0;
 }
 
@@ -46,15 +51,62 @@
         color: #F1B24A;
         font-size: 12px;
     }
+.body_basket{
+    display:flex;
+    margin-top: 15px;
+}
+    .goods{
+        width: 60%;
+    }
 .basket_all {
-    margin-left:auto;
+    margin-left: auto;
     width: 500px;
     min-height: 200px;
     border-radius: 10px;
     background: linear-gradient(90deg, #233f2b, #407759);
 }
+    .basket_all button {
+        width: 450px;
+        height: 50px;
+        margin: 15px 25px 15px 25px;
+        border: none;
+        border-radius: 10px;
+        background-color: #F1B24A;
+        font-size: 20px;
+        color: white;
+    }
+
+    .lainemin {
+        width: 100%;
+        height: 0.1vh;
+        background-color: white;
+    }
+
+    .basket_all h4, .basket_all p{
+        color: white;
+
+    }
+    .table{
+        display: flex;
+    }
+    .text{
+        margin-left: 25px;
+    }
+    .cumm{
+        margin: 0 25px 0 auto;
+    }
+        .basket_all h4{
+            font-size: 20px;
+            margin: 15px 0 15px 25px;
+        }
+        .basket_all p{
+            font-size: 16px;
+        }
 
 
-.futer{
+.futermin{
+    height: 5px;
+}
+.futer {
     height: 20px;
 }
