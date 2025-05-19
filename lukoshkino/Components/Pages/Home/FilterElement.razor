@@ -1,5 +1,8 @@
-﻿<label>
-    <input type="checkbox" name="filter" class="filter-option" />
+﻿@rendermode RenderMode.InteractiveServer
+@inject NavigationManager Navigation
+
+<label>
+    <input type="checkbox" name="filter" class="filter-option" @oninput="CheckboxChanged" />
     @Category.Name
 </label>
 
@@ -7,4 +10,26 @@
 
     [Parameter]
     public Category Category { get; set; }
+
+    private void CheckboxChanged(ChangeEventArgs e)
+    {
+        // get the checkbox state
+        bool value = (bool)e.Value;
+        if (value)
+        {
+            Filter.FilterCategories.Add(Category);
+        }
+        else
+        {
+            Filter.FilterCategories.Remove(Category);
+        }
+
+        string catsURL = "";
+        foreach(var cat in Filter.FilterCategories)
+        {
+            catsURL += cat.Id.ToString() + '&';
+        }
+        catsURL = catsURL.Substring(0, catsURL.Length - 1);
+        Navigation.NavigateTo("catalog/" + catsURL, true);
+    }
 }

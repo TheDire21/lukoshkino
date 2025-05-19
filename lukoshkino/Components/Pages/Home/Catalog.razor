@@ -1,6 +1,8 @@
-﻿@page "/catalog"
+﻿@page "/catalog/{*Categories}"
 @attribute [StreamRendering]
 @inject IDbContextFactory<ApplicationContext> DbFactory
+@rendermode RenderMode.InteractiveServer
+
 
 <PageTitle>Каталог-Из лукошкино с любовью</PageTitle>
 
@@ -11,7 +13,6 @@
                 <h3>Каталог</h3>
                 <div class="menu_filtr">
                     <div>
-                        <Filter />
                         <Filter />
                     </div>
 
@@ -30,12 +31,22 @@
 </div>
 
 @code{
+    [Parameter]
+    public string? Categories { get; set; }
 
     List<Product> GetProducts()
     {
+
         using (var ac = DbFactory.CreateDbContext())
         {
-            return ac.Products.ToList();
+            if (Categories is null)
+                return ac.Products.ToList();
+            else
+            {
+                var catIds = Categories.Split("&");
+                return ac.Products.Where(x => Categories.Contains(x.CategoryId.ToString())).ToList();
+            }
+            
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@inject IDbContextFactory<ApplicationContext> DbFactory
-
+@rendermode RenderMode.InteractiveServer
 
 <div class="filter">
     <button class="filter-btn">ФИЛЬТР</button>
@@ -12,6 +12,8 @@
 </div>
 
 @code{
+    static public List<Category> FilterCategories { get; set; } = new List<Category>();
+
     public List<Category> GetCategories()
     {
         using (var dc = DbFactory.CreateDbContext())

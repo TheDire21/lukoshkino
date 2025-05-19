@@ -24,6 +24,14 @@
 		<div class="price">
 			<InputNumber name="price" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Price />
 		</div>
+		<div>
+			<InputSelect @bind-Value=Product.CategoryId>
+				@foreach (var cat in GetCategories())
+				{
+					<option value="@cat.Id">@cat.Name</option>
+				}
+			</InputSelect>
+		</div>
 		<div class="check_box">
 			<label>
 				Популярное
@@ -38,6 +46,7 @@
 		</div>
 		<button type="submit">Сохранить</button>
 	</EditForm>
+	
 	<div class="futor"></div>
 </div>
 
@@ -78,6 +87,7 @@
 			editProduct.Price = Product.Price;
 			editProduct.isPopular = Product.isPopular;
 			editProduct.isLike = Product.isLike;
+			editProduct.CategoryId = Product.CategoryId;
 
 			if(ByteImageData != null)
 			{
@@ -98,6 +108,14 @@
 		}
 
 		Navigation.NavigateTo("/admin/edit-goods");
+	}
+
+	public List<Category> GetCategories()
+	{
+		using (var dc = DbFactory.CreateDbContext())
+		{
+			return dc.Categories.ToList();
+		}
 	}
 
 	private async Task SingleUpload(InputFileChangeEventArgs e)
