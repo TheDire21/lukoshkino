@@ -19,15 +19,12 @@
 				<LineTags Tag="@tag" />
 			}
 		</div>
-		
 	</div>
-	<button class="save" @onclick="@SaveTags">Сохранить изменения</button>
 	<div class="futor">
 	</div>
 </div>
 
 @code {
-    public static Action SaveTagsClicked;
 
     List<InterfaceTag> GetTags()
     {
@@ -36,6 +33,4 @@
             return ac.InterfaceTags.ToList();
         }
     }
-
-    public void SaveTags() => SaveTagsClicked?.Invoke();
 }

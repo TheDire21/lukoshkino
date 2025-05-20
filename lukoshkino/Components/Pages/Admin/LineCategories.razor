@@ -1,8 +1,65 @@
-﻿<div class="line">
-    <button class="name_cat">Категория</button>
-    <button class="urna_btn"><img src="urna.png" /></button>
+﻿@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+
+<div class="line">
+    <InputText @bind-Value=Category.Name class="name_cat" @bind-Value:after="SaveCategory" />
+    <button class="urna_btn" @onclick="DeleteCategory"><img src="urna.png" /></button>
 </div>
 
 @code {
+    [Parameter]
+    public Category Category { get; set; }
 
+
+    // private ConfirmDialog dialog = new ConfirmDialog();
+
+    void SaveCategory()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            var editCategory = ac.Categories.Where(x => x.Id == Category.Id).FirstOrDefault();
+            editCategory.Name = Category.Name;
+
+            ac.SaveChanges();
+        }
+    }
+
+    async void DeleteCategory()
+    {
+        using (var db = DbFactory.CreateDbContext())
+        {
+            var productsOfCat = db.Products.Where(x => x.CategoryId == Category.Id).ToList();
+            if(productsOfCat.Count == 0)
+            {
+                db.Categories.Remove(db.Categories.Find(Category.Id));
+                db.SaveChanges();
+            }
+            else
+            {
+                // var options = new ConfirmDialogOptions
+                //     {
+                //         YesButtonText = "Да",
+                //         NoButtonText = "Нет",
+                //     };
+                // var confirmation = await dialog.ShowAsync(
+                //                                             title: "ОШИБКА! ЕСТЬ ПРОДУКТЫ ЭТОЙ КАТЕГОРИИ!",
+                //                                             message1: "Названия продуктов: " + productsOfCat.Select(x => x.Name).Aggregate((x, y) => x + ", " + y),
+                //                                             message2: "Хотите удалить категорию вместе с продуктами?",
+                //                                             confirmDialogOptions: options);
+
+                // if (confirmation)
+                // {
+                // // do something
+                // }
+                // else
+                // {
+                // // do something
+                // }
+                // return;
+            }
+        }
+
+        Navigation.NavigateTo("/admin/edit-categories", true);
+    }
 }

@@ -1,17 +1,20 @@
 ﻿@page "/admin/edit-categories"
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
+
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@rendermode RenderMode.InteractiveServer
 <div class="panel">
 	<h3>Редактировать Категории</h3>
 	<div class="nav">
-		<button class="ceate">Добавить новую категорию</button>
+		<button class="ceate" @onclick="CreateNewCategory">Добавить новую категорию</button>
 	</div>
 	<div class="body_cat">
 		<div class="cat">
-			<LineCategories></LineCategories>
-			<LineCategories></LineCategories>
-			<LineCategories></LineCategories>
-			<LineCategories></LineCategories>
+			@foreach (var cat in GetCategories())
+			{
+				<LineCategories Category="@cat" />
+			}
 		</div>
 	</div>
 	<div class="futor">
@@ -21,4 +24,21 @@
 
 @code {
 
+	List<Category> GetCategories()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			return ac.Categories.ToList();
+		}
+	}
+
+	async Task CreateNewCategory()
+	{
+		Console.WriteLine("CreateCategory");
+		using (var db = DbFactory.CreateDbContext())
+		{
+			db.Categories.Add(new Category() { Name = "Новая категория" });
+			db.SaveChanges();
+		}
+	}
 }

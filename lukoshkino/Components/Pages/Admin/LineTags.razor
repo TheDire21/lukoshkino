@@ -4,19 +4,14 @@
 
 <div class="line">
     <h3 class="name_teg">@Tag.Name</h3> 
-    <InputText @bind-Value=Tag.Content class="info_teg"/>
+    <InputText @bind-Value=Tag.Content class="info_teg" @bind-Value:after="SaveTag"/>
 </div>
 
 @code{
     [Parameter]
     public InterfaceTag Tag { get; set; }
 
-    protected override void OnInitialized()
-    {
-        EditTegs.SaveTagsClicked += SaveTag;
-    }
-
-    private void SaveTag()
+    void SaveTag()
     {
         using (var ac = DbFactory.CreateDbContext())
         {
@@ -25,10 +20,5 @@
 
 			ac.SaveChanges();
 		}
-
-        EditTegs.SaveTagsClicked -= SaveTag;
-
-		Navigation.NavigateTo("/admin/edit-tags", true);
-
     }
 }
