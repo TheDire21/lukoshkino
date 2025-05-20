@@ -1,6 +1,58 @@
-﻿<div class="card">
+﻿@inject NavigationManager Navigation
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@rendermode RenderMode.InteractiveServer
 
+<div class="card">
+    <label><input type="checkbox" name="check" value="apple"></label>
+    <div class="body_card">
+        <div class="bloc_img">
+            <img src=@ImageData />
+        </div>
+        <div class="bloc_text">
+            <h3>@Product.Name</h3>
+            <p>@Product.Description</p>
+        </div>
+        <div class="bloc_price">
+            <div class="price">
+                <p>@Product.Price ₽</p>
+            </div>
+            <div class="menu">
+                <button>+</button>
+                <p>0</p>
+                <button>-</button>
+                <img class="like" src="Like.png" />
+                <img class="urna" src="urna.png" />
+            </div>
+        </div>
+    </div>
 </div>
 @code {
+    [Parameter]
+    public Product Product { get; set; }
+
+    public string ImageData { get; set; } = "/prev.png";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Run(() =>
+        {
+            using (var ac = DbFactory.CreateDbContext())
+            {
+                Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
+                if (product_Photo == null)
+                {
+                    return;
+                }
+                var ByteImageData = ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path;
+                string imagesrc = Convert.ToBase64String(ByteImageData);
+                ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
+            }
+        });
+    }
+
+    void RedirectToEdit()
+    {
+        Navigation.NavigateTo($"/catalog/product/{Product.Id}", true);
+    }
 
 }

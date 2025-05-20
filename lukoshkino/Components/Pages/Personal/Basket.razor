@@ -1,6 +1,10 @@
 ﻿@page "/basket"
 @layout MainLayout
 
+@attribute [StreamRendering]
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@rendermode RenderMode.InteractiveServer
+
 <PageTitle>Корзина-Из лукошкино с любовью</PageTitle>
 
 <div class="Top">
@@ -17,35 +21,61 @@
         </div>
         <div class="body_basket">
             <div class="goods">
-                <BasketCardGood></BasketCardGood>
+                @foreach (var card in GetProducts())
+                {
+                    <BasketCardGood Product="@card"></BasketCardGood>
+                }
             </div>
-            <div class="basket_all">
-                <button>ПЕРЕЙТИ К ОФОРМЛЕНИЮ</button>
-                 <div class="lainemin"></div>
-                 <h4>Ваша корзина</h4>
-                 <div class="table">
-                     <div class="text">
-                         <p>Товары(4)</p>
-                         <p>Скидка</p>
-                     </div>
-                     <div class="cumm">
-                         <p>4000</p>
-                         <p>8000</p>
-                     </div>
-                 </div>
-                <div class="lainemin"></div>
-                <h4>Итого</h4>
-                <div class="table">
-                    <div class="text">
-                        <p>Сумма заказа</p>
+            <div class="cartbasket">
+                <div class="basket_all">
+                    <button>ПЕРЕЙТИ К ОФОРМЛЕНИЮ</button>
+                    <div class="lainemin"></div>
+                    <h4>Ваша корзина</h4>
+                    <div class="table">
+                        <div class="text">
+                            <p>Товары(4)</p>
+                            <p>Скидка</p>
+                        </div>
+                        <div class="cumm">
+                            <p>4000</p>
+                            <p>8000</p>
+                        </div>
                     </div>
-                    <div class="cumm">
-                        <p>4000</p>
+                    <div class="lainemin"></div>
+                    <h4>Итого</h4>
+                    <div class="table">
+                        <div class="text">
+                            <p>Сумма заказа</p>
+                        </div>
+                        <div class="cumm">
+                            <p>4000</p>
+                        </div>
                     </div>
                 </div>
-            <div class="futermin"></div>
+                <div class="futermin"></div>
             </div>
         </div>
     </div>
     <div class="futer"></div>
 </div>
+
+@code {
+    [Parameter]
+    public string? Categories { get; set; }
+
+    List<Product> GetProducts()
+    {
+
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            if (Categories is null)
+                return ac.Products.ToList();
+            else
+            {
+                var catIds = Categories.Split("&");
+                return ac.Products.Where(x => Categories.Contains(x.CategoryId.ToString())).ToList();
+            }
+
+        }
+    }
+}

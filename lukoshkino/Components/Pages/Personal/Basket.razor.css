@@ -1,8 +1,9 @@
-﻿*{
-    margin:0;
-    padding:0;
-    border:0;
+﻿* {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
+
 body {
     padding: 0;
 }
@@ -35,36 +36,44 @@ body {
     background-color: white;
 }
 
-.all_check{
-    display:flex;
-    align-items:center;
+.all_check {
+    display: flex;
+    align-items: center;
     margin-top: 2vh;
 }
-    .all_check label{
-        color:white;
+
+    .all_check label {
+        color: white;
         font-size: 16px;
         margin: 0 2vw 0 1vw;
     }
 
     .all_check p {
-        margin:0;
+        margin: 0;
         color: #F1B24A;
         font-size: 12px;
     }
-.body_basket{
-    display:flex;
+
+.body_basket {
+    display: flex;
     margin-top: 15px;
 }
-    .goods{
-        width: 60%;
-    }
-.basket_all {
+
+.goods {
+    width: 60%;
+}
+
+.cartbasket {
     margin-left: auto;
+}
+
+.basket_all {
     width: 500px;
     min-height: 200px;
     border-radius: 10px;
     background: linear-gradient(90deg, #233f2b, #407759);
 }
+
     .basket_all button {
         width: 450px;
         height: 50px;
@@ -76,37 +85,42 @@ body {
         color: white;
     }
 
-    .lainemin {
-        width: 100%;
-        height: 0.1vh;
-        background-color: white;
-    }
+.lainemin {
+    width: 100%;
+    height: 0.1vh;
+    background-color: white;
+}
 
-    .basket_all h4, .basket_all p{
-        color: white;
+.basket_all h4, .basket_all p {
+    color: white;
+}
 
-    }
-    .table{
-        display: flex;
-    }
-    .text{
-        margin-left: 25px;
-    }
-    .cumm{
-        margin: 0 25px 0 auto;
-    }
-        .basket_all h4{
-            font-size: 20px;
-            margin: 15px 0 15px 25px;
-        }
-        .basket_all p{
-            font-size: 16px;
-        }
+.table {
+    display: flex;
+}
+
+.text {
+    margin-left: 25px;
+}
+
+.cumm {
+    margin: 0 25px 0 auto;
+}
+
+.basket_all h4 {
+    font-size: 20px;
+    margin: 15px 0 15px 25px;
+}
+
+.basket_all p {
+    font-size: 16px;
+}
 
 
-.futermin{
+.futermin {
     height: 5px;
 }
+
 .futer {
     height: 20px;
 }
