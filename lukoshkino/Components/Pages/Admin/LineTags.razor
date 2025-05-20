@@ -1,4 +1,8 @@
-﻿<div class="line">
+﻿@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+
+<div class="line">
     <h3 class="name_teg">@Tag.Name</h3> 
     <InputText @bind-Value=Tag.Content class="info_teg"/>
 </div>
@@ -6,4 +10,25 @@
 @code{
     [Parameter]
     public InterfaceTag Tag { get; set; }
+
+    protected override void OnInitialized()
+    {
+        EditTegs.SaveTagsClicked += SaveTag;
+    }
+
+    private void SaveTag()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            var editTag = ac.InterfaceTags.Where(x => x.Id == Tag.Id).FirstOrDefault();
+            editTag.Content = Tag.Content;
+
+			ac.SaveChanges();
+		}
+
+        EditTegs.SaveTagsClicked -= SaveTag;
+
+		Navigation.NavigateTo("/admin/edit-tags", true);
+
+    }
 }

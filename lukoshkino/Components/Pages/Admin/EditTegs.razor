@@ -21,18 +21,21 @@
 		</div>
 		
 	</div>
-	<button class="save">Сохранить изменения</button>
+	<button class="save" @onclick="@SaveTags">Сохранить изменения</button>
 	<div class="futor">
 	</div>
 </div>
 
 @code {
+    public static Action SaveTagsClicked;
 
-	List<InterfaceTag> GetTags()
-	{
-		using (var ac = DbFactory.CreateDbContext())
-		{
-			return ac.InterfaceTags.ToList();
-		}
-	}
+    List<InterfaceTag> GetTags()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            return ac.InterfaceTags.ToList();
+        }
+    }
+
+    public void SaveTags() => SaveTagsClicked?.Invoke();
 }

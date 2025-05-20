@@ -6,7 +6,7 @@
     <div class="filter-dropdown">
         @foreach(var category in GetCategories())
         {
-            <FilterElement Category=@category/>
+            <FilterElement Category=@category IsChecked=@Filter.FilterCategories.Any(x => x.Id == category.Id)/>
         }
     </div>
 </div>

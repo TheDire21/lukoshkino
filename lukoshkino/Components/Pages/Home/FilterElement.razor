@@ -2,7 +2,7 @@
 @inject NavigationManager Navigation
 
 <label>
-    <input type="checkbox" name="filter" class="filter-option" @oninput="CheckboxChanged" />
+    <input type="checkbox" checked="@IsChecked" name="filter" class="filter-option" @oninput="CheckboxChanged" />
     @Category.Name
 </label>
 
@@ -10,6 +10,9 @@
 
     [Parameter]
     public Category Category { get; set; }
+
+    [Parameter]
+    public bool IsChecked { get; set; }
 
     private void CheckboxChanged(ChangeEventArgs e)
     {
@@ -21,15 +24,22 @@
         }
         else
         {
-            Filter.FilterCategories.Remove(Category);
+            Filter.FilterCategories.RemoveAll(x => x.Id == Category.Id);
         }
 
         string catsURL = "";
-        foreach(var cat in Filter.FilterCategories)
+
+        if(Filter.FilterCategories .Count > 0)
         {
-            catsURL += cat.Id.ToString() + '&';
+            foreach (var cat in Filter.FilterCategories)
+            {
+                catsURL += cat.Id.ToString() + '&';
+            }
+            catsURL = catsURL.Substring(0, catsURL.Length - 1);
+
+
         }
-        catsURL = catsURL.Substring(0, catsURL.Length - 1);
+
         Navigation.NavigateTo("catalog/" + catsURL, true);
     }
 }
