@@ -11,8 +11,8 @@ using lukoshkino.Models;
 namespace lukoshkino.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250420141939_M1")]
-    partial class M1
+    [Migration("20250520200351_UserUpdated")]
+    partial class UserUpdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,6 +155,9 @@ namespace lukoshkino.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -172,6 +175,9 @@ namespace lukoshkino.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -183,6 +189,9 @@ namespace lukoshkino.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Patronymic")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
@@ -190,6 +199,9 @@ namespace lukoshkino.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -235,9 +247,9 @@ namespace lukoshkino.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Path")
+                    b.Property<byte[]>("Path")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -283,6 +295,12 @@ namespace lukoshkino.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("isActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isLike")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isPopular")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

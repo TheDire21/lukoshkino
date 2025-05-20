@@ -4,7 +4,9 @@
     <p>Персональные данные</p>
     <div class="bloc">
         <div class="text">
-            <p>ФИО</p>
+            <p>Фамилия</p>
+            <p>Имя</p>
+            <p>Отчество</p>
             <p>Дата рождения</p>
             <p>Номер телефона</p>
             <p>Email</p>
@@ -13,15 +15,15 @@
             <input type="text" placeholder="" />
             <input type="text" placeholder="" />
             <input type="text" placeholder="" />
+            <input type="date" @bind-value=User.BirthDate lang="ru" />
             <input type="text" placeholder="" />
-        </div>
-        <div class="btn_bloc">
-            <img src="pan orang.png" />
-            <img src="pan orang.png" />
-            <img src="pan orang.png" />
-            <img src="pan orang.png" />
+            <input type="text" placeholder="" />
         </div>
 
     </div>
     <div class="futor"></div>
 </div>
+
+@code{
+    ApplicationUser User { get; set; } = new ApplicationUser();
+}

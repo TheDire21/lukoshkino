@@ -1,5 +1,6 @@
 ﻿@page "/basket"
 @layout MainLayout
+@attribute [Authorize(Roles = "Admin, User")]
 
 @attribute [StreamRendering]
 @inject IDbContextFactory<ApplicationContext> DbFactory

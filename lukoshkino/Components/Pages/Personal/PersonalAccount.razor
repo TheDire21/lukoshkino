@@ -1,5 +1,9 @@
 ﻿@page "/account"
 @layout MainLayout
+@attribute [Authorize(Roles = "Admin, User")]
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
 
 <PageTitle>Личный кабинет-Из лукошкино с любовью</PageTitle>
 <div class="Top">
@@ -7,9 +11,16 @@
         <div class="top_account">
             <div class="menu">
                 <h3>ПРОФИЛЬ</h3>
-                <div class="menu_btn">
-                    <button>Вход в АдминПанель</button>
-                </div>
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="menu_btn">
+                            <button>Вход в АдминПанель</button>
+                        </div>
+                    </Authorized>
+                    
+                </AuthorizeView>
+                    
+                
             </div>
         </div>
         <div class="laine"></div>
