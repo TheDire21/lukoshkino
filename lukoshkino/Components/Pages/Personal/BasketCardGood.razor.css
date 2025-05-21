@@ -68,7 +68,7 @@
     margin-top: auto;
 }
 
-    .menu button {
+    .znak {
         margin: 0 10px 0 10px;
         width: 25px;
         height: 25px;
@@ -89,5 +89,13 @@
 }
 
 .like {
+    width: 30px;
+    height: 30px;
+    background: none;
     margin-left: 15px;
 }
+
+    .like img {
+        width: 30px;
+        height: 30px;
+    }

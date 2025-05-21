@@ -17,10 +17,10 @@
                 <p>@Product.Price ₽</p>
             </div>
             <div class="menu">
-                <button>+</button>
+                <button class="znak">+</button>
                 <p>0</p>
-                <button>-</button>
-                <img class="like" src="Like.png" />
+                <button class="znak">-</button>
+                <button class="like" @onclick="ClickLike"><img src="@like" /></button>
                 <img class="urna" src="urna.png" />
             </div>
         </div>
@@ -55,4 +55,20 @@
         Navigation.NavigateTo($"/catalog/product/{Product.Id}", true);
     }
 
+
+    private string like = "Like1.png";
+    private int index = 0;
+    void ClickLike()
+    {
+        if (index == 1)
+        {
+            like = "Like1.png";
+            index = 0;
+        }
+        else
+        {
+            like = "Like.png";
+            index = 1;
+        }
+    }
 }
