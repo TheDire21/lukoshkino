@@ -4,6 +4,9 @@
 }
 
 .kart {
+    display:flex;
+    flex-direction:column;
+    position:relative;
     margin: 40px 0 0 30px;
     width: 250px;
     height: 350px;
@@ -34,7 +37,7 @@
 .but {
     display: flex;
     justify-content: center; /* по горизонтали */
-    margin-top: 30px;
+    margin: auto 0 10px 0;
 
 }
 button {
@@ -51,4 +54,18 @@ button {
 }
     button img {
         width: 20px;
+    }
+
+.like {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    background:none;
+}
+    .like img{
+        width: 30px;
+        height: 30px;
     }
