@@ -17,9 +17,9 @@
                 <p>@Product.Price ₽</p>
             </div>
             <div class="menu">
-                <button class="znak">+</button>
-                <p>0</p>
-                <button class="znak">-</button>
+                <button class="znak" @onclick="ZnakMinus">-</button>
+                <p>@kolvo</p>
+                <button class="znak" @onclick="ZnakPlus">+</button>
                 <button class="like" @onclick="ClickLike"><img src="@like" /></button>
                 <img class="urna" src="urna.png" />
             </div>
@@ -69,6 +69,26 @@
         {
             like = "Like.png";
             index = 1;
+        }
+    }
+    private int kolvo = 1;
+    void ZnakPlus(){
+        if (kolvo < 99)
+        {
+            kolvo = kolvo + 1;
+        }
+        else
+        {
+            kolvo = 99;
+        }
+    }
+    void ZnakMinus()
+    {
+        if(kolvo>1){
+            kolvo = kolvo - 1;
+        }
+        else{
+            kolvo = 1;
         }
     }
 }
