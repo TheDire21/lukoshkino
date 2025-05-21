@@ -1,6 +1,11 @@
-﻿
+﻿@inject IDbContextFactory<ApplicationContext> DbFactory
+@rendermode RenderMode.InteractiveServer
 
 <div class="body_cat">
+    <div class="avatar">
+        <img src="@ImageData" />
+        <InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" style="width: 55vw;background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; color: white" />
+    </div>
     <p>Персональные данные</p>
     <div class="bloc">
         <div class="text">
@@ -12,12 +17,12 @@
             <p>Email</p>
         </div>
         <div class="input_bar">
-            <input type="text" placeholder="" />
-            <input type="text" placeholder="" />
-            <input type="text" placeholder="" />
-            <input type="date" @bind-value=User.BirthDate lang="ru" />
-            <input type="text" placeholder="" />
-            <input type="text" placeholder="" />
+            <input type="text" @bind-value=User.Surname @bind-value:after="SaveUser" />
+            <input type="text" @bind-value=User.Name @bind-value:after="SaveUser" />
+            <input type="text" @bind-value=User.Patronymic @bind-value:after="SaveUser" />
+            <input type="date" @bind-value=User.BirthDate @bind-value:after="SaveUser" />
+            <input type="text" @bind-value=User.PhoneNumber contenteditable="false"/>
+            <input type="email" @bind-value=User.Email contenteditable="false"/>
         </div>
 
     </div>
@@ -25,5 +30,60 @@
 </div>
 
 @code{
-    ApplicationUser User { get; set; } = new ApplicationUser();
+    [Parameter]
+    public ApplicationUser User { get; set; } = new ApplicationUser();
+
+    public byte[] ByteImageData { get; set; }
+
+    public string ImageData { get; set; } = "/account.png";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Run(() =>
+        {
+            using (var ac = DbFactory.CreateDbContext())
+            {
+                var image = ac.Files.FirstOrDefault(x => x.Id == User.FileId);
+                if(image is not null)
+                    BytesToImage(ac.Files.FirstOrDefault(x => x.Id == User.FileId).Path);
+            }
+        });
+    }
+
+    private async Task SingleUpload(InputFileChangeEventArgs e)
+    {
+        MemoryStream ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        BytesToImage(ms.ToArray());
+    }
+
+    private void BytesToImage(byte[] arr)
+    {
+        ByteImageData = arr;
+        string imagesrc = Convert.ToBase64String(ByteImageData);
+        ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
+        
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            var result = ac.Files.Add(new File { Path = ByteImageData });
+            var id = result.CurrentValues.GetValue<int>("Id");
+            var editUser = ac.Users.Where(x => x.Id == User.Id).FirstOrDefault();
+            editUser.FileId = id;
+            ac.SaveChanges();
+        }
+    }
+
+    void SaveUser()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            var editUser = ac.Users.Where(x => x.Id == User.Id).FirstOrDefault();
+            editUser.Surname = User.Surname;
+            editUser.Name = User.Name;
+            editUser.Patronymic = User.Patronymic;
+            editUser.BirthDate = User.BirthDate;
+
+            ac.SaveChanges();
+        }
+    }
 }

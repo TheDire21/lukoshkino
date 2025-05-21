@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BlazorBootstrap;
+using Microsoft.AspNetCore.Authentication;
 
 
 
@@ -23,6 +24,11 @@ builder.Services.AddAuthentication(options =>
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
         options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
     }).AddIdentityCookies();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Login";
+});
 
 builder.Services.AddDbContext<ApplicationContext>
     (options => options.UseSqlite("Data Source=lukoshkino.db"));
@@ -80,9 +86,13 @@ app.MapBlazorHub(options =>
 {
     options.CloseOnAuthenticationExpiration = true;
 }).WithOrder(-1);
-
 // Add additional endpoints required by the Identity /Account Razor components.
-
+app.MapGet("/Logout", async (HttpContext context, string returnUrl = "/") =>
+           {
+               await context.SignOutAsync(IdentityConstants.ApplicationScheme);
+               context.Response.Redirect("/");
+           })
+           .RequireAuthorization();
 
 
 app.Run();

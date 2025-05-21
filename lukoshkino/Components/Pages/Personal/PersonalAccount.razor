@@ -1,9 +1,13 @@
 ﻿@page "/account"
 @layout MainLayout
 @attribute [Authorize(Roles = "Admin, User")]
+
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> _userManager
+
 
 <PageTitle>Личный кабинет-Из лукошкино с любовью</PageTitle>
 <div class="Top">
@@ -11,27 +15,23 @@
         <div class="top_account">
             <div class="menu">
                 <h3>ПРОФИЛЬ</h3>
-                <AuthorizeView>
-                    <Authorized>
-                        <div class="menu_btn">
-                            <button>Вход в АдминПанель</button>
-                        </div>
-                    </Authorized>
-                    
-                </AuthorizeView>
-                    
-                
+                @if (HttpContext.User.IsInRole("Admin"))
+                {
+                    <NavLink href="/admin/edit-goods" class="menu_btn">
+                        <button>Вход в АдминПанель</button>
+                    </NavLink>
+                }
+
+                <NavLink href="/logout" class="menu_btn">
+                    <button>Выйти из аккаунта</button>
+                </NavLink>
+
             </div>
         </div>
         <div class="laine"></div>
         <div class="body_account">
-            <div class="avatar">
-                <img src="account.png" />
-                <button>изменить</button>
-            </div>
             <div class="info">
-                <PersonalData></PersonalData>
-                
+                <PersonalData User=@_userManager.GetUserAsync(HttpContext.User).Result></PersonalData>
             </div>
             
         </div>
@@ -39,3 +39,11 @@
     </div>
     <div class="futor1"></div>
 </div>
+
+@code{
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+  
+
+}

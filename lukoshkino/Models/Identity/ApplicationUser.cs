@@ -12,5 +12,9 @@ namespace lukoshkino.Models
         public string? Patronymic { get; set; }
 
         public DateTime? BirthDate { get; set; }
+
+        public int? FileId { get; set; }
+
+        public File? File { get; set; }
     }
 }
