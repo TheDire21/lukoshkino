@@ -19,5 +19,7 @@ namespace lukoshkino.Models
 
         public DbSet<Product_Photo> Product_Photos { get; set; } = null!;
 
+        public DbSet<Like> Likes { get; set; } = null!;
+
     }
 }
