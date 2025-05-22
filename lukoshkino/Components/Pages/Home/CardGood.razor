@@ -1,10 +1,12 @@
 ﻿@inject NavigationManager Navigation
 @inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityUserAccessor _userAccessor;
+
 @rendermode RenderMode.InteractiveServer
 
 
 <div class="kart">
-	<button class="like" @onclick="ClickLike"><img src="@like" /></button>
+	<button class="like" @onclick="ClickLike"><img src="@_likeImagePath" /></button>
 	<NavLink href="catalog" @onclick="RedirectToEdit" style="text-decoration: none;">
 		<img class="img-kart" src=@ImageData />
 		<h3>@Product.Price ₽</h3>
@@ -22,41 +24,70 @@
 
 	public string ImageData { get; set; } = "/prev.png";
 
+	private ApplicationUser _user;
+
 	protected override async Task OnInitializedAsync()
 	{
-		await Task.Run(() =>
+		_user = await _userAccessor.GetCurrentUserAsync();
+
+		using (var ac = DbFactory.CreateDbContext())
 		{
-			using (var ac = DbFactory.CreateDbContext())
+			if (_user is null || !ac.Likes.Any(x => x.UserId == _user.Id && x.ProductId == Product.Id))
 			{
-				Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
-				if (product_Photo == null)
-				{
-					return;
-				}
-				var ByteImageData = ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path;
-				string imagesrc = Convert.ToBase64String(ByteImageData);
-				ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
+				_likeImagePath = "Like1.png";
+				_isLiked = false;
 			}
-		});
+			else
+			{
+				_likeImagePath = "Like.png";
+				_isLiked = true;
+			}
+
+			Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
+			if (product_Photo == null)
+			{
+				return;
+			}
+			var ByteImageData = ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path;
+			string imagesrc = Convert.ToBase64String(ByteImageData);
+			ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
+
+
+		}
 	}
 
 	void RedirectToEdit()
 	{
 		Navigation.NavigateTo($"/catalog/product/{Product.Id}", true);
 	}
-	private string like = "Like1.png";
-	private int index = 0;
+
+	private string _likeImagePath = "Like1.png";
+	private bool _isLiked = false;
+
 	void ClickLike()
 	{
-		if (index == 1)
+		if (_user is null)
+			return;
+
+		if (!_isLiked)
 		{
-			like = "Like1.png";
-			index = 0;
+			using (var ac = DbFactory.CreateDbContext())
+			{
+				ac.Likes.Add(new Like() { UserId = _user.Id, ProductId = Product.Id });
+				ac.SaveChanges();
+			}
+			_likeImagePath = "Like.png";
+			_isLiked = true;
 		}
 		else
 		{
-			like = "Like.png";
-			index = 1;
+			using (var ac = DbFactory.CreateDbContext())
+			{
+				ac.Likes.Remove(ac.Likes.First(x => x.UserId == _user.Id && x.ProductId == Product.Id));
+				ac.SaveChanges();
+			}
+			_likeImagePath = "Like1.png";
+			_isLiked = false;
 		}
 	}
 }

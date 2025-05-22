@@ -1,4 +1,8 @@
 ﻿@page "/featured"
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityUserAccessor _userAccessor;
+
+@attribute [Authorize(Roles = "Admin, User")]
 
 <PageTitle>Избранное-Из лукошкино с любовью</PageTitle>
 
@@ -11,7 +15,10 @@
         </div>
         <div class="laine"></div>
         <div class="promo">
-            <h3>Здесь будут отображатся избранные товары</h3>
+            @foreach (var prod in GetProducts())
+            {
+                <CardGood Product="prod"/>
+            }
         </div>
         <div class="footer"></div>
     </div>
@@ -19,4 +26,20 @@
 
 @code {
 
+    private ApplicationUser _user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _user = await _userAccessor.GetCurrentUserAsync();
+    }
+
+    List<Product> GetProducts()
+    {
+
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            var likes = ac.Likes.Where(x => x.UserId == _user.Id).Select(x => x.ProductId);
+            return ac.Products.Where(x => likes.Contains(x.Id)).ToList();
+        }
+    }
 }
