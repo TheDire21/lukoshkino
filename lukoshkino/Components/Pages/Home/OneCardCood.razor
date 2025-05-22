@@ -2,6 +2,8 @@
 @layout MainLayout
 @inject IDbContextFactory<ApplicationContext> DbFactory
 @inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
 
 <div class="body_panel">
     <div class="panel">
@@ -15,8 +17,11 @@
             </div>
             <div class="good-bascet">
                 <div class="vitrina">
-                    <h3>@Product.Price ₽</h3>
-                    <button>В КОРЗИНУ</button>
+                    <div class="price_like">
+                        <h3>@Product.Price ₽</h3>
+                        <button class="like" @onclick="ClickLike"><img src="@like" /></button>
+                    </div>
+                    <button class="btn_basket">В КОРЗИНУ</button>
                 </div>
                 <div>
                     <p>покупают вместе</p>
@@ -76,6 +81,21 @@
         using (var ac = DbFactory.CreateDbContext())
         {
             return ac.Products.Where(x => x.isPopular).ToList();
+        }
+    }
+    private string like = "Like1.png";
+    private int index = 0;
+    void ClickLike()
+    {
+        if (index == 1)
+        {
+            like = "Like1.png";
+            index = 0;
+        }
+        else
+        {
+            like = "Like.png";
+            index = 1;
         }
     }
 }

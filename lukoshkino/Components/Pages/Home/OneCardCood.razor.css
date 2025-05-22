@@ -70,8 +70,23 @@
                 .vitrina h3{
                     padding: 20px 0 0 10px;
                 }
+                .price_like{
+                    display:flex;
+                }
+                .like {
+                    width: 30px;
+                    height: 30px;
+                    background: none;
+                    margin: 20px 10px 0 auto;
+                    border:none;
+                }
 
-                .vitrina button {
+                    .like img {
+                        width: 30px;
+                        height: 30px;
+                    }
+
+                .btn_basket {
                     margin: 40px 10px 10px 10px;
                     width: 300px;
                     height: 40px;
