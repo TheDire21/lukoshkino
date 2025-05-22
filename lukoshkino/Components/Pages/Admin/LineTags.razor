@@ -4,7 +4,8 @@
 
 <div class="line">
     <h3 class="name_teg">@Tag.Name</h3> 
-    <InputText @bind-Value=Tag.Content class="info_teg" @bind-Value:after="SaveTag"/>
+    <InputTextArea @bind-Value=Tag.Content @bind-Value:after="SaveTag" style="color: white; background:none; border:none; width: 75%; height:110px; margin:0 1vw 0 auto; padding:5px;" />
+@*     <InputText @bind-Value=Tag.Content class="info_teg" @bind-Value:after="SaveTag" style="width: 75%; height:300px; margin:0 1vw 0 auto"/> *@
 </div>
 
 @code{

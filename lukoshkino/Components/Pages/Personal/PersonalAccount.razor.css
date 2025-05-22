@@ -33,8 +33,7 @@
     .menu_btn{
                 display: flex;
                 align-items:end;
-                margin-left: auto;
-                margin-right: 3vh;
+                margin: 3vh 0 0 auto;
             }
         .menu_btn button {
             width: 300px;
@@ -45,31 +44,9 @@
             border-radius: 10px;
             background-color: #F1B24A;
             color: white;
+            margin-right: 1vh;
         }
-.avatar {
 
-    display: flex;
-    flex-direction: column;
-    
-    margin: 3vh 0 0 0;
-    border-radius: 20px;
-}
-    .avatar img {
-        width: 200px;
-        height: 200px;
-        border-radius: 20px;
-    }
-    .avatar button {
-        width: 200px;
-        height: 25px;
-        margin-top: 20px;
-        font-size: 16px;
-        padding: 0px;
-        border: none;
-        border-radius: 5px;
-        background-color: #F1B24A;
-        color: white;
-    }
 .body_account, .info {
     display: flex;
 }

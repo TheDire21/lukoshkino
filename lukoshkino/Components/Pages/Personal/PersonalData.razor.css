@@ -6,20 +6,39 @@ body {
 }
 
 .body_cat {
+    display:flex;
     width: 100%;
-    border-radius: 20px;
-    background: linear-gradient(90deg, #233f2b, #407759);
+
 }
+    .avatar{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+    .avatar img {
+        margin-top: 3vh;
+        width:250px;
+        height:250px;
+        border-radius:20px;
+        border:2px solid #ffffff;
+    }
     .body_cat p{
         font-size:24px;
         color:white;
         margin: 1.5vh 0 0 1vw;
     }
 
-    .bloc{
+    .bloc_data{
         display:flex;
-        margin-top: 4vh;
+        flex-direction:column;
+        margin: 3vh 0 0 2vw;
+         width: 85%;
+        border-radius: 20px;
+        background: linear-gradient(90deg, #233f2b, #407759);
     }
+        .bloc_info{
+            display:flex;
+        }
         .text p{
             font-size: 20px;
         }
@@ -27,10 +46,19 @@ body {
         display:flex;
         flex-direction: column;
     }
+    .input_bar{
+        width:80%;
+    }
 
-        .input_bar input{
-            margin: 1.6vh 0 0 1vw;
+        .input_bar input {
+            border-radius: 5px;
+            border:none;
+            background: rgb(99,128,95, 0.5);
+            margin: 1.6vh 1vw 0 1vw;
+            color: white;
+            padding-inline-start: 10px;
         }
+
         .btn_bloc img {
             margin: 2.1vh 0 0 1vw;
         }

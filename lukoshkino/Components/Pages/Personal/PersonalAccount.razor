@@ -15,23 +15,25 @@
         <div class="top_account">
             <div class="menu">
                 <h3>ПРОФИЛЬ</h3>
+                <div class="menu_btn">
                 @if (HttpContext.User.IsInRole("Admin"))
                 {
-                    <NavLink href="/admin/edit-goods" class="menu_btn">
-                        <button>Вход в АдминПанель</button>
-                    </NavLink>
-                }
-
-                <NavLink href="/logout" class="menu_btn">
-                    <button>Выйти из аккаунта</button>
-                </NavLink>
+                        <NavLink href="/admin/edit-goods" class="menu_btn" style="text-decoration: none;">
+                                <button>Вход в АдминПанель</button>
+                        </NavLink>
+                } 
+                        <NavLink href="/logout" style="text-decoration: none;">
+                            <button>Выйти из аккаунта</button>
+                        </NavLink>
+                </div>
 
             </div>
         </div>
         <div class="laine"></div>
+        <PersonalData User=@_userManager.GetUserAsync(HttpContext.User).Result></PersonalData>
         <div class="body_account">
             <div class="info">
-                <PersonalData User=@_userManager.GetUserAsync(HttpContext.User).Result></PersonalData>
+                
             </div>
             
         </div>

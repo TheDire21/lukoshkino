@@ -13,12 +13,10 @@
 @* 		<button class="ceate">Добавить новый тег</button> *@
 	</div>
 	<div class="body_tegs">
-		<div class="tegs">
 			@foreach (var tag in GetTags())
 			{
 				<LineTags Tag="@tag" />
 			}
-		</div>
 	</div>
 	<div class="futor">
 	</div>

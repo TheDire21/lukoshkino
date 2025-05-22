@@ -9,7 +9,7 @@
 <div class="panel">
 	<h3 class="add_img_text">Добавить фото</h3>
 	<div class="add_img">
-		<InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" style="width: 55vw;background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; color: white" />
+		<InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" style="width: 165px;background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; color: white" />
 		<img src="@ImageData" height="173" width="200"/>
 	</div>
 	<EditForm Model="@Product" method="post" OnValidSubmit="SaveChanges" FormName="goodsEditForm">
@@ -21,11 +21,13 @@
 		<div class="opisaniye">
 			<InputTextArea name="description" rows="4" cols="50" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Description />
 		</div>
+		<h3>Цена</h3>
 		<div class="price">
 			<InputNumber name="price" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Price />
 		</div>
-		<div>
-			<InputSelect @bind-Value=Product.CategoryId>
+		<h3>Категория</h3>
+		<div class="price">
+			<InputSelect @bind-Value=Product.CategoryId style="width: 320px; height: 35px; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white">
 				@foreach (var cat in GetCategories())
 				{
 					<option value="@cat.Id">@cat.Name</option>

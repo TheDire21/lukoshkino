@@ -3,17 +3,19 @@
     position: relative;
     display: inline-block;
     margin-left: 2vh;
+    z-index: 2;
 }
 
 .filter-btn {
     background-color: #F1B24A;
     color: white;
-    width: 250px;
+    width: 350px;
     height: 40px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     font-size: 24px;
+    z-index:2;
 }
 /* Стили для изменения радиуса углов при наведении на кнопку */
 .filter-btn:hover {
@@ -26,10 +28,10 @@
     position: absolute;
     background-color: #3E7556;
     border-radius: 0 0 10px 10px;
-    width: 250px;
+    width: 350px;
     min-width: 160px;
     color: white;
-    font-size: 24px;
+    font-size: 16px;
     z-index: 1;
 }
 

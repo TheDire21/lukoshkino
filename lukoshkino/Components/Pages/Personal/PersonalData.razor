@@ -3,26 +3,28 @@
 
 <div class="body_cat">
     <div class="avatar">
-        <img src="@ImageData" />
-        <InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" style="width: 55vw;background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; color: white" />
+        <img src="@ImageData"  />
+        <InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif" style="width: 165px;background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; color: white; margin-top:1vh" />
     </div>
-    <p>Персональные данные</p>
-    <div class="bloc">
-        <div class="text">
-            <p>Фамилия</p>
-            <p>Имя</p>
-            <p>Отчество</p>
-            <p>Дата рождения</p>
-            <p>Номер телефона</p>
-            <p>Email</p>
-        </div>
-        <div class="input_bar">
-            <input type="text" @bind-value=User.Surname @bind-value:after="SaveUser" />
-            <input type="text" @bind-value=User.Name @bind-value:after="SaveUser" />
-            <input type="text" @bind-value=User.Patronymic @bind-value:after="SaveUser" />
-            <input type="date" @bind-value=User.BirthDate @bind-value:after="SaveUser" />
-            <input type="text" @bind-value=User.PhoneNumber contenteditable="false"/>
-            <input type="email" @bind-value=User.Email contenteditable="false"/>
+    <div class="bloc_data">
+        <p>Персональные данные</p>
+        <div class="bloc_info">
+            <div class="text">
+                <p>Фамилия</p>
+                <p>Имя</p>
+                <p>Отчество</p>
+                <p>Дата рождения</p>
+                <p>Номер телефона</p>
+                <p>Email</p>
+            </div>
+            <div class="input_bar">
+                <input type="text" @bind-value=User.Surname @bind-value:after="SaveUser" />
+                <input type="text" @bind-value=User.Name @bind-value:after="SaveUser" />
+                <input type="text" @bind-value=User.Patronymic @bind-value:after="SaveUser" />
+                <input type="date" @bind-value=User.BirthDate @bind-value:after="SaveUser" />
+                <input type="text" @bind-value=User.PhoneNumber contenteditable="false"/>
+                <input type="email" @bind-value=User.Email contenteditable="false"/>
+            </div>
         </div>
 
     </div>
