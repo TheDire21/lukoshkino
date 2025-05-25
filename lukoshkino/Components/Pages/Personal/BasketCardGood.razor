@@ -32,6 +32,9 @@
     [Parameter]
     public Models.Basket Basket { get; set; }
 
+    [Parameter]
+    public Action BasketUpdated { get; set; }
+
     public Product Product { get; set; }
 
     public string ImageData { get; set; } = "/prev.png";
@@ -116,6 +119,7 @@
         {
             Basket.Quantity = 99;
         }
+        BasketUpdated?.Invoke();
     }
 
     void QuantityMinus()
@@ -133,6 +137,8 @@
         {
             RemoveBasket();
         }
+        BasketUpdated?.Invoke();
+        
     }
 
     void RemoveBasket()
@@ -142,6 +148,6 @@
             ac.Baskets.Remove(ac.Baskets.First(x => x.ProductId == Product.Id && x.UserId == _user.Id));
             ac.SaveChanges();
         }
-        Navigation.NavigateTo("/basket", true);
+        BasketUpdated?.Invoke();
     }
 }

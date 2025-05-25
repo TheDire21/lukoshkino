@@ -5,10 +5,7 @@ namespace lukoshkino.Models
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser, ApplicationRole, long>
     {
-        public ApplicationContext(DbContextOptions options) : base(options)
-        {
-
-        }
+        public ApplicationContext(DbContextOptions options) : base(options) { }
         public DbSet<InterfaceTag> InterfaceTags { get; set; } = null!;
 
         public DbSet<Category> Categories { get; set; } = null!;

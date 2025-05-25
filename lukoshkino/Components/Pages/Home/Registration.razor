@@ -18,7 +18,8 @@
 <div class="body_panel">
     <div class="body_reg">
         <StatusMessage Message="@Message" />
-        <EditForm Model="RegisterModel" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterHandle" FormName="register" style="display:flex; flex-direction:column; align-items:center;">
+        <EditForm Model="RegisterModel" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterHandle" FormName="register" 
+                                        style="display:flex; flex-direction:column; align-items:center;">
             <DataAnnotationsValidator />
             <div class="registration">
                 Регистрация
@@ -31,13 +32,19 @@
                     <p>Подтвердить</p>
                 </div>
                 <div class="fopm_line2">
-                    <InputText @bind-Value="RegisterModel.Email" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" autocomplete="username" aria-required="true" />
+                    <InputText @bind-Value="RegisterModel.Email" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); 
+                                    border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" 
+                                    autocomplete="username" aria-required="true" />
                     @* <label for="email">Электронная почта</label> *@
                     <ValidationMessage For="() => RegisterModel.Email" class="text-danger" />
-                    <InputText type="password" @bind-Value="RegisterModel.Password" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" autocomplete="new-password" aria-required="true" />
+                    <InputText type="password" @bind-Value="RegisterModel.Password" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); 
+                                                                                    border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" 
+                                    autocomplete="new-password" aria-required="true" />
                     @* <label for="password">Пароль</label> *@
                     <ValidationMessage For="() => RegisterModel.Password" class="text-danger" />
-                    <InputText type="password" @bind-Value="RegisterModel.ConfirmPassword" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" autocomplete="new-password" aria-required="true" />
+                    <InputText type="password" @bind-Value="RegisterModel.ConfirmPassword" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; 
+                                                                                            padding-inline:10px; border-radius: 5px; color: white" 
+                                    autocomplete="new-password" aria-required="true" />
                     @* <label for="confirm-password">Подтвердите пароль</label> *@
                     <ValidationMessage For="() => RegisterModel.ConfirmPassword" class="text-danger" />
                 </div>

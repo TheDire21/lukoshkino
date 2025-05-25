@@ -35,29 +35,6 @@
                 db.Categories.Remove(db.Categories.Find(Category.Id));
                 db.SaveChanges();
             }
-            else
-            {
-                // var options = new ConfirmDialogOptions
-                //     {
-                //         YesButtonText = "Да",
-                //         NoButtonText = "Нет",
-                //     };
-                // var confirmation = await dialog.ShowAsync(
-                //                                             title: "ОШИБКА! ЕСТЬ ПРОДУКТЫ ЭТОЙ КАТЕГОРИИ!",
-                //                                             message1: "Названия продуктов: " + productsOfCat.Select(x => x.Name).Aggregate((x, y) => x + ", " + y),
-                //                                             message2: "Хотите удалить категорию вместе с продуктами?",
-                //                                             confirmDialogOptions: options);
-
-                // if (confirmation)
-                // {
-                // // do something
-                // }
-                // else
-                // {
-                // // do something
-                // }
-                // return;
-            }
         }
 
         Navigation.NavigateTo("/admin/edit-categories", true);
