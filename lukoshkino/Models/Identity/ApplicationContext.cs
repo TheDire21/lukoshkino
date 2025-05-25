@@ -21,5 +21,13 @@ namespace lukoshkino.Models
 
         public DbSet<Like> Likes { get; set; } = null!;
 
+        public DbSet<Basket> Baskets { get; set; } = null!;
+
+        public DbSet<Order> Orders { get; set; } = null!;
+
+        public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
+
+        public DbSet<OrderStatus> orderStatuses { get; set; } = null!;
+
     }
 }

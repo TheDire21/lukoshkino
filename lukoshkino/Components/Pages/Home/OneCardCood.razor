@@ -103,8 +103,10 @@
     void ClickLike()
     {
         if (_user is null)
+        {
+            Navigation.NavigateTo($"/login", true);
             return;
-
+        }
 
         if (!_isLiked)
         {

@@ -1,5 +1,6 @@
 ﻿@inject NavigationManager Navigation
 @inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityUserAccessor _userAccessor;
 @rendermode RenderMode.InteractiveServer
 
 <div class="card">
@@ -17,78 +18,130 @@
                 <p>@Product.Price ₽</p>
             </div>
             <div class="menu">
-                <button class="znak" @onclick="ZnakMinus">-</button>
-                <p>@kolvo</p>
-                <button class="znak" @onclick="ZnakPlus">+</button>
-                <button class="like" @onclick="ClickLike"><img src="@like" /></button>
-                <img class="urna" src="urna.png" />
+                <button class="znak" @onclick="QuantityMinus">-</button>
+                <p>@Basket.Quantity</p>
+                <button class="znak" @onclick="QuantityPlus">+</button>
+                <button class="like" @onclick="ClickLike"><img src="@_likeImagePath" /></button>
+                <img class="urna" src="urna.png" @onclick="RemoveBasket"/>
             </div>
         </div>
     </div>
 </div>
 @code {
+
     [Parameter]
+    public Models.Basket Basket { get; set; }
+
     public Product Product { get; set; }
 
     public string ImageData { get; set; } = "/prev.png";
 
+    private ApplicationUser _user;
+
     protected override async Task OnInitializedAsync()
     {
-        await Task.Run(() =>
+        _user = await _userAccessor.GetCurrentUserAsync();
+
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            Product = ac.Products.First(x => x.Id == Basket.ProductId);
+
+            if (_user is null || !ac.Likes.Any(x => x.UserId == _user.Id && x.ProductId == Product.Id))
+            {
+                _likeImagePath = "Like1.png";
+                _isLiked = false;
+            }
+            else
+            {
+                _likeImagePath = "Like.png";
+                _isLiked = true;
+            }
+
+            Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
+            if (product_Photo == null)
+            {
+                return;
+            }
+            var ByteImageData = ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path;
+            string imagesrc = Convert.ToBase64String(ByteImageData);
+            ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
+        }
+    }
+
+
+    private string _likeImagePath = "Like.png";
+
+    private bool _isLiked = false;
+
+    void ClickLike()
+    {
+        if (_user is null)
+            return;
+
+
+        if (!_isLiked)
         {
             using (var ac = DbFactory.CreateDbContext())
             {
-                Product_Photo product_Photo = ac.Product_Photos.FirstOrDefault(x => x.ProductId == Product.Id);
-                if (product_Photo == null)
-                {
-                    return;
-                }
-                var ByteImageData = ac.Files.FirstOrDefault(x => x.Id == product_Photo.FileId).Path;
-                string imagesrc = Convert.ToBase64String(ByteImageData);
-                ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
+                ac.Likes.Add(new Like() { UserId = _user.Id, ProductId = Product.Id });
+                ac.SaveChanges();
             }
-        });
-    }
-
-    void RedirectToEdit()
-    {
-        Navigation.NavigateTo($"/catalog/product/{Product.Id}", true);
-    }
-
-
-    private string like = "Like1.png";
-    private int index = 0;
-    void ClickLike()
-    {
-        if (index == 1)
-        {
-            like = "Like1.png";
-            index = 0;
+            _likeImagePath = "Like.png";
+            _isLiked = true;
         }
         else
         {
-            like = "Like.png";
-            index = 1;
+            using (var ac = DbFactory.CreateDbContext())
+            {
+                ac.Likes.Remove(ac.Likes.First(x => x.UserId == _user.Id && x.ProductId == Product.Id));
+                ac.SaveChanges();
+            }
+            _likeImagePath = "Like1.png";
+            _isLiked = false;
         }
     }
-    private int kolvo = 1;
-    void ZnakPlus(){
-        if (kolvo < 99)
+
+    void QuantityPlus()
+    {
+        if (Basket.Quantity < 99)
         {
-            kolvo = kolvo + 1;
+            using(var ac = DbFactory.CreateDbContext())
+            {
+                ac.Baskets.First(x => x.ProductId == Product.Id && x.UserId == _user.Id).Quantity++;
+                ac.SaveChanges();
+            }
+            Basket.Quantity++;
         }
         else
         {
-            kolvo = 99;
+            Basket.Quantity = 99;
         }
     }
-    void ZnakMinus()
+
+    void QuantityMinus()
     {
-        if(kolvo>1){
-            kolvo = kolvo - 1;
+        if(Basket.Quantity > 1)
+        {
+            using (var ac = DbFactory.CreateDbContext())
+            {
+                ac.Baskets.First(x => x.ProductId == Product.Id && x.UserId == _user.Id).Quantity--;
+                ac.SaveChanges();
+            }
+            Basket.Quantity--;
         }
-        else{
-            kolvo = 1;
+        else
+        {
+            RemoveBasket();
         }
+    }
+
+    void RemoveBasket()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            ac.Baskets.Remove(ac.Baskets.First(x => x.ProductId == Product.Id && x.UserId == _user.Id));
+            ac.SaveChanges();
+        }
+        Navigation.NavigateTo("/basket", true);
     }
 }

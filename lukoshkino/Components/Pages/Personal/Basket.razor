@@ -1,9 +1,12 @@
 ﻿@page "/basket"
 @layout MainLayout
-@attribute [Authorize(Roles = "Admin, User")]
 
+@attribute [Authorize(Roles = "Admin, User")]
 @attribute [StreamRendering]
+
 @inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityUserAccessor _userAccessor;
+
 @rendermode RenderMode.InteractiveServer
 
 <PageTitle>Корзина-Из лукошкино с любовью</PageTitle>
@@ -22,9 +25,9 @@
         </div>
         <div class="body_basket">
             <div class="goods">
-                @foreach (var card in GetProducts())
+                @foreach (var card in GetBasketProducts())
                 {
-                    <BasketCardGood Product="@card"></BasketCardGood>
+                    <BasketCardGood Basket="@card"></BasketCardGood>
                 }
             </div>
             <div class="cartbasket">
@@ -36,12 +39,12 @@
                     <h4>Ваша корзина</h4>
                     <div class="table">
                         <div class="text">
-                            <p>Товары(4)</p>
+                            <p>Товары</p>
                             <p>Скидка</p>
                         </div>
                         <div class="cumm">
-                            <p>4000</p>
-                            <p>8000</p>
+                            <p>@ProductsPrice</p>
+                            <p>@_discount</p>
                         </div>
                     </div>
                     <div class="lainemin"></div>
@@ -64,22 +67,34 @@
 </div>
 
 @code {
-    [Parameter]
-    public string? Categories { get; set; }
 
-    List<Product> GetProducts()
+    private ApplicationUser _user;
+
+    private decimal _discount = 0;
+
+    public decimal ProductsPrice
     {
-
-        using (var ac = DbFactory.CreateDbContext())
+        get
         {
-            if (Categories is null)
-                return ac.Products.ToList();
-            else
+            using (var ac = DbFactory.CreateDbContext())
             {
-                var catIds = Categories.Split("&");
-                return ac.Products.Where(x => Categories.Contains(x.CategoryId.ToString())).ToList();
+                return ac.Baskets.Where(x => x.UserId == _user.Id).Select(x => x.Quantity * x.Product.Price).ToList().Sum();
             }
 
         }
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _user = await _userAccessor.GetCurrentUserAsync();
+    }
+
+    List<Models.Basket> GetBasketProducts()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            return ac.Baskets.Where(x => x.UserId == _user.Id).ToList();
+        }
+    }
+
 }
