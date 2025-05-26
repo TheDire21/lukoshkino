@@ -65,7 +65,7 @@
         {
             if (_user is null || !ac.Likes.Any(x => x.UserId == _user.Id && x.ProductId == Id))
             {
-                _likeImagePath = "Like1.png";
+                _likeImagePath = "Like1.svg";
                 _isLiked = false;
             }
             else
@@ -125,7 +125,7 @@
                 ac.Likes.Remove(ac.Likes.First(x => x.UserId == _user.Id && x.ProductId == Product.Id));
                 ac.SaveChanges();
             }
-            _likeImagePath = "Like1.png";
+            _likeImagePath = "Like1.svg";
             _isLiked = false;
         }
     }
