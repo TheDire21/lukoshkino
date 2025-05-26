@@ -4,9 +4,9 @@ body {
     display: flex;
 
 }
-.nav-link {
+/*.nav-link {
     padding:0;
-    text-decoration: none !important;  /*Обязательно используйте !important, чтобы переопределить существующие стили */
+    text-decoration: none !important;*/  /*Обязательно используйте !important, чтобы переопределить существующие стили */
 }
 
     .div1 img {
@@ -114,7 +114,7 @@ body {
             margin-left: auto; 
             justify-content: center;
         }
-            .ButBar div, .btn_mid {
+            .ButBar button, .btn_mid {
                 background: none;
                 border: none;
                 display: flex;
@@ -125,11 +125,11 @@ body {
                 height: 140px;
                 text-align: center;
             }
-                .ButBar div img, .btn_mid  img{
+                .ButBar button img, .btn_mid  img{
                     width: 42px;
                     margin-top: 4vh;
                 }
-                .ButBar div h3, .btn_mid h3 {
+                .ButBar button h3, .btn_mid h3 {
                     margin-top: 2vh;
                     font-size: 16px;
                     color: white;
