@@ -28,14 +28,41 @@ body {
         margin: 1.5vh 0 0 1vw;
     }
 
-    .bloc_data{
+    .bloc_body{
+        display:flex;
+        flex-direction:column;
+        width: 85%;
+    }
+
+    .bloc_data, .bloc_adrass{
         display:flex;
         flex-direction:column;
         margin: 3vh 0 0 2vw;
-         width: 85%;
+        width: 100%;
         border-radius: 20px;
         background: linear-gradient(90deg, #233f2b, #407759);
     }
+        .adress_btn, .line_adress{
+            display:flex;
+            margin:1.5vh 1vw 1.5vh 1vw;
+        }
+        .line_adress{
+            flex-direction:column;
+        }
+            .adress_btn h3{
+                color:white;
+                font-size:24px;
+            }
+            .adress_btn button {
+                margin: 0 0 0 auto;
+                width: 150px;
+                height: 25px;
+                border: none;
+                border-radius: 5px;
+                background-color: #F1B24A;
+                font-size: 14px;
+                color: white;
+            }
         .bloc_info{
             display:flex;
         }

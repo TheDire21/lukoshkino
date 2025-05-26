@@ -7,27 +7,38 @@
         <InputFile class="form-control" id="photo" OnChange="@SingleUpload" @bind-Value="@ByteImageData" accept=".jpg,.jpeg,.png,.gif"
         style="width: 165px;background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; color: white; margin-top:1vh" />
     </div>
-    <div class="bloc_data">
-        <p>Персональные данные</p>
-        <div class="bloc_info">
-            <div class="text">
-                <p>Фамилия</p>
-                <p>Имя</p>
-                <p>Отчество</p>
-                <p>Дата рождения</p>
-                <p>Номер телефона</p>
-                <p>Email</p>
-            </div>
-            <div class="input_bar">
-                <input type="text" @bind-value=User.Surname @bind-value:after="SaveUser" />
-                <input type="text" @bind-value=User.Name @bind-value:after="SaveUser" />
-                <input type="text" @bind-value=User.Patronymic @bind-value:after="SaveUser" />
-                <input type="date" @bind-value=User.BirthDate @bind-value:after="SaveUser" />
-                <input type="text" @bind-value=User.PhoneNumber contenteditable="false"/>
-                <input type="email" @bind-value=User.Email contenteditable="false"/>
+    <div class="bloc_body">
+        <div class="bloc_data">
+            <p>Персональные данные</p>
+            <div class="bloc_info">
+                <div class="text">
+                    <p>Фамилия</p>
+                    <p>Имя</p>
+                    <p>Отчество</p>
+                    <p>Дата рождения</p>
+                    <p>Номер телефона</p>
+                    <p>Email</p>
+                </div>
+                <div class="input_bar">
+                    <input type="text" @bind-value=User.Surname @bind-value:after="SaveUser" />
+                    <input type="text" @bind-value=User.Name @bind-value:after="SaveUser" />
+                    <input type="text" @bind-value=User.Patronymic @bind-value:after="SaveUser" />
+                    <input type="date" @bind-value=User.BirthDate @bind-value:after="SaveUser" />
+                    <input type="text" @bind-value=User.PhoneNumber contenteditable="false"/>
+                    <input type="email" @bind-value=User.Email contenteditable="false"/>
+                </div>
             </div>
         </div>
-
+        <div class="bloc_adrass">
+            <div class="adress_btn">
+                <h3>Мои адреса</h3>
+                <button>добавить адрес</button>
+            </div>
+            <div class="line_adress">
+                <LineAdress></LineAdress>
+                <LineAdress></LineAdress>
+            </div>
+        </div>
     </div>
     <div class="futor"></div>
 </div>
