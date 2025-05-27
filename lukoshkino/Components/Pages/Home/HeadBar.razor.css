@@ -4,16 +4,6 @@ body {
     display: flex;
 
 }
-/*.nav-link {
-    padding:0;
-    text-decoration: none !important;*/  /*Обязательно используйте !important, чтобы переопределить существующие стили */
-}
-
-    .div1 img {
-        margin-right: 0.4vw;
-        width: 30px;
-        height: 20px
-    }
 
 .textHead {
     margin: 0;
