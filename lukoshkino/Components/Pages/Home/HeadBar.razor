@@ -1,4 +1,7 @@
-﻿<div>
+﻿@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+
+<div>
     <div class="div0">
     <div class="div1">
 			<img src="point.svg" style="margin-right: 0.4vw;width: 30px;height: 20px;" />
@@ -21,32 +24,44 @@
 				</form>
 			<div class="ButBar">
 				<!-- Кнопка-триггер модального окна -->
-				<NavLink href="/account" style="text-decoration: none;">
-					<button>
-                        <img src="prof.png" />
-                        <h3>ПРОФИЛЬ</h3>
-					</button>
-				</NavLink>
-				<NavLink href="/featured" style="text-decoration: none;">
-					<button>
-						<img src="serdc.png" />
-						<h3>ИЗБРАННОЕ</h3>
-					</button>
-				</NavLink>
-				<NavLink href="/basket" style="text-decoration: none;">
-					<button>
-						<img src="korz.png" />
-						<h3>КОРЗИНА</h3>
-					</button>
-				</NavLink>
-				<NavLink href="" style="text-decoration: none;">
-					<button style=" border-radius: 0 0 10px 10px; background: #F1B24A;">
+				<button @onclick=RedirectToAccount>
+                    <img src="prof.png" />
+                    <h3>ПРОФИЛЬ</h3>
+				</button>
+
+				<button @onclick=RedirectToFeatured>
+					<img src="serdc.png" />
+					<h3>ИЗБРАННОЕ</h3>
+				</button>
+				<button @onclick=RedirectToBasket>
+					<img src="korz.png" />
+					<h3>КОРЗИНА</h3>
+				</button>
+				<button style=" border-radius: 0 0 10px 10px; background: #F1B24A;">
 					<img src="help.png" />
 				</button>
-				</NavLink>
 				
 			</div>
 		</div>
 	</div>
 </div>
+
+@code
+{
+	void RedirectToAccount()
+	{
+		Filter.FilterCategories.Clear();
+		Navigation.NavigateTo("/account", true);
+	}
+	void RedirectToFeatured()
+	{
+		Filter.FilterCategories.Clear();
+		Navigation.NavigateTo("/featured", true);
+	}
+	void RedirectToBasket()
+	{
+		Filter.FilterCategories.Clear();
+		Navigation.NavigateTo("/basket", true);
+	}
+}
 
