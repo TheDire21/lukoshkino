@@ -1,0 +1,98 @@
+﻿@rendermode InteractiveServer
+
+<div class="chat-container @(IsVisible ? "show" : "")">
+    <div class="chat-header">
+        Чат поддержки
+        <span class="chat-container-close" @onclick="Close">×</span>
+    </div>
+
+    <div class="chat-messages">
+        @foreach (var message in messages)
+        {
+            <div class="message @(message.IsSupport ? "message--support" : "message--user")">
+                <div class="message-sender">
+                    @(message.IsSupport ? "Менеджер поддержки" : "Вы")
+                </div>
+                <div class="message-bubble @(message.IsSupport ? "message-bubble--support" : "message-bubble--user")">
+                    @message.Text
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="chat-input-container">
+        <input class="chat-input"
+               placeholder="Введите ваше сообщение..."
+               @bind="newMessage"
+               @onkeypress="HandleKeyPress" />
+        <button class="chat-button" @onclick="AddMessage">
+            Отправить
+        </button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Message { get; set; } = "Сообщение отправлено!";
+
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+
+    public bool IsVisible { get; private set; } = false;
+
+    public void Show()
+    {
+        IsVisible = true;
+    }
+
+    private async Task Close()
+    {
+        IsVisible = false;
+        await OnClose.InvokeAsync(false);
+    }
+
+
+    private class ChatMessage
+    {
+        public string Text { get; set; } = "";
+        public bool IsSupport { get; set; }
+    }
+
+    private List<ChatMessage> messages = new();
+    private string newMessage = "";
+
+    protected override void OnInitialized()
+    {
+        messages.Add(new ChatMessage
+            {
+                Text = "Здравствуйте! Чем мы можем вам помочь?",
+                IsSupport = true
+            });
+    }
+
+    private async Task AddMessage()
+    {
+        if (string.IsNullOrWhiteSpace(newMessage))
+            return;
+
+        messages.Add(new ChatMessage { Text = newMessage, IsSupport = false });
+        newMessage = "";
+
+        await Task.Delay(1000);
+        messages.Add(new ChatMessage
+            {
+                Text = "Спасибо за ваше сообщение! Мы скоро ответим.",
+                IsSupport = true
+            });
+
+        StateHasChanged();
+    }
+
+    private void HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            AddMessage();
+        }
+    }
+}

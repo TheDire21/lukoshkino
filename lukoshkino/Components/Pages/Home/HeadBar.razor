@@ -1,5 +1,6 @@
 ﻿@inject NavigationManager Navigation
-@rendermode RenderMode.InteractiveServer
+@* @rendermode RenderMode.InteractiveServer *@
+@rendermode InteractiveServer
 
 <div>
     <div class="div0">
@@ -37,9 +38,10 @@
 					<img src="korz.png" />
 					<h3>КОРЗИНА</h3>
 				</button>
-				<button style=" border-radius: 0 0 10px 10px; background: #F1B24A;">
+				<button style=" border-radius: 0 0 10px 10px; background: #F1B24A;" @onclick="ShowSupportChat">
 					<img src="help.png" />
 				</button>
+				<SupportChat @ref="supportChat" Message="Это всплывающее окно!" OnClose="OnSupportChatClose" />
 				
 			</div>
 		</div>
@@ -63,5 +65,18 @@
 		Filter.FilterCategories.Clear();
 		Navigation.NavigateTo("/basket", true);
 	}
+
+	private SupportChat supportChat { get; set; }
+
+	private void ShowSupportChat()
+	{
+		supportChat.Show();
+	}
+
+	private void OnSupportChatClose(bool isVisible)
+	{
+		// Логика после закрытия (если нужна)
+	}
+
 }
 
