@@ -1,17 +1,21 @@
-﻿@rendermode InteractiveServer
+﻿@using System
+@using System.IO
+@using System.Threading.Tasks
+@using Microsoft.JSInterop
+@rendermode InteractiveServer
+@inject IJSRuntime JsRuntime
 
 <div class="chat-container @(IsVisible ? "show" : "")">
     <div class="chat-header">
-        Чат поддержки
         <span class="chat-container-close" @onclick="Close">×</span>
+        Чат поддержки
     </div>
-
-    <div class="chat-messages">
+    <div class="chat-messages" id="chatMessages" @ref="chatMessagesContainer">
         @foreach (var message in messages)
         {
             <div class="message @(message.IsSupport ? "message--support" : "message--user")">
                 <div class="message-sender">
-                    @(message.IsSupport ? "Менеджер поддержки" : "Вы")
+                    @(message.IsSupport ? "Менеджер поддержки :" : "Вы :")
                 </div>
                 <div class="message-bubble @(message.IsSupport ? "message-bubble--support" : "message-bubble--user")">
                     @message.Text
@@ -19,7 +23,6 @@
             </div>
         }
     </div>
-
     <div class="chat-input-container">
         <input class="chat-input"
                placeholder="Введите ваше сообщение..."
@@ -31,7 +34,36 @@
     </div>
 </div>
 
+<script>
+    window.scrollToBottom = (element) => {
+        element.scrollTop = element.scrollHeight;
+    };
+</script>
+
 @code {
+    private ElementReference chatMessagesContainer;
+
+    private Dictionary<string, string> KnowledgeBase = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+{
+    { "доставк", "Пока доставка осуществляется по Каншу и по договоренности в Чебоксары. Стоимость доставки зависит от веса и габаритов заказа." },
+    { "оплат", "Вы можете оплатить заказ банковской картой (Visa, Mastercard, МИР), наличными при получении или через систему быстрых платежей." },
+    { "контакт", "Наш телефон: +7(905) 389-60-18, Мы работаем с 9:00 до 18:00 по московскому времени." },
+    { "помощь", "Задайте ваш вопрос, и я постараюсь помочь! Например: 'Как оформить заказ?' или 'Сколько стоит доставка?'" },
+    { "заказ", "Чтобы оформить заказ, добавьте товары в корзину, укажите адрес доставки и выберите способ оплаты." },
+    { "гаранти", "На всю продукцию действует гарантия производителя." },
+    { "скидк", "У нас действуют скидки для постоянных клиентов и сезонные акции. Подробности уточняйте у менеджера по телефону +7(905) 389-60-18." }
+};
+
+    private Dictionary<string, string[]> Synonyms = new Dictionary<string, string[]>
+{
+    { "доставк", new[] { "доставка", "доставки", "доставке", "доставку", "доставкой", "доставкою", "доставок", "доставкам", "доставками", "доставках", "отправка", "транспортировка", "везут", "привезут", "курьер" } },
+    { "оплат", new[] { "оплата", "платеж", "рассчитаться", "заплатить", "оплатить", "карта", "наличные", "безнал" } },
+    { "контакт", new[] { "телефон", "почта", "email", "связь", "написать", "позвонить" } },
+    { "заказ", new[] { "оформить", "купить", "заказать", "корзина", "оформление" } },
+    { "гаранти", new[] { "гарантия", "гарантийный", "обменять", "неисправность", "поломка" } },
+    { "скидк", new[] { "скидка", "акция", "распродажа", "дешевле", "промокод" } }
+};
+
     [Parameter]
     public string Message { get; set; } = "Сообщение отправлено!";
 
@@ -76,23 +108,69 @@
             return;
 
         messages.Add(new ChatMessage { Text = newMessage, IsSupport = false });
+        string userMessage = newMessage.ToLower();
         newMessage = "";
+        StateHasChanged();
 
-        await Task.Delay(1000);
-        messages.Add(new ChatMessage
-            {
-                Text = "Спасибо за ваше сообщение! Мы скоро ответим.",
-                IsSupport = true
-            });
+        string aiResponse = FindAnswer(userMessage);
+        messages.Add(new ChatMessage { Text = aiResponse, IsSupport = true });
 
+        await Task.Delay(10); // Небольшая задержка, чтобы дать время на рендеринг сообщений
+        await ScrollToBottom();
         StateHasChanged();
     }
 
-    private void HandleKeyPress(KeyboardEventArgs e)
+    private async Task ScrollToBottom()
+    {
+        await JsRuntime.InvokeVoidAsync("scrollToBottom", chatMessagesContainer);
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
         {
-            AddMessage();
+            await AddMessage();
         }
     }
+
+
+    private string FindAnswer(string userMessage)
+    {
+        string[] words = userMessage.ToLower().Split(new[] { ' ', ',', '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var entry in KnowledgeBase)
+        {
+            if (Synonyms.TryGetValue(entry.Key, out var synonyms))
+            {
+                if (synonyms.Any(synonym => words.Contains(synonym)))
+                {
+                    return entry.Value;
+                }
+            }
+            else
+            {
+                if (words.Any(word => word.Contains(entry.Key)))
+                {
+                    return entry.Value;
+                }
+            }
+        }
+        LogUnknownQuestion(userMessage);
+        return "Извините, я не знаю ответа на этот вопрос. Вы можете уточнить его по телефону +7(905) 389-60-18 или задать другой вопрос.";
+    }
+
+    private void LogUnknownQuestion(string question)
+    {
+        string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - Неизвестный вопрос: {question}";
+        Console.WriteLine(logEntry);
+        // Путь к файлу лога (например, в папке проекта)
+        string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ChatLogs.log");
+
+        // Сохраняем лог в файл
+        System.IO.File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
+
+    }
 }
+
+
+

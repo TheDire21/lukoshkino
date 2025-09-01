@@ -3,31 +3,30 @@
 @rendermode InteractiveServer
 
 <div>
-    <div class="div0">
-    <div class="div1">
+	<div class="div0">
+		<div class="div1">
 			<img src="point.svg" style="margin-right: 0.4vw;width: 30px;height: 20px;" />
-        <h5 class ="textHeadK" >Канаш</h5>
-        <h5 class="textHead">Пн - Вс с 9:00 до 20:00</h5>
-    </div>
-    <div class="div2">
-        <h5 class="textHead">+7(903)-389-60-18</h5>
-    </div>
-    </div>
+			<h5 class ="textHeadK" >Канаш</h5>
+			<h5 class="textHead">Пн - Вс с 9:00 до 20:00</h5>
+		</div>
+		<div class="div2">
+			<h5 class="textHead">+7(903)-389-60-18</h5>
+		</div>
+	</div>
 	<div class="body_Nav">
 		<div class="Nav">
 			<NavLink href="/" style="text-decoration: none;">
-			<div class="Lable">
+				<div class="Lable">
 					<img class="ingLable" src="lable.svg"/><h3 class="labletext">домашнее<br /> хозяйство</h3>
-			</div>
+				</div>
 			</NavLink>
-				<form class="Ponsk">
-					<button type="submit"><img src="poisk.png" /></button><input type="text" placeholder="Найдите то что вам нужно">
-				</form>
+			<form class="Ponsk">
+				<button type="submit" @onclick=ProductSearch><img src="poisk.png" /></button><input type="text" placeholder="Найдите то что вам нужно" @bind="searchQuery"/>
+			</form>
 			<div class="ButBar">
-				<!-- Кнопка-триггер модального окна -->
 				<button @onclick=RedirectToAccount>
-                    <img src="prof.png" />
-                    <h3>ПРОФИЛЬ</h3>
+					<img src="prof.png" />
+					<h3>ПРОФИЛЬ</h3>
 				</button>
 
 				<button @onclick=RedirectToFeatured>
@@ -42,7 +41,7 @@
 					<img src="help.png" />
 				</button>
 				<SupportChat @ref="supportChat" Message="Это всплывающее окно!" OnClose="OnSupportChatClose" />
-				
+
 			</div>
 		</div>
 	</div>
@@ -50,20 +49,30 @@
 
 @code
 {
+
 	void RedirectToAccount()
 	{
 		Filter.FilterCategories.Clear();
 		Navigation.NavigateTo("/account", true);
 	}
+
 	void RedirectToFeatured()
 	{
 		Filter.FilterCategories.Clear();
 		Navigation.NavigateTo("/featured", true);
 	}
+
 	void RedirectToBasket()
 	{
 		Filter.FilterCategories.Clear();
 		Navigation.NavigateTo("/basket", true);
+	}
+
+	private string searchQuery { get; set; }
+	void ProductSearch()
+	{
+		Filter.FilterCategories.Clear();
+		Navigation.NavigateTo("/catalog", true);
 	}
 
 	private SupportChat supportChat { get; set; }
