@@ -68,11 +68,16 @@
 		Navigation.NavigateTo("/basket", true);
 	}
 
-	private string searchQuery { get; set; }
+	private string searchQuery { get; set; } = "";
+
 	void ProductSearch()
 	{
+		if (string.IsNullOrWhiteSpace(searchQuery))
+		{
+			return;
+		}
 		Filter.FilterCategories.Clear();
-		Navigation.NavigateTo("/catalog", true);
+		Navigation.NavigateTo($"/catalog?search={Uri.EscapeDataString(searchQuery)}", true);
 	}
 
 	private SupportChat supportChat { get; set; }

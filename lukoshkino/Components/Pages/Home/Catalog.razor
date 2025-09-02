@@ -1,7 +1,8 @@
 ﻿@page "/catalog/{*Categories}"
+
 @inject IDbContextFactory<ApplicationContext> DbFactory
 @rendermode RenderMode.InteractiveServer
-
+@inject NavigationManager Navigation
 
 <PageTitle>Каталог-Из лукошкино с любовью</PageTitle>
 
@@ -9,33 +10,61 @@
     <div class="catalog">
         <div class="top_catalog">
             <div class="menu">
-                <h3>КАТАЛОГ</h3>
+                <h3 @onclick=ProductFull>КАТАЛОГ</h3>
                 <div class="menu_filtr">
                     <div>
                         <Filter />
                     </div>
-
                 </div>
             </div>
         </div>
-       <div class="laine"></div>
-        <div class="promo">
-            @foreach (var card in GetProducts())
+        <div class="laine"></div>
+        <div>
+            @if (!string.IsNullOrWhiteSpace(SearchQuery))
             {
-                <CardGood Product="@card" />
+                <h3 style="color: white; margin-top: 10px ">Вот что получилось найти по запросу "@SearchQuery"</h3>
+            }
+        </div>
+        <div class="promo">
+            @if (!string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                @foreach (var product in products)
+                {
+                    <CardGood Product="@product" />
+                }
+            }
+            else
+            {
+                @foreach (var card in GetProducts())
+                {
+                    <CardGood Product="@card" />
+                }
             }
         </div>
         <div class="footer"></div>
     </div>
 </div>
 
-@code{
+@code {
     [Parameter]
     public string? Categories { get; set; }
 
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "search")]
+    public string SearchQuery { get; set; } = "";
+
+    private List<Product> products = new List<Product>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(SearchQuery))
+        {
+            await LoadProducts();
+        }
+    }
+
     List<Product> GetProducts()
     {
-
         using (var ac = DbFactory.CreateDbContext())
         {
             if (Categories is null)
@@ -43,9 +72,32 @@
             else
             {
                 var catIds = Categories.Split("&");
-                return ac.Products.Where(x => Categories.Contains(x.CategoryId.ToString())).ToList();
+                return ac.Products.Where(x => catIds.Contains(x.CategoryId.ToString())).ToList();
             }
-            
         }
+    }
+
+    private async Task LoadProducts()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            var allProducts = await ac.Products.ToListAsync();
+
+            if (!string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                string searchTerm = SearchQuery.Trim();
+                products = allProducts.Where(p => p.Name != null && p.Name.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+            }
+            else
+            {
+                products = allProducts;
+            }
+        }
+    }
+
+    void ProductFull()
+    {
+        Filter.FilterCategories.Clear();
+        Navigation.NavigateTo("/catalog", true);
     }
 }
