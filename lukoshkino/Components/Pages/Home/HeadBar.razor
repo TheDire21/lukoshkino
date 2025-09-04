@@ -1,6 +1,8 @@
 ﻿@inject NavigationManager Navigation
-@* @rendermode RenderMode.InteractiveServer *@
-@rendermode InteractiveServer
+@rendermode RenderMode.InteractiveServer
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityUserAccessor _userAccessor;
+@inject IJSRuntime JSRuntime
 
 <div>
 	<div class="div0">
@@ -10,6 +12,7 @@
 			<h5 class="textHead">Пн - Вс с 9:00 до 20:00</h5>
 		</div>
 		<div class="div2">
+			<h5 class="textHead" id="nick" >@nick</h5>
 			<h5 class="textHead">+7(903)-389-60-18</h5>
 		</div>
 	</div>
@@ -24,7 +27,7 @@
 				<button type="submit" @onclick=ProductSearch><img src="poisk.png" /></button><input type="text" placeholder="Найдите то что вам нужно" @bind="searchQuery"/>
 			</form>
 			<div class="ButBar">
-				<button @onclick=RedirectToAccount>
+				<button @onclick="RedirectToAccount">
 					<img src="prof.png" />
 					<h3>ПРОФИЛЬ</h3>
 				</button>
@@ -49,6 +52,27 @@
 
 @code
 {
+
+	private ApplicationUser _user;
+
+	private string nick { get; set; } = "Гость";
+
+	
+
+	protected override async Task OnInitializedAsync()
+	{
+		_user = await _userAccessor.GetCurrentUserAsync();
+		if (_user != null && !string.IsNullOrEmpty(_user.Name))
+		{
+			nick = _user.Name;
+		}
+		else
+		{
+			nick = "Гость";
+			
+		}
+		
+	}
 
 	void RedirectToAccount()
 	{

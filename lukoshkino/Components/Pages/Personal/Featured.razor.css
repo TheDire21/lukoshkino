@@ -16,7 +16,7 @@
     flex-direction: column;
 }
 
-    .top_catalog h3 {
+    .top_catalog h3, .promo h3 {
         margin: 3vh 0 0 0;
         font-size: clamp(14px, 5vw, 36px);
         color: white;
@@ -37,6 +37,7 @@
 .promo {
     display: flex;
     flex-wrap: wrap;
+    min-height:600px;
 }
 
 .footer {

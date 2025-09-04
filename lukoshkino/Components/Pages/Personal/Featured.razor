@@ -15,6 +15,10 @@
         </div>
         <div class="laine"></div>
         <div class="promo">
+            @if (GetProducts().Count == 0)
+            {
+                <h3>Список избранного пуст.</h3>
+            }
             @foreach (var prod in GetProducts())
             {
                 <CardGood Product="prod"/>

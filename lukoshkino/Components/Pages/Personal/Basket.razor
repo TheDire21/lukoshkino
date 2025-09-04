@@ -25,6 +25,10 @@
         </div>
         <div class="body_basket">
             <div class="goods">
+                @if (GetBasketProducts().Count == 0)
+                {
+                    <h3>В корзине пока нет товарв.</h3>
+                }
                 @foreach (var card in GetBasketProducts())
                 {
                     <BasketCardGood Basket="@card" BasketUpdated="UpdatePrice"></BasketCardGood>

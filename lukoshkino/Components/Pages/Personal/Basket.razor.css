@@ -22,7 +22,7 @@ body {
     flex-direction: column;
 }
 
-    .top_basket h3 {
+    .top_basket h3, .goods h3 {
         margin: 3vh 0 0 0;
         font-size: clamp(14px, 5vw, 36px);
         color: white;
@@ -61,6 +61,7 @@ body {
 
 .goods {
     width: 60%;
+    min-height: 600px;
 }
 
 .cartbasket {

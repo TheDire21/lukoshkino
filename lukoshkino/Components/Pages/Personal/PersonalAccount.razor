@@ -6,6 +6,8 @@
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
 
+@inject IJSRuntime JSRuntime
+
 @inject UserManager<ApplicationUser> _userManager
 
 
@@ -19,11 +21,11 @@
                 @if (HttpContext.User.IsInRole("Admin"))
                 {
                         <NavLink href="/admin/edit-goods" class="menu_btn" style="text-decoration: none;">
-                                <button>Вход в АдминПанель</button>
+                                <button >Вход в АдминПанель</button>
                         </NavLink>
                 } 
                         <NavLink href="/logout" style="text-decoration: none;">
-                            <button>Выйти из аккаунта</button>
+                        <button>Выйти из аккаунта</button>
                         </NavLink>
                 </div>
 
@@ -43,6 +45,7 @@
 </div>
 
 @code{
+
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 }

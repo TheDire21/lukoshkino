@@ -8,36 +8,37 @@
 @inject ILogger<Authorization> Logger
 @inject IdentityRedirectManager RedirectManager
 
-<div class="body_panel">
-    <div class="panel">
-        <div class="avtorizaciya">
-            <h3>Авторизация</h3>
-        </div>
-        <EditForm Model="@loginModel" method="post" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform">
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="input">
-                <div class="log_pas_text">Email</div>
-                <InputText placeholder="" type="text" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=loginModel.Email/>
-                <ValidationMessage For="() => loginModel.Email" class="text-danger" />
+    <div class="body_panel">
+        <div class="panel">
+            <div class="avtorizaciya">
+                <h3>Авторизация</h3>
             </div>
-            <div class="input">
-                <div class="log_pas_text">Пароль</div>
-                <InputText placeholder="" type="password" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=loginModel.Password />
-                <ValidationMessage For="() => loginModel.Password" class="text-danger" />
-            </div>
-            <div class="checkbox mb-3">
-                <label style="color:white;">
-                    <InputCheckbox @bind-Value="loginModel.RememberMe" style="color:white; margin-top: 1vw; " />  Запомнить меня</label>
-            </div>
-            <div>
-                <button type="submit">Войти</button>
-            </div>
-        </EditForm>
-        <div class="no-password">не помню пароль</div>
-        <p><a href="@(Navigation.GetUriWithQueryParameters("/register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" style="text-decoration: none; color: white">Зарегистрироваться</a></p>
-    </div>  
-</div>
+            <EditForm Model="@loginModel" method="post" OnValidSubmit="HandleLogin" FormName="loginForm" class="editform">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="input">
+                    <div class="log_pas_text">Email</div>
+                    <InputText placeholder="" type="text" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=loginModel.Email/>
+                    <ValidationMessage For="() => loginModel.Email" class="text-danger" />
+                </div>
+                <div class="input">
+                    <div class="log_pas_text">Пароль</div>
+                    <InputText placeholder="" type="password" style=" width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=loginModel.Password />
+                    <ValidationMessage For="() => loginModel.Password" class="text-danger" />
+                </div>
+                <div class="checkbox mb-3">
+                    <label style="color:white;">
+                        <InputCheckbox @bind-Value="loginModel.RememberMe" style="color:white; margin-top: 1vw; " />  Запомнить меня</label>
+                </div>
+                <div>
+                    <button type="submit">Войти</button>
+                </div>
+            </EditForm>
+            <div class="no-password">не помню пароль</div>
+            <p><a href="@(Navigation.GetUriWithQueryParameters("/register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" style="text-decoration: none; color: white">Зарегистрироваться</a></p>
+        </div>  
+    </div>
+
 
 
 
@@ -87,8 +88,29 @@
         }
         else
         {
-            errorMessage = "Error: Invalid login attempt.";
+            errorMessage = "Ошибка: Неверная попытка входа в систему.";
         }
         
+    }
+
+
+
+    [Parameter]
+    public string Message { get; set; } = "Сообщение отправлено!";
+
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+
+    public bool IsVisible { get; private set; } = false;
+
+    public void Show()
+    {
+        IsVisible = true;
+    }
+
+    private async Task Close()
+    {
+        IsVisible = false;
+        await OnClose.InvokeAsync(false);
     }
 }
