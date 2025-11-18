@@ -1,0 +1,16 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
+
+namespace lukoshkino.Models
+{
+    public class Feedback
+    {
+        public int Id { get; set; }
+        public string? Text { get; set; }
+        public long ApplicationUserId { get; set; }
+
+        [ForeignKey("ApplicationUserId")]
+        public ApplicationUser? User { get; set; }
+
+    }
+}

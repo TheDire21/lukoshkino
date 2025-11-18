@@ -1,0 +1,37 @@
+﻿.body_otziv {
+    display: flex;
+    flex-direction: column;
+    margin: 5vh 0 0 1vw;
+    width: 450px;
+    height: 250px;
+    border-radius: 20px;
+    background: rgb(16,55,50, 0.4);
+}
+
+.img_name {
+    margin: 1vh 1vh 0 1vh;
+    align-items: center;
+    display: flex;
+}
+
+    .img_name img {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        border: 2px solid #ffffff;
+    }
+
+    .img_name p {
+        color: white;
+        font-size: 20px;
+        margin-left: 1vh;
+    }
+
+.text_otziv {
+    margin: 1vh;
+}
+
+    .text_otziv p {
+        color: white;
+        font-size: 14px;
+    }

@@ -26,5 +26,6 @@ namespace lukoshkino.Models
 
         public DbSet<OrderStatus> orderStatuses { get; set; } = null!;
 
+        public DbSet<Feedback> Feedbacks { get; set; } = null!;
     }
 }

@@ -1,0 +1,29 @@
+﻿@inject NavigationManager Navigation
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityUserAccessor _userAccessor;
+
+@rendermode RenderMode.InteractiveServer
+
+<Toasts class="p-3" Messages="messages" AutoHide="true" Delay="3000" Placement="ToastsPlacement.TopRight" />
+
+
+
+<div class="body_otziv">
+	<div class="img_name">
+		<img src="account.png" />
+		<p>@Feedback.User.Name</p>
+	</div>
+	<div class="text_otziv">
+		<p>@Feedback.Text</p>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public Feedback Feedback { get; set; }
+
+	public string ImageData { get; set; } = "/prev.png";
+
+	private List<ToastMessage> messages = [];
+
+}

@@ -5,6 +5,7 @@
 @rendermode RenderMode.InteractiveServer
 
 
+
 <PageTitle>Главная-Из лукошкино с любовью</PageTitle>
 <div class="Top">
 	<div class="body_info">
@@ -52,67 +53,21 @@
 					<p>ОТЗЫВЫ</p>
 				</div>
 				<div class="kart">
-					<div class="body_otziv">
-						<div class="img_name">
-							<img src="account.png" />
-							<p>Катерина</p>
-						</div>
-						<div class="text_otziv">
-							<p>
-								Купила шалфей у данного продавца. Очень довольна. Огромный куст за 150р. Так ещё и привезли до дома. Однозначно буду покупать другие саженцы у вас!!! Благодарю.
-							</p>
-						</div>
+					@foreach (var card in GetFeedbacks())
+					{
+						<CardFeedback Feedback="@card" />
+					}
+					<div class="but_all_otziv">
+						Открыть все отзовы
 					</div>
-					<div class="body_otziv">
-						<div class="img_name">
-							<img src="account.png" />
-							<p>Ирина Иванова</p>
-						</div>
-						<div class="text_otziv">
-							<p>
-								Саженцы очень хорошего качества, гортензия и лапчатка с бутонами. Всё понравилось, даже привезли в Чебоксары. Продавца рекомендую!!! Спасибо Вам!
-							</p>
-						</div>
-					</div>
-					<div class="body_otziv">
-						<div class="img_name">
-							<img src="account.png" />
-							<p>Ольга Яковлева</p>
-						</div>
-						<div class="text_otziv">
-							<p>Продавец замечательный, клиентоориентированный.К заказу был положен подарок. Это очень приятно!</p>
-						</div>
-					</div>
-					<div class="body_otziv">
-						<div class="img_name">
-							<img src="account.png" />
-							<p>Михаил</p>
-						</div>
-						<div class="text_otziv">
-							<p>Отличный мёд, по хорошей цене. Вёз в подарок. Попросили чтобы в следующий раз ещё привёз</p>
-						</div>
-					</div>
-					<div class="body_otziv">
-						<div class="img_name">
-							<img src="account.png" />
-							<p>Полуэктова Карина</p>
-						</div>
-						<div class="text_otziv">
-							<p>
-								Приобрели с подругой несколько видов растений , довольны как ,,слоны,,☺️теперь будем обращаться только сюда☺️
-							</p>
-						</div>
-					</div>
-					<div class="body_otziv">
-						<div class="img_name">
-							<img src="account.png" />
-							<p>Светлана</p>
-						</div>
-						<div class="text_otziv">
-							<p>Очень хорошие цветы, корневая система развита хорошо. Рекомендую!</p>
-						</div>
-					</div>
-					
+
+				</div>
+				<div class="lable_kart">
+					<p>ОСТАВТЕ СВОЙ ОТЗЫВ</p>
+				</div>
+				<div class="edit_otziv">
+					<textarea name="otziv" />
+					<button>Отправить</button>
 				</div>
 				<div class="foot"></div>
 			</div>
@@ -137,6 +92,13 @@
 		using (var ac = DbFactory.CreateDbContext())
 		{
 			return ac.Products.Where(x => x.isLike).ToList();
+		}
+	}
+	List<Feedback> GetFeedbacks()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			return ac.Feedbacks.ToList();
 		}
 	}
 
