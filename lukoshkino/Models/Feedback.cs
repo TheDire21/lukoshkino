@@ -7,9 +7,9 @@ namespace lukoshkino.Models
     {
         public int Id { get; set; }
         public string? Text { get; set; }
-        public long ApplicationUserId { get; set; }
+        public long UserId { get; set; }
 
-        [ForeignKey("ApplicationUserId")]
+        [ForeignKey("UserId")]
         public ApplicationUser? User { get; set; }
 
     }

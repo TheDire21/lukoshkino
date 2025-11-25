@@ -261,6 +261,25 @@ namespace lukoshkino.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("lukoshkino.Models.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Feedbacks");
+                });
+
             modelBuilder.Entity("lukoshkino.Models.File", b =>
                 {
                     b.Property<int>("Id")
@@ -504,6 +523,17 @@ namespace lukoshkino.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("lukoshkino.Models.Feedback", b =>
+                {
+                    b.HasOne("lukoshkino.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
