@@ -15,6 +15,21 @@
 .body_goods {
     margin: 4vh 2vw 0 2vw;
 }
+.nav {
+    margin-top: 2vh;
+    display: flex;
+}
+.ceate {
+    margin: 0 0 0 2vw;
+    background-color: #F1B24A;
+    color: white;
+    width: 350px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
 .futor {
     height: 50px;
 }

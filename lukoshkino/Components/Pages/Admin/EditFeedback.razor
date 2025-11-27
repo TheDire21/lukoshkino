@@ -4,9 +4,13 @@
 @inject IDbContextFactory<ApplicationContext> DbFactory
 @inject IdentityRedirectManager RedirectManager
 @rendermode RenderMode.InteractiveServer
+@inject NavigationManager Navigation
 
 <div class="panel">
 	<h3>Редактировать отзовы</h3>
+	<div class="nav">
+		<button class="ceate" @onclick="CreateNewFeedback">Добавить отзыв c авито</button>
+	</div>
 	<div class="body_goods">
 		<div class="kart">
 			@foreach (var feedback in GetFeedbacks())
@@ -27,5 +31,11 @@
 		{
 			return ac.Feedbacks.ToList();
 		}
+	}
+
+	void CreateNewFeedback()
+	{
+		Filter.FilterCategories.Clear();
+		Navigation.NavigateTo("/admin/edit-onefeedback", true);
 	}
 }

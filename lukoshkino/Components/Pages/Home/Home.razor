@@ -1,12 +1,19 @@
 ﻿@page "/"
+
 @layout MainLayout
+
 @inject IDbContextFactory<ApplicationContext> DbFactory
 @inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IdentityUserAccessor _userAccessor;
+@inject IJSRuntime JSRuntime
+
 @rendermode RenderMode.InteractiveServer
 
-
-
 <PageTitle>Главная-Из лукошкино с любовью</PageTitle>
+
+
+
 <div class="Top">
 	<div class="body_info">
 		<div class="ByCompany">
@@ -66,18 +73,23 @@
 							<CardFeedback Feedback="@card" />
 						}
 					}
-
-					<div class="but_all_otziv" @onclick=EditConst>
-						Открыть все отзовы
-					</div>
-
+					@if (Const == 0){
+						<button class="but_all_otziv" @onclick=EditConst>
+							Открыть все отзовы
+						</button>
+					}
+					else{
+						<button class="but_all_otziv" @onclick=EditConst>
+							Скрыть отзовы
+						</button>
+					}
 				</div>
 				<div class="lable_kart">
 					<p>ОСТАВТЕ СВОЙ ОТЗЫВ</p>
 				</div>
 				<div class="edit_otziv">
-					<textarea name="otziv" />
-					<button>Отправить</button>
+					<textarea name="otziv" @bind="FeedbackText" />
+					<button @onclick=SendFeedback>Отправить</button>
 				</div>
 				<div class="foot"></div>
 			</div>
@@ -89,13 +101,45 @@
 
 @code
 {
+	private ApplicationUser _user;
 	private int Const = 0;
+	private string FeedbackText { get; set; } = string.Empty;
+
+	private async Task SendFeedback()
+	{
+		_user = await _userAccessor.GetCurrentUserAsync();
+		if (_user == null || string.IsNullOrEmpty(_user.Name))
+		{
+			Filter.FilterCategories.Clear();
+			Navigation.NavigateTo("/login", true);
+			return;
+		}
+
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			var feedback = new Feedback
+				{
+					Text = FeedbackText,
+					UserId = _user.Id,
+					isInHome = false,
+				};
+			ac.Feedbacks.Add(feedback);
+			await ac.SaveChangesAsync();
+		}
+
+		FeedbackText = string.Empty; // Очищаем поле после отправки
+	}
 
 	private void EditConst()
 	{
-		Const = 1;
+		if(Const ==0){
+			Const = 1;
+		}
+		else{
+			Const = 0;
+		}
+		
 	}
-
 	List<Product> GetPopularProducts()
 	{
 		using (var ac = DbFactory.CreateDbContext())
@@ -141,6 +185,7 @@
 	}
 
 }
+
 
 	
 

@@ -126,6 +126,7 @@
     height: 40px;
     font-size: 15px;
     background: rgb(16,55,50, 0.4);
+    border:none;
     border-radius: 15px;
     color: white;
     justify-content: center; /* по горизонтали */
