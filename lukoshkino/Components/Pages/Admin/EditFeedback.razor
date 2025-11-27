@@ -1,0 +1,31 @@
+﻿@page "/admin/edit-feedback"
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityRedirectManager RedirectManager
+@rendermode RenderMode.InteractiveServer
+
+<div class="panel">
+	<h3>Редактировать отзовы</h3>
+	<div class="body_goods">
+		<div class="kart">
+			@foreach (var feedback in GetFeedbacks())
+			{
+				<LineFeedback Feedback="@feedback" />
+			}
+		</div>
+	</div>
+	<div class="futor">
+	</div>
+</div>
+
+@code {
+
+	List<Feedback> GetFeedbacks()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			return ac.Feedbacks.ToList();
+		}
+	}
+}

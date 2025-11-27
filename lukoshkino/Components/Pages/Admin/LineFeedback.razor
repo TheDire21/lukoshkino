@@ -1,0 +1,60 @@
+﻿@inject IdentityRedirectManager RedirectManager
+@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+@inject IDbContextFactory<ApplicationContext> DbFactory
+
+<div class="line">
+    <button class="name_product" @onclick="RedirectToEdit">@Feedback.Text</button>
+    <div class="check_box">
+        <label>
+            Отобразить на главной
+        </label>
+        <InputCheckbox name="isPopular" placeholder="" style="width: 17.5vw; border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" Value="Feedback.isInHome" ValueChanged="OnIsInHomeChanged" ValueExpression="() => Feedback.isInHome" />
+    </div>
+    <button class="urna_btn" @onclick="DeleteFeedback"><img src="urna.png" /></button>
+</div>
+
+
+@code {
+    [Parameter]
+    public Feedback Feedback { get; set; }
+
+    private async Task OnIsInHomeChanged(bool newValue)
+    {
+        Feedback.isInHome = newValue;
+        await UpdateIsInHome(newValue);
+    }
+
+    private async Task UpdateIsInHome(bool? newValue)
+    {
+        if (newValue.HasValue)
+        {
+            using (var db = DbFactory.CreateDbContext())
+            {
+                var feedback = await db.Feedbacks.FindAsync(Feedback.Id);
+                if (feedback != null)
+                {
+                    feedback.isInHome = newValue.Value;
+                    await db.SaveChangesAsync();
+                }
+            }
+        }
+    }
+
+    void RedirectToEdit()
+    {
+        Navigation.NavigateTo($"/admin/edit-feedback/{Feedback.Id}");
+    }
+
+    void DeleteFeedback()
+    {
+        using (var db = DbFactory.CreateDbContext())
+        {
+            db.Feedbacks.Remove(db.Feedbacks.Find(Feedback.Id));
+            db.SaveChanges();
+        }
+
+        Navigation.NavigateTo("/admin/edit-feedback", true);
+    }
+
+}

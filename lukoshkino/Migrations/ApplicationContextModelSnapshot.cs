@@ -273,6 +273,9 @@ namespace lukoshkino.Migrations
                     b.Property<long>("UserId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("isInHome")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");

@@ -1,6 +1,7 @@
 ﻿@inject NavigationManager Navigation
 @inject IDbContextFactory<ApplicationContext> DbFactory
 @inject IdentityUserAccessor _userAccessor;
+@inject ApplicationContext _context;
 
 @rendermode RenderMode.InteractiveServer
 
@@ -10,8 +11,8 @@
 
 <div class="body_otziv">
 	<div class="img_name">
-		<img src="account.png" />
-		<p>@Feedback.User.Name</p>
+        <img src="@ImageData" />
+		<p>@nick</p>
 	</div>
 	<div class="text_otziv">
 		<p>@Feedback.Text</p>
@@ -19,11 +20,46 @@
 </div>
 
 @code {
-	[Parameter]
-	public Feedback Feedback { get; set; }
+    [Parameter]
+    public Feedback Feedback { get; set; }
+    private string nick { get; set; } = "Гость";
+    public string ImageData { get; set; } = "/account.png";
+    private List<ToastMessage> messages = [];
 
-	public string ImageData { get; set; } = "/prev.png";
+    protected override async Task OnParametersSetAsync()
+    {
+        // Если пользователь не подгружен, загружаем его вручную
+        if (Feedback != null && Feedback.User == null)
+        {
+            await using var context = DbFactory.CreateDbContext();
+            Feedback.User = await context.Users.FindAsync(Feedback.UserId);
+        }
 
-	private List<ToastMessage> messages = [];
+        // Определяем имя пользователя
+        if (Feedback?.User != null && !string.IsNullOrEmpty(Feedback.User.Name))
+        {
+            nick = $"{Feedback.User.Surname} {Feedback.User.Name}".Trim();
 
+        }
+        else
+        {
+            nick = "Гость";
+        }
+        if (Feedback?.User?.FileId != null)
+        {
+            await LoadUserImageAsync();
+        }
+    }
+    private async Task LoadUserImageAsync()
+    {
+        await using var context = DbFactory.CreateDbContext();
+        var file = await context.Files.FindAsync(Feedback.User.FileId);
+
+        if (file?.Path != null)
+        {
+            string imageBase64 = Convert.ToBase64String(file.Path);
+            ImageData = $"data:image/jpeg;base64,{imageBase64}";
+        }
+    }
+   
 }

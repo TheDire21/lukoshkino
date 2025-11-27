@@ -98,7 +98,7 @@
 	{
 		using (var ac = DbFactory.CreateDbContext())
 		{
-			return ac.Feedbacks.ToList();
+			return ac.Feedbacks.Where(y => y.isInHome).ToList();
 		}
 	}
 

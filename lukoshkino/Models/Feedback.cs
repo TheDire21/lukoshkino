@@ -1,5 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.InteropServices;
 
 namespace lukoshkino.Models
 {
@@ -7,10 +8,11 @@ namespace lukoshkino.Models
     {
         public int Id { get; set; }
         public string? Text { get; set; }
-        public long ApplicationUserId { get; set; }
+        public long UserId { get; set; }
 
-        [ForeignKey("ApplicationUserId")]
+        [ForeignKey("UserId")]
         public ApplicationUser? User { get; set; }
+        public bool isInHome { get; set; }
 
     }
 }
