@@ -53,11 +53,21 @@
 					<p>ОТЗЫВЫ</p>
 				</div>
 				<div class="kart">
-					@foreach (var card in GetFeedbacks())
+					@if (Const == 0)
 					{
-						<CardFeedback Feedback="@card" />
+						@foreach (var card in GetFeedbacks())
+						{
+							<CardFeedback Feedback="@card" />
+						}
 					}
-					<div class="but_all_otziv">
+					else{
+						@foreach (var card in GetOlFeedbacks())
+						{
+							<CardFeedback Feedback="@card" />
+						}
+					}
+
+					<div class="but_all_otziv" @onclick=EditConst>
 						Открыть все отзовы
 					</div>
 
@@ -79,6 +89,13 @@
 
 @code
 {
+	private int Const = 0;
+
+	private void EditConst()
+	{
+		Const = 1;
+	}
+
 	List<Product> GetPopularProducts()
 	{
 		using (var ac = DbFactory.CreateDbContext())
@@ -99,6 +116,13 @@
 		using (var ac = DbFactory.CreateDbContext())
 		{
 			return ac.Feedbacks.Where(y => y.isInHome).ToList();
+		}
+	}
+	List<Feedback> GetOlFeedbacks()
+	{
+		using (var ac = DbFactory.CreateDbContext())
+		{
+			return ac.Feedbacks.ToList();
 		}
 	}
 
