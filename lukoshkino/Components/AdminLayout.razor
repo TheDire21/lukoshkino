@@ -1,9 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
+@inject NavigationManager Navigation
+@inject IdentityUserAccessor _userAccessor;
+@inject IDbContextFactory<ApplicationContext> DbFactory
+
 <div class="head-admin">
 	<h3>Страница администратора</h3>
 	<div class="head-admin-fio-btn">
-		<h3>Фамилия Имя Отчество</h3>
+		<h3>Администратор: @nick</h3>
 		<NavLink href="/" style="text-decoration: none;">
 			<button>Выход</button>
 		</NavLink>
@@ -12,17 +16,20 @@
 <div class="body_panel">
 	<div class="panel">
 		<div class="menu">
+			<NavLink href="/admin/edit-users" style="text-decoration: none; width: 80%;">
+				<button class="but1">Пользователи</button>
+			</NavLink>
 			<NavLink href="/admin/edit-categories" style="text-decoration: none; width: 80%;">
-			<button class="but1">Категории</button>
+				<button >Категории</button>
 			</NavLink>
 			<NavLink href="/admin/edit-goods" style="text-decoration: none; width: 80%;">
-			<button >Товары</button>
+				<button >Товары</button>
 			</NavLink>
 			<NavLink href="/admin/edit-feedback" style="text-decoration: none; width: 80%;">
-			<button>Отзывы</button>
+				<button>Отзывы</button>
 			</NavLink>
 			<NavLink href="/admin/edit-tags" style="text-decoration: none; width: 80%;">
-			<button>Теги</button>
+				<button>Теги</button>
 			</NavLink>
 		</div>
 		<div class="panel_body">
@@ -30,4 +37,16 @@
 		</div>
 	</div>
 </div>
-        
+   
+@code{
+	private ApplicationUser _user;
+
+	private string nick { get; set; } = "Гость";
+	protected override async Task OnInitializedAsync()
+	{
+		_user = await _userAccessor.GetCurrentUserAsync();
+		nick = _user.Name;
+	}
+
+
+}

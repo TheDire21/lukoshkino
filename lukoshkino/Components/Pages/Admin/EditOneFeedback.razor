@@ -1,3 +1,43 @@
 ﻿@page "/admin/edit-onefeedback"
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
+
+@inject NavigationManager Navigation
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IdentityUserAccessor _userAccessor;
+@inject IJSRuntime JSRuntime
+@rendermode RenderMode.InteractiveServer
+
+<div class="panel">
+    <h3>Добавление отзыва с авито</h3>
+    <div class="body_feedback">
+        <textarea name="otziv1" @bind="FeedbackText" />
+        <button @onclick="SendFeedback">Отправить отзыв</button>
+    </div>
+    <div class="footer"></div>
+    
+</div>
+
+@code{
+    private string FeedbackText { get; set; } = string.Empty;
+
+    private async Task SendFeedback()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            var feedback = new Feedback
+                {
+                    Text = FeedbackText,
+                    UserId = 4,
+                    isInHome = false,
+                };
+            ac.Feedbacks.Add(feedback);
+            await ac.SaveChangesAsync();
+        }
+        FeedbackText = string.Empty;
+        Navigation.NavigateTo("/admin/edit-feedback", true);
+    }
+}
+}
+

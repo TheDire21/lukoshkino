@@ -1,0 +1,28 @@
+﻿@page "/admin/edit-users"
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@rendermode RenderMode.InteractiveServer
+
+<div class="panel">
+    <h3>Редактировать пользователей</h3>
+    <div class="body_cat">
+    </div>
+    <div class="footer"></div>
+</div>
+
+@code {
+	 private List<ApplicationUser> users = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+    }
+
+    private async Task LoadUsers()
+    {
+        using var db = DbFactory.CreateDbContext();
+        users = await db.Users.ToListAsync();
+    }
+}

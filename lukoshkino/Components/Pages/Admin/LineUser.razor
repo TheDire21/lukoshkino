@@ -1,0 +1,26 @@
+﻿@inject IdentityRedirectManager RedirectManager
+@inject NavigationManager Navigation
+@rendermode RenderMode.InteractiveServer
+@inject IDbContextFactory<ApplicationContext> DbFactory
+
+<div class="line">
+    <a class="name_product"> @User.Name @User.Patronymic</a>
+    <button class="urna_btn" @onclick="DeleteProduct"><img src="urna.png" /></button>
+</div>
+
+@code {
+    [Parameter]
+    public ApplicationUser User { get; set; } = new ApplicationUser();
+
+
+    void DeleteProduct()
+    {
+        // using (var db = DbFactory.CreateDbContext())
+        // {
+        //     db.Products.Remove(db.Products.Find(Product.Id));
+        //     db.SaveChanges();
+        // }
+
+        // Navigation.NavigateTo("/admin/edit-goods", true);
+    }
+}

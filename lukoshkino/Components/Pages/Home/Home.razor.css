@@ -6,18 +6,24 @@
     width: 100%;
     
 }
-.body_info {
+.body_info, .body_feedback {
     background: linear-gradient(90deg, #2F554A, #95AA72);
 }
+
+.line{
+    height:10px;
+}
+
 .ByCompany {
     margin: 0 12vw 0 12vw;
 }
 .body_Catalog {
     background: linear-gradient(90deg, #95AA72, #2F554A);
 }
-.Catalog {
+.Catalog, .Feedback {
     margin: 0 12vw 0 12vw;
 }
+
 .lable_kart {
     display: flex;
     justify-content: center;
@@ -29,11 +35,20 @@
     border-radius:10px;
     
 }
-    .lable_kart p{
-        margin:0;
-        font-size: 24px;
-        color: white;
-    }
+.lable_kart1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 425px;
+    height: 40px;
+    background-color: rgb(16,55,50, 0.35);
+    border-radius: 10px;
+}
+.lable_kart p, .lable_kart1 p {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
     .kart{
         display: flex;
         flex-wrap: wrap;
@@ -136,27 +151,39 @@
     margin: 40px 0 0 20px;
     display: flex;
     flex-flow: column;
-    width: 450px;
+    width: 100%;
 }
     .edit_otziv textarea {
         border-radius: 15px;
-        background: rgb(16,55,50, 0.4);
+        background: #95AA72;
         color: white;
-        width: 450px;
+        margin: 0 40px 0 0;
         height: 250px;
-        padding:5px;
+        padding: 5px;
     }
     .edit_otziv button {
         padding: 0px;
-        margin-top:10px;
+        margin:10px 0 10px 0;
         border: 2px solid #FFFFFF;
         border-radius: 10px;
         background: none;
         font-size: 20px;
         color: white;
+        width:450px;
     }
+
+.body-add-feedback {
+    width: 100%;
+    background-color: #2F554A;
+    border-radius: 15px;
+}
+.edit_otziv h3{
+    margin:30px 0 15px 0;
+    color:white;
+    font-size: 18px;
+}
 @media(max-width:1610px) {
-        .ByCompany, .Catalog {
+    .ByCompany, .Catalog {
         margin: 0 8vw 0 8vw;
     }
 

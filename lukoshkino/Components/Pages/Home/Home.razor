@@ -56,10 +56,17 @@
 						<CardGood Product="@card" />
 					}
 				</div>
-				<div class="lable_kart">
-					<p>ОТЗЫВЫ</p>
-				</div>
-				<div class="kart">
+				<div class="foot"></div>
+			</div>
+		</div>
+	</div>
+	<div class="body_feedback">
+		<div class="line"></div>
+		<div class="Feedback">
+			<div class="lable_kart1">
+				<p>ОТЗЫВЫ</p>
+			</div>
+			<div class="kart">
 					@if (Const == 0)
 					{
 						@foreach (var card in GetFeedbacks())
@@ -83,19 +90,30 @@
 							Скрыть отзовы
 						</button>
 					}
-				</div>
-				<div class="lable_kart">
-					<p>ОСТАВТЕ СВОЙ ОТЗЫВ</p>
-				</div>
-				<div class="edit_otziv">
-					<textarea name="otziv" @bind="FeedbackText" />
-					<button @onclick=SendFeedback>Отправить</button>
-				</div>
-				<div class="foot"></div>
 			</div>
 		</div>
+			</div>
+	<div class="body_Catalog">
+		<div class="line"></div>
+		<div class="Feedback">
+				<div class="lable_kart">
+					<p>ПОДЕЛИТСЯ ВПЕЧАТЛЕНИЯМИ</p>
+				</div>
+				<div class="body-add-feedback">
+					<div class="edit_otziv">
+						<h3>ОТЗЫВ</h3>
+						<textarea name="otziv" @bind="FeedbackText" />
+						<button @onclick=SendFeedback>Отправить</button>
+					</div>
+				</div>
+				
+			<div class="foot"></div>
+		</div>
 	</div>
+	
 </div>
+		
+
 
 
 

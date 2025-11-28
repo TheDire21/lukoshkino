@@ -46,15 +46,18 @@
         Navigation.NavigateTo($"/admin/edit-feedback/{Feedback.Id}");
     }
 
-    void DeleteFeedback()
+    private async Task DeleteFeedback()
     {
         using (var db = DbFactory.CreateDbContext())
         {
-            db.Feedbacks.Remove(db.Feedbacks.Find(Feedback.Id));
-            db.SaveChanges();
+            var feedback = await db.Feedbacks.FindAsync(Feedback.Id);
+            if (feedback != null)
+            {
+                db.Feedbacks.Remove(feedback);
+                await db.SaveChangesAsync();
+            }
         }
-
-        Navigation.NavigateTo("/admin/edit-feedback", true);
+        Navigation.NavigateTo("/admin/edit-feedback", forceLoad: true);
     }
 
 }
