@@ -3,24 +3,74 @@
 @rendermode RenderMode.InteractiveServer
 @inject IDbContextFactory<ApplicationContext> DbFactory
 
+
 <div class="line">
-    <a class="name_product"> @User.Name @User.Patronymic</a>
-    <button class="urna_btn" @onclick="DeleteProduct"><img src="urna.png" /></button>
+    <h3 class="name_product">@User.Surname @User.Name @User.Patronymic </h3>
+    <div class="check_box">
+        <label>
+            Администратор
+        </label>
+       @*  <InputCheckbox name="isPopular" placeholder="" style="width: 17.5vw; border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" Value="Feedback.isInHome" ValueChanged="OnIsInHomeChanged" ValueExpression="() => Feedback.isInHome" /> *@
+    </div>
+    <button class="urna_btn" @onclick="ConfirmDelete">
+        <img src="urna.png" alt="Удалить" />
+    </button>
 </div>
+
+@if (ShowConfirmation)
+{
+    <div class="confirmation-dialog">
+        <p>Вы уверены, что хотите удалить этого пользователя?</p>
+        <button @onclick="DeleteUser">Да</button>
+        <button @onclick="CancelDelete">Нет</button>
+    </div>
+}
 
 @code {
     [Parameter]
     public ApplicationUser User { get; set; } = new ApplicationUser();
 
+    private bool ShowConfirmation { get; set; }
 
-    void DeleteProduct()
+    private void ConfirmDelete()
     {
-        // using (var db = DbFactory.CreateDbContext())
-        // {
-        //     db.Products.Remove(db.Products.Find(Product.Id));
-        //     db.SaveChanges();
-        // }
+        ShowConfirmation = true;
+    }
 
-        // Navigation.NavigateTo("/admin/edit-goods", true);
+    private async Task DeleteUser()
+    {
+        try
+        {
+            await DeleteUserFromDatabase();
+            ShowConfirmation = false;
+            Navigation.NavigateTo("/admin/edit-goods", false);
+        }
+        catch (Exception ex)
+        {
+            // В реальном приложении используйте логгер
+            Console.WriteLine($"Ошибка при удалении пользователя: {ex.Message}");
+            // Можно показать сообщение об ошибке пользователю
+        }
+    }
+
+    private void CancelDelete()
+    {
+        ShowConfirmation = false;
+    }
+
+    private async Task DeleteUserFromDatabase()
+    {
+        await using var db = DbFactory.CreateDbContext();
+
+        var userToDelete = await db.Users.FindAsync(User.Id);
+        if (userToDelete != null)
+        {
+            db.Users.Remove(userToDelete);
+            await db.SaveChangesAsync();
+        }
+        else
+        {
+            throw new InvalidOperationException("Пользователь не найден в базе данных.");
+        }
     }
 }

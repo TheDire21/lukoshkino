@@ -7,22 +7,21 @@
 
 <div class="panel">
     <h3>Редактировать пользователей</h3>
-    <div class="body_cat">
+    <div class="body_user">
+        @foreach (var user in GetUser())
+        {
+            <LineUser User="@user" />
+        }
     </div>
     <div class="footer"></div>
 </div>
 
 @code {
-	 private List<ApplicationUser> users = new();
-
-    protected override async Task OnInitializedAsync()
+    List<ApplicationUser> GetUser()
     {
-        await LoadUsers();
-    }
-
-    private async Task LoadUsers()
-    {
-        using var db = DbFactory.CreateDbContext();
-        users = await db.Users.ToListAsync();
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            return ac.Users.ToList();
+        }
     }
 }

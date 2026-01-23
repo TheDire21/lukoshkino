@@ -1,0 +1,31 @@
+﻿.line {
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    width: 100%;
+    min-height: 40px;
+    background-color: rgb(99,128,95, 0.4);
+    border-radius: 10px;
+    border: 2px solid #FFFFFF;
+    font-size: 16px;
+    color: white;
+}
+
+.urna_btn {
+    background: none;
+    border: 0;
+}
+
+.line img {
+    width: 30px;
+    margin-right: 20px;
+}
+
+
+.name_product {
+    width: 100%;
+    margin-left: 3vw;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: white;
+}

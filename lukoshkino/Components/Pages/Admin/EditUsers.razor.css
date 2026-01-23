@@ -11,6 +11,9 @@
         color: white;
         font-size: clamp(10px, 2vw, 24px);
     }
-.footer{
-    height:50px;
+.body_user {
+    margin: 4vh 2vw 0 2vw;
+}
+.footer {
+    height: 50px;
 }
