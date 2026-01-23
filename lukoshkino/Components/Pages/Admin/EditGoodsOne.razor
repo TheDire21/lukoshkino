@@ -25,6 +25,10 @@
 		<div class="price">
 			<InputNumber name="price" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Price />
 		</div>
+		<h3>Колличество</h3>
+		<div class="price">
+			<InputNumber name="quantity" placeholder="" style="width: 55vw; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" @bind-Value=Product.Quantity />
+		</div>
 		<h3>Категория</h3>
 		<div class="price">
 			<InputSelect @bind-Value=Product.CategoryId style="width: 320px; height: 35px; background-color: rgb(16,55,50, 0.5); border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white">
@@ -48,7 +52,7 @@
 		</div>
 		<button type="submit">Сохранить</button>
 	</EditForm>
-	
+
 	<div class="futor"></div>
 </div>
 
@@ -87,6 +91,7 @@
 			editProduct.Name = Product.Name;
 			editProduct.Description = Product.Description;
 			editProduct.Price = Product.Price;
+			editProduct.Quantity = Product.Quantity;
 			editProduct.isPopular = Product.isPopular;
 			editProduct.isLike = Product.isLike;
 			editProduct.CategoryId = Product.CategoryId;
