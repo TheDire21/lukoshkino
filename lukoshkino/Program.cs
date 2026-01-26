@@ -59,8 +59,12 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddRazorPages();
 builder.Services.AddBlazorBootstrap();
 
+builder.Services.AddControllers();
+
+
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Logging.AddConsole();
+
 
 var app = builder.Build();
 
@@ -76,6 +80,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.MapControllers();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
