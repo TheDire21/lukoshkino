@@ -414,9 +414,6 @@ namespace lukoshkino.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("isActive")
                         .HasColumnType("INTEGER");
 

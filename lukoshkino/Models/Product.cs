@@ -13,8 +13,6 @@ namespace lukoshkino.Models
 
         public decimal Price { get; set; }
 
-        public decimal Quantity { get; set; }
-
         public bool isActive { get; set; }
 
         public int CategoryId { get; set; }
