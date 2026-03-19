@@ -1,20 +1,16 @@
-﻿@inject IdentityRedirectManager RedirectManager
+﻿@using Microsoft.AspNetCore.Identity
+@inject IdentityRedirectManager RedirectManager
 @inject NavigationManager Navigation
 @rendermode RenderMode.InteractiveServer
 @inject IDbContextFactory<ApplicationContext> DbFactory
 
-
 <div class="line">
-    <h3 class="name_product">@User.Surname @User.Name @User.Patronymic </h3>
+    <h3 class="name_product">@User.Surname @User.Name @User.Patronymic</h3>
     <div class="check_box">
-        <label>
-            Администратор
-        </label>
-       @*  <InputCheckbox name="isPopular" placeholder="" style="width: 17.5vw; border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" Value="Feedback.isInHome" ValueChanged="OnIsInHomeChanged" ValueExpression="() => Feedback.isInHome" /> *@
+        <label>Администратор</label>
+        <InputCheckbox Value="IsAdmin" ValueChanged="async (newValue) => await OnAdminChanged(newValue)" ValueExpression="() => IsAdmin" />
     </div>
-    <button class="urna_btn" @onclick="ConfirmDelete">
-        <img src="urna.png" alt="Удалить" />
-    </button>
+    <button class="urna_btn" @onclick="ConfirmDelete"><img src="urna.png" alt="Удалить" /></button>
 </div>
 
 @if (ShowConfirmation)
@@ -26,15 +22,67 @@
     </div>
 }
 
-@code {
-    [Parameter]
-    public ApplicationUser User { get; set; } = new ApplicationUser();
 
+@code {
+    [Parameter] public ApplicationUser User { get; set; }
     private bool ShowConfirmation { get; set; }
+    private bool IsAdmin;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (User != null)
+        {
+            IsAdmin = await HasAdminRole();
+        }
+    }
+
+    private async Task<bool> HasAdminRole()
+    {
+        using var context = DbFactory.CreateDbContext();
+        var adminRole = await context.Roles.FirstOrDefaultAsync(r => r.Name == "Admin");
+        if (adminRole == null) return false;
+
+        return await context.UserRoles
+            .AnyAsync(ur => ur.UserId == User.Id && ur.RoleId == adminRole.Id);
+    }
+
+    private async Task OnAdminChanged(bool newValue)
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        var adminRole = await context.Roles.FirstOrDefaultAsync(r => r.Name == "Admin");
+        if (adminRole == null) return;
+
+        if (newValue)
+        {
+            context.UserRoles.Add(new IdentityUserRole<long>
+                {
+                    UserId = User.Id,
+                    RoleId = adminRole.Id
+                });
+        }
+        else
+        {
+            var roleToRemove = await context.UserRoles
+                .FirstOrDefaultAsync(ur => ur.UserId == User.Id && ur.RoleId == adminRole.Id);
+            if (roleToRemove != null)
+            {
+                context.UserRoles.Remove(roleToRemove);
+            }
+        }
+
+        await context.SaveChangesAsync();
+        IsAdmin = newValue;
+    }
 
     private void ConfirmDelete()
     {
         ShowConfirmation = true;
+    }
+
+    private void CancelDelete()
+    {
+        ShowConfirmation = false;
     }
 
     private async Task DeleteUser()
@@ -47,15 +95,8 @@
         }
         catch (Exception ex)
         {
-            // В реальном приложении используйте логгер
             Console.WriteLine($"Ошибка при удалении пользователя: {ex.Message}");
-            // Можно показать сообщение об ошибке пользователю
         }
-    }
-
-    private void CancelDelete()
-    {
-        ShowConfirmation = false;
     }
 
     private async Task DeleteUserFromDatabase()
@@ -73,4 +114,6 @@
             throw new InvalidOperationException("Пользователь не найден в базе данных.");
         }
     }
+
+
 }
