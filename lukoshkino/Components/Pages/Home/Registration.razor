@@ -21,11 +21,33 @@
         <EditForm Model="RegisterModel" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterHandle" FormName="register" 
                                         style="display:flex; flex-direction:column; align-items:center;">
             <DataAnnotationsValidator />
+            @* Детальный вывод ошибок *@
+            @if (identityErrors != null && identityErrors.Any())
+            {
+                <div style="background-color: rgba(220, 53, 69, 0.2); border: 1px solid #dc3545; border-radius: 5px; padding: 15px; margin-bottom: 20px; width: 100%; max-width: 500px;">
+                    <div style="color: #ff8a8a; font-weight: bold; margin-bottom: 10px; text-align: center;">
+                        ⚠️ Ошибка регистрации:
+                    </div>
+                    @foreach (var error in identityErrors)
+                    {
+                        <div style="color: #ff8a8a; margin-bottom: 5px; text-align: center;">
+                            @if (error.Code.Contains("DuplicateUserName") || error.Description.Contains("Email") || error.Description.Contains("username"))
+                            {
+                                <span>Пользователь с таким email уже существует</span>
+                            }
+                            else
+                            {
+                                @error.Description
+                            }
+                        </div>
+                    }
+                </div>
+            }
             <div class="registration">
                 Регистрация
             </div>
             <div class="bloc">
-                <ValidationSummary class="text-danger" role="alert" />
+                @* <ValidationSummary class="text-danger" role="alert" /> *@
                 <div class="fopm_line2">
                     <p>Email</p>
                     <p>Пароль</p>
@@ -35,17 +57,14 @@
                     <InputText @bind-Value="RegisterModel.Email" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); 
                                     border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" 
                                     autocomplete="username" aria-required="true" />
-                    @* <label for="email">Электронная почта</label> *@
-                    <ValidationMessage For="() => RegisterModel.Email" class="text-danger" />
+                    @* <ValidationMessage For="() => RegisterModel.Email" class="text-danger" /> *@
                     <InputText type="password" @bind-Value="RegisterModel.Password" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); 
                                                                                     border: 2px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" 
                                     autocomplete="new-password" aria-required="true" />
-                    @* <label for="password">Пароль</label> *@
-                    <ValidationMessage For="() => RegisterModel.Password" class="text-danger" />
+                    @* <ValidationMessage For="() => RegisterModel.Password" class="text-danger" /> *@
                     <InputText type="password" @bind-Value="RegisterModel.ConfirmPassword" style="margin-bottom: 10px; width: 500px; height: 40px; background-color: rgb(147,168,113, 0.5); border: 2px solid #FFFF; 
                                                                                             padding-inline:10px; border-radius: 5px; color: white" 
                                     autocomplete="new-password" aria-required="true" />
-                    @* <label for="confirm-password">Подтвердите пароль</label> *@
                     <ValidationMessage For="() => RegisterModel.ConfirmPassword" class="text-danger" />
                 </div>
             </div>

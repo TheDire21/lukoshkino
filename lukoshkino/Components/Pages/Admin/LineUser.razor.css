@@ -29,3 +29,22 @@
     font-size: 16px;
     color: white;
 }
+.check_box{
+    display:flex;
+}
+    .check_box label{
+        margin-right:2vw;
+    }
+.confirmation-dialog p, .confirmation-dialog button{
+    color:white;
+    font-size:16px;
+    margin-top: 10px;
+}
+.confirmation-dialog button {
+    width: 100px;
+    background-color: #F1B24A;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    margin-right:20px;
+}

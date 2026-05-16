@@ -22,7 +22,7 @@
 }
 
 .name_product {
-    width: 100%;
+    width: 50%;
     min-height: 40px;
     margin-left: 3vw;
     background: none;
@@ -31,3 +31,11 @@
     font-size: 16px;
     color: white;
 }
+.check_box {
+    display: flex;
+    margin-left: auto
+}
+
+    .check_box label {
+        margin-right: 2vw;
+    }

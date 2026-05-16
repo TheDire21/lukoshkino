@@ -1,5 +1,14 @@
 ﻿@page "/dispatch"
 
+@attribute [Authorize(Roles = "Admin, User")]
+@attribute [StreamRendering]
+
+@inject IDbContextFactory<ApplicationContext> DbFactory
+@inject IdentityUserAccessor _userAccessor;
+@inject IJSRuntime JSRuntime
+
+@rendermode RenderMode.InteractiveServer
+
 <PageTitle>Оформление-Из лукошкино с любовью</PageTitle>
 
 <div class="Top">
@@ -12,9 +21,20 @@
         <div class="laine"></div>
         <div class="promo">
             <div class="body_img">
-                <img src="prev.png" />
-                <img src="prev.png" />
-                <img src="prev.png" />
+                @if (_basketProducts != null && _basketProducts.Any())
+                {
+                    @foreach (var item in _basketProducts)
+                    {
+                        var imageData = GetProductImage(item.Product.Id);
+                        <div class="product-item">
+                            <img src="@imageData" alt="@item.Product.Name" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Корзина пуста</p>
+                }
             </div>
             <h3 class="text_adress">Мои адреса</h3>
             <div>
@@ -22,7 +42,7 @@
             </div>
             <div class="input_phone">
                 <h3>Номер телефона</h3>
-                <input type="text"/>
+                <input type="tel" placeholder="+7 (999) 123-45-67" @bind-value=_user.PhoneNumber/>
             </div>
             <button>ПЕРЕЙТИ К ОПЛАТЕ</button>
         </div>
@@ -30,8 +50,61 @@
     </div>
 </div>
 
-
-
 @code {
+    private List<Models.Basket> _basketProducts = new();
+    private ApplicationUser _user;
 
+    protected override async Task OnInitializedAsync()
+    {
+        _user = await _userAccessor.GetCurrentUserAsync();
+        LoadBasketProducts();
+    }
+
+    private void LoadBasketProducts()
+    {
+        using (var ac = DbFactory.CreateDbContext())
+        {
+            _basketProducts = ac.Baskets
+                .Where(x => x.UserId == _user.Id)
+                .Include(x => x.Product)
+                .ToList();
+        }
+    }
+
+    private string GetProductImage(long productId)
+    {
+        try
+        {
+            using (var ac = DbFactory.CreateDbContext())
+            {
+                // Находим фото товара
+                var productPhoto = ac.Product_Photos.FirstOrDefault(x => x.ProductId == productId);
+                if (productPhoto == null)
+                {
+                    return "/prev.png";
+                }
+                // Находим файл с изображением
+                var file = ac.Files.FirstOrDefault(x => x.Id == productPhoto.FileId);
+                if (file == null || file.Path == null)
+                {
+                    return "/prev.png";
+                }
+                // Проверяем тип данных Path
+                if (file.Path is byte[] byteArray)
+                {
+                    string imagesrc = Convert.ToBase64String(byteArray);
+                    return string.Format("data:image/jpeg;base64,{0}", imagesrc);
+                }
+                else
+                {
+                    // Если Path это строка (путь к файлу)
+                    return file.Path.ToString();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            return "/prev.png";
+        }
+    }
 }

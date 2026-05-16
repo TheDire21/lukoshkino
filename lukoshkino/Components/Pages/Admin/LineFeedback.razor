@@ -4,12 +4,11 @@
 @inject IDbContextFactory<ApplicationContext> DbFactory
 
 <div class="line">
-    <button class="name_product" @onclick="RedirectToEdit">@Feedback.Text</button>
+    <p class="name_product">@Feedback.Text</p>
     <div class="check_box">
-        <label>
-            Отобразить на главной
-        </label>
-        <InputCheckbox name="isPopular" placeholder="" style="width: 17.5vw; border: 1px solid #FFFF; padding-inline:10px; border-radius: 5px; color: white" Value="Feedback.isInHome" ValueChanged="OnIsInHomeChanged" ValueExpression="() => Feedback.isInHome" />
+        <InputCheckbox name="isPopular" placeholder="" style="width: 2vw; border: 1px solid #FFFF; border-radius: 5px; color: white" Value="Feedback.isInHome" ValueChanged="OnIsInHomeChanged" ValueExpression="() => Feedback.isInHome" />
+        <label>Отобразить на главной</label>
+       
     </div>
     <button class="urna_btn" @onclick="DeleteFeedback"><img src="urna.png" /></button>
 </div>
@@ -41,10 +40,7 @@
         }
     }
 
-    void RedirectToEdit()
-    {
-        Navigation.NavigateTo($"/admin/edit-feedback/{Feedback.Id}");
-    }
+
 
     private async Task DeleteFeedback()
     {

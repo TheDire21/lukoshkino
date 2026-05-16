@@ -7,8 +7,9 @@
 <div class="line">
     <h3 class="name_product">@User.Surname @User.Name @User.Patronymic</h3>
     <div class="check_box">
+        <InputCheckbox Value="IsAdmin" ValueChanged="async (newValue) => await OnAdminChanged(newValue)" ValueExpression="() => IsAdmin" style="width: 2vw; border: 1px solid #FFFF; border-radius: 5px; color: white" />
         <label>Администратор</label>
-        <InputCheckbox Value="IsAdmin" ValueChanged="async (newValue) => await OnAdminChanged(newValue)" ValueExpression="() => IsAdmin" />
+        
     </div>
     <button class="urna_btn" @onclick="ConfirmDelete"><img src="urna.png" alt="Удалить" /></button>
 </div>
@@ -16,7 +17,7 @@
 @if (ShowConfirmation)
 {
     <div class="confirmation-dialog">
-        <p>Вы уверены, что хотите удалить этого пользователя?</p>
+        <p>Вы уверены, что хотите удалить пользователя @User.Surname @User.Name ?</p>
         <button @onclick="DeleteUser">Да</button>
         <button @onclick="CancelDelete">Нет</button>
     </div>

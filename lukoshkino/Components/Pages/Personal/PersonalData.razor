@@ -1,5 +1,6 @@
 ﻿@inject IDbContextFactory<ApplicationContext> DbFactory
 @rendermode RenderMode.InteractiveServer
+@inject IJSRuntime JSRuntime
 
 <div class="body_cat">
     <div class="avatar">
@@ -24,7 +25,7 @@
                     <input type="text" @bind-value=User.Name @bind-value:after="SaveUser" />
                     <input type="text" @bind-value=User.Patronymic @bind-value:after="SaveUser" />
                     <input type="date" @bind-value=User.BirthDate @bind-value:after="SaveUser" />
-                    <input type="text" @bind-value=User.PhoneNumber contenteditable="false"/>
+                    <input type="tel" id="phone" placeholder="+7 (999) 123-45-67" @bind-value=User.PhoneNumber @bind-value:after="SaveUser" />
                     <input type="email" @bind-value=User.Email contenteditable="false"/>
                 </div>
             </div>
@@ -42,6 +43,15 @@
     </div>
     <div class="futor"></div>
 </div>
+<script src="https://unpkg.com/imask"></script>
+<script>
+    var phoneInput = document.getElementById('phone');
+    var maskOptions = {
+    mask: '+{7} (000) 000-00-00',
+    lazy: false // Если false - маска показывается сразу
+    };
+    var mask = IMask(phoneInput, maskOptions);
+</script>
 
 @code{
     [Parameter]
@@ -76,7 +86,7 @@
         ByteImageData = arr;
         string imagesrc = Convert.ToBase64String(ByteImageData);
         ImageData = string.Format("data:image/jpeg;base64,{0}", imagesrc);
-        
+
         using (var ac = DbFactory.CreateDbContext())
         {
             var result = ac.Files.Add(new File { Path = ByteImageData });
@@ -96,6 +106,7 @@
             editUser.Name = User.Name;
             editUser.Patronymic = User.Patronymic;
             editUser.BirthDate = User.BirthDate;
+            editUser.PhoneNumber = User.PhoneNumber;
 
             ac.SaveChanges();
         }
